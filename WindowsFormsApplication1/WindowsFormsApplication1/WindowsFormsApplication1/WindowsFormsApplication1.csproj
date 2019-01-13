@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04BCECFA-4D0E-446B-BB70-68F38E9F9AA3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <AssemblyName>WindowsFormsApplication1</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalendarVer2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendarVer2.Designer.cs">
+      <DependentUpon>CalendarVer2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dogMechSched.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dogMechSched.Designer.cs">
+      <DependentUpon>dogMechSched.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs" />
+    <Compile Include="Sales.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sales.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dog Medication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dog Medication.Designer.cs">
+      <DependentUpon>Dog Medication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clinic Profile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clinic Profile.Designer.cs">
+      <DependentUpon>Clinic Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login_form.Designer.cs">
+      <DependentUpon>login_form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ingredient_list.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ingredient_list.Designer.cs">
+      <DependentUpon>ingredient_list.cs</DependentUpon>
+    </Compile>
+    <Compile Include="salesReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="salesReport.Designer.cs">
+      <DependentUpon>salesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="scheduleTasks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="scheduleTasks.Designer.cs">
+      <DependentUpon>scheduleTasks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassChange.Designer.cs">
+      <DependentUpon>PassChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserList.Designer.cs">
+      <DependentUpon>UserList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductList.Designer.cs">
+      <DependentUpon>ProductList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles.Designer.cs">
+      <DependentUpon>Profiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PoS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PoS.Designer.cs">
+      <DependentUpon>PoS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaffScheduler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StaffScheduler.designer.cs">
+      <DependentUpon>StaffScheduler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Print.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Print.Designer.cs">
+      <DependentUpon>Print.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CalendarVer2.resx">
+      <DependentUpon>CalendarVer2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clinic Profile.resx">
+      <DependentUpon>Clinic Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dogMechSched.resx">
+      <DependentUpon>dogMechSched.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Sales.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dog Medication.resx">
+      <DependentUpon>Dog Medication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login_form.resx">
+      <DependentUpon>login_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ingredient_list.resx">
+      <DependentUpon>ingredient_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="salesReport.resx">
+      <DependentUpon>salesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassChange.resx">
+      <DependentUpon>PassChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserList.resx">
+      <DependentUpon>UserList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductList.resx">
+      <DependentUpon>ProductList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles.resx">
+      <DependentUpon>Profiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PoS.resx">
+      <DependentUpon>PoS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StaffScheduler.resx">
+      <DependentUpon>StaffScheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Print.resx">
+      <DependentUpon>Print.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="scheduleTasks.resx">
+      <DependentUpon>scheduleTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

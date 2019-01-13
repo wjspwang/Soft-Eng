@@ -1,0 +1,271 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace WindowsFormsApplication1
+{
+    public partial class Form2 : Form
+    {
+        MySqlConnection conn;
+        public Form previousform;
+        public Form2()
+        {
+            InitializeComponent();
+            conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
+        }
+        
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            date.Value = DateTime.Now.Date;
+            loadall();
+        }
+
+        void loadall()
+        {
+            string qry = "select * from Dog where owner_type = 2";
+            string qry2 = "select * from dog_clinic";
+
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(qry, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+
+            MySqlCommand comm2 = new MySqlCommand(qry2, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm2);
+
+            conn.Close();
+            DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
+            adp.Fill(dt);
+            adp2.Fill(dt2);
+
+            dog_grid.DataSource = dt;
+            clinic_grid.DataSource = dt2;
+            //DOG GRID
+            dog_grid.Columns["owner_type"].Visible = false;
+            dog_grid.Columns["dog_id"].Visible = false;
+            dog_grid.Columns["dog_name"].HeaderText = "Pet Name";
+            dog_grid.Columns["dog_breed"].HeaderText = "Breed";
+            //CLINIC GRID
+            clinic_grid.Columns["clinic_id"].Visible = false;
+            clinic_grid.Columns["clinic_name"].HeaderText = "Clinic";
+            clinic_grid.Columns["clinic_address"].HeaderText = "Address";
+            clinic_grid.Columns["clinic_contact"].HeaderText = "Contact number";
+
+
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            previousform.Show();
+        }
+        private int selected_dog_id;
+                private void staff_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+                {
+                    if (e.RowIndex > -1)
+                    {
+
+
+                        selected_dog_id = int.Parse(dog_grid.Rows[e.RowIndex].Cells["dog_id"].Value.ToString());
+                        dog_name.Text = dog_grid.Rows[e.RowIndex].Cells["dog_name"].Value.ToString();
+                        dog_breed.Text = dog_grid.Rows[e.RowIndex].Cells["dog_breed"].Value.ToString();
+
+
+                    }
+                }
+        private int select_clinic_id;
+            private void clinic_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex > -1)
+                {
+
+
+                    select_clinic_id = int.Parse(clinic_grid.Rows[e.RowIndex].Cells["clinic_id"].Value.ToString());
+                    clinic_text.Text = clinic_grid.Rows[e.RowIndex].Cells["clinic_name"].Value.ToString();
+
+
+
+                }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form3 a = new Form3();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void Form2_Activated(object sender, EventArgs e)
+        {
+            loadall();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DateTime cur_date = DateTime.Now;
+            TimeSpan cur_time = DateTime.Now.TimeOfDay;
+            DateTime input_Date = Convert.ToDateTime(date.Text);
+
+
+
+
+
+
+            if (selected_dog_id == -1)
+            {
+                MessageBox.Show("case 1 : No Staff ID");
+            }
+            else if (dog_name.Text == "" || dog_name.Text == null)
+            {
+                MessageBox.Show("case 2 : No Staff Name");
+            }
+            else if (date.Text == "" || date.Text == null)
+            {
+                MessageBox.Show("case 3 : No Date");
+            }
+            else if (input_Date.Date < cur_date.Date)
+            {
+                MessageBox.Show("case 4 : Scheduled for past date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            else if (sHour.Text == "" || sHour.Text == null ||
+                sMin.Text == "" || sMin.Text == null ||
+                eHour.Text == "" || eHour.Text == null ||
+                eMin.Text == "" || eMin.Text == null)
+            {
+                MessageBox.Show("case 5 : No Start Time/ End time");
+            }
+            else if (sHour.Text != "13")
+            {
+                int sHour_int = Convert.ToInt32(sHour.Text);
+                int eHour_int = Convert.ToInt32(eHour.Text);
+                int sMin_int = Convert.ToInt32(sMin.Text);
+                int eMin_int = Convert.ToInt32(eMin.Text);
+
+
+                if (sHour_int >= eHour_int &&
+                    sMin_int >= eMin_int && sHour.Text != "12")
+                {
+                    MessageBox.Show("case 6 : Invalid Time.", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (comboBox1.Text == "" || comboBox1.Text == null)
+                {
+                    MessageBox.Show("case 7 : No Activity");
+                }
+                else
+                {
+                    string sched_start = date.Text + " " + sHour.Text + ":" + sMin.Text;
+                    string sched_end = date.Text + " " + eHour.Text + ":" + eMin.Text;
+                    string start_time = sHour.Text + ":" + sMin.Text + " " + sday.Text;
+                    string end_time = eHour.Text + ":" + eMin.Text + " " + eday.Text;
+
+                    TimeSpan start_time1 = Convert.ToDateTime(start_time).TimeOfDay;
+                    if (input_Date.Date == cur_date.Date && start_time1 < cur_time)
+                    {
+                        MessageBox.Show("case 4 : Scheduled for past time.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        string selectquery = "select * from dc_dogsched where dog_id = '" + dog_id.Text + "' AND dogsched_date = '" + date.Text + "' AND dogstart_time = '" + start_time + "' AND dogend_time = '" + end_time + "' ";
+                        string selectquery2 = "select * from dc_dogsched where dog_id = '" + dog_id.Text + "' AND dogsched_date = '" + date.Text + "' AND dogstart_time = '" + start_time + "' ";
+                        string stquery = "SELECT * FROM dc_dogsched WHERE ('" + sched_start + "' BETWEEN dogsched_start AND dogsched_end) OR ('" + sched_end + "' BETWEEN dogsched_start AND dogsched_end) AND dog_id = '" + dog_id.Text + "'";
+                        string etquery = "SELECT * FROM dc_dogsched WHERE (dogsched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "') OR  (dogsched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND dog_id = '" + dog_id.Text + "')";
+
+                        conn.Open();
+
+                        MySqlCommand comm1 = new MySqlCommand(selectquery, conn);
+                        MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+                        DataTable dt1 = new DataTable();
+                        adp1.Fill(dt1);
+
+                        MySqlCommand comm2 = new MySqlCommand(selectquery2, conn);
+                        MySqlDataAdapter adp2 = new MySqlDataAdapter(comm2);
+                        DataTable dt2 = new DataTable();
+                        adp2.Fill(dt2);
+
+                        MySqlCommand commStartSelect = new MySqlCommand(stquery, conn);
+                        MySqlDataAdapter adps = new MySqlDataAdapter(commStartSelect);
+                        DataTable dtst = new DataTable();
+                        adps.Fill(dtst);
+
+                        MySqlCommand commEndSelect = new MySqlCommand(etquery, conn);
+                        MySqlDataAdapter adpe = new MySqlDataAdapter(commEndSelect);
+                        DataTable dtet = new DataTable();
+                        adpe.Fill(dtet);
+
+                        conn.Close();
+
+
+
+
+                        if (dt1.Rows.Count > 0)
+                        {
+                            MessageBox.Show("The selected dog is already assigned for this period ", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else if (dt2.Rows.Count > 0)
+                        {
+                            MessageBox.Show("The selected dog is already assigned for this period", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        /*else if (dtst.Rows.Count > 0 || dtet.Rows.Count > 0)
+                        {
+                            MessageBox.Show("Time in Conflict with another schedule!", "Conflict Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }*/
+                        else
+                        {
+
+                            string query0003 = "INSERT INTO dc_dogsched(dog_id,dogsched_start, dogsched_end, dogsched_date," +
+                                " dogstart_time, dogend_time, dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday, dog_status, dog_vaccination) VALUES('"
+                                + selected_dog_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
+                                + start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
+                                eday.Text + "','" + comboBox1.Text + "', 'true' )";
+                            conn.Open();
+
+                            MySqlCommand comm4 = new MySqlCommand(query0003, conn);
+                            comm4.ExecuteNonQuery();
+                            conn.Close();
+                            MessageBox.Show("Schedule Successfully Added");
+                            loadall();
+
+                        }
+                    }
+
+
+
+                }
+
+
+            }
+
+        }
+
+        private void createStaff_Click(object sender, EventArgs e)
+        {
+          //  this.Hide();
+            Profiles a = new Profiles();
+            TabControl b = new TabControl();
+            a.tabc.SelectedTab = a.tabc.TabPages["tabPage2"];
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dogMedSched a = new dogMedSched();
+            a.Show();
+            a.previousform = this;
+        }
+    }
+
+
+}
+        
