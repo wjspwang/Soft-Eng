@@ -125,8 +125,8 @@ namespace WindowsFormsApplication1
                     {
                         string selectquery = "select * from dc_sched where staff_id = '" + staff_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' AND end_time = '" + end_time + "' ";
                         string selectquery2 = "select * from dc_sched where staff_id = '" + staff_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' ";
-                        string stquery = "SELECT * FROM dc_sched WHERE ('" + sched_start + "' BETWEEN sched_start AND sched_end) OR ('" + sched_end + "' BETWEEN sched_start AND sched_end) AND staff_id = '"+staff_id.Text+"'";
-                        string etquery = "SELECT * FROM dc_sched WHERE (sched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "') OR  (sched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND staff_id = '" + staff_id.Text + "')";
+                        string stquery = "SELECT * FROM dc_sched WHERE ('" + sched_start + "' BETWEEN sched_start AND sched_end) OR ('" + sched_end + "' BETWEEN sched_start AND sched_end) ";
+                        string etquery = "SELECT * FROM dc_sched WHERE (sched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "' AND staff_id = '" + staff_id.Text + "') OR  (sched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND staff_id = '" + staff_id.Text + "')";
 
                         conn.Open();
 
