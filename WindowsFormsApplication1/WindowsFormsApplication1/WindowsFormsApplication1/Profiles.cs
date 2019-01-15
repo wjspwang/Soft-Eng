@@ -114,7 +114,11 @@ namespace WindowsFormsApplication1
             adp3.Fill(dt3);
 
             dataGridView2.DataSource = dt3;
-
+            dataGridView2.Columns["dog_id"].Visible = false;
+            dataGridView2.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView2.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView2.Columns["dog_owner"].HeaderText = "Dog Owner";
+            dataGridView2.Columns["owner_type"].Visible = false;
 
             string query2 = "select staff_id, lname, fname, gender, contact from staff inner join person on staff.person_id = person.person_id";
             conn.Open();
@@ -125,8 +129,13 @@ namespace WindowsFormsApplication1
             adp2.Fill(dt2);
 
             dataGridView3.DataSource = dt2;
+            dataGridView3.Columns["staff_id"].Visible = false ;
+            dataGridView3.Columns["lname"].HeaderText = "Last Name";
+            dataGridView3.Columns["fname"].HeaderText = "First Name";
+            dataGridView3.Columns["gender"].HeaderText = "Gender";
+            dataGridView3.Columns["contact"].HeaderText = "Contact";
 
-         
+
 
         }
 
@@ -234,8 +243,8 @@ namespace WindowsFormsApplication1
             {
                 //MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells["person_id"].Value.ToString());
                 selected_user_id = int.Parse(dataGridView3.Rows[e.RowIndex].Cells["staff_id"].Value.ToString());
-                textBox8.Text = dataGridView3.Rows[e.RowIndex].Cells["lname"].Value.ToString();
-                textBox9.Text = dataGridView3.Rows[e.RowIndex].Cells["fname"].Value.ToString();
+                textBox9.Text = dataGridView3.Rows[e.RowIndex].Cells["lname"].Value.ToString();
+                textBox8.Text = dataGridView3.Rows[e.RowIndex].Cells["fname"].Value.ToString();
                 comboBox3.Text = dataGridView3.Rows[e.RowIndex].Cells["gender"].Value.ToString();
                 textBox10.Text = dataGridView3.Rows[e.RowIndex].Cells["contact"].Value.ToString();
                 textBox7.Text = dataGridView3.Rows[e.RowIndex].Cells["staff_id"].Value.ToString();
@@ -501,7 +510,7 @@ namespace WindowsFormsApplication1
             DataTable dt = new DataTable();
             adp.Fill(dt);
             conn.Close();
-            MessageBox.Show("Row Count = " + dt.Rows.Count + "");
+            //MessageBox.Show("Row Count = " + dt.Rows.Count + "");
 
 
             string query1 = "DELETE FROM staff where staff_id = '"+selected_user_id+"'  ";
@@ -517,14 +526,14 @@ namespace WindowsFormsApplication1
             {
                 
                 int person_id = Convert.ToInt32(dr["person_id"]);
-                MessageBox.Show(person_id + "");
+                //MessageBox.Show(person_id + "");
                 string query = "DELETE FROM person WHERE person_id = '" + person_id + "' ";
                 conn.Open();
                 MySqlCommand comm1 = new MySqlCommand(query, conn);
                 comm1.ExecuteNonQuery();
                 conn.Close();
                 loadall();
-                MessageBox.Show("Successfully Deleted");
+                //MessageBox.Show("Successfully Deleted");
 
             }
 
