@@ -67,6 +67,12 @@
       <DependentUpon>dogMechSched.cs</DependentUpon>
     </Compile>
     <Compile Include="Orders.cs" />
+    <Compile Include="PlayhouseMangagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayhouseMangagement.Designer.cs">
+      <DependentUpon>PlayhouseMangagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sales.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="dogMechSched.resx">
       <DependentUpon>dogMechSched.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayhouseMangagement.resx">
+      <DependentUpon>PlayhouseMangagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -163,6 +163,7 @@
             this.label1.Size = new System.Drawing.Size(119, 32);
             this.label1.TabIndex = 6;
             this.label1.Text = "Profiles";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -175,6 +176,7 @@
             this.label2.Size = new System.Drawing.Size(135, 32);
             this.label2.TabIndex = 7;
             this.label2.Text = "Products";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label4
             // 
@@ -187,6 +189,7 @@
             this.label4.Size = new System.Drawing.Size(109, 32);
             this.label4.TabIndex = 9;
             this.label4.Text = "Logout";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -199,6 +202,7 @@
             this.label5.Size = new System.Drawing.Size(261, 32);
             this.label5.TabIndex = 10;
             this.label5.Text = "Change Password";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -211,6 +215,7 @@
             this.label6.Size = new System.Drawing.Size(78, 32);
             this.label6.TabIndex = 11;
             this.label6.Text = "User";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // pictureBox7
             // 
@@ -236,6 +241,7 @@
             this.label7.Size = new System.Drawing.Size(240, 32);
             this.label7.TabIndex = 13;
             this.label7.Text = "Staff Scheduling";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
@@ -248,6 +254,7 @@
             this.label8.Size = new System.Drawing.Size(92, 32);
             this.label8.TabIndex = 15;
             this.label8.Text = "Sales";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // groupBox1
             // 
@@ -366,6 +373,7 @@
             this.label15.Size = new System.Drawing.Size(227, 32);
             this.label15.TabIndex = 21;
             this.label15.Text = "Dog Medication";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // pictureBox10
             // 
@@ -391,6 +399,7 @@
             this.label14.Size = new System.Drawing.Size(342, 32);
             this.label14.TabIndex = 19;
             this.label14.Text = "Playhouse Management";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // pictureBox9
             // 
@@ -429,6 +438,7 @@
             this.label13.Size = new System.Drawing.Size(191, 32);
             this.label13.TabIndex = 16;
             this.label13.Text = "Sales Report";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label3
             // 
@@ -490,6 +500,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pawesome Dog Cafe ";
             this.Activated += new System.EventHandler(this.Form2_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

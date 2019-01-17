@@ -472,8 +472,10 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StaffScheduler";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form9";
             this.Activated += new System.EventHandler(this.Form9_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StaffScheduler_FormClosing);
             this.Load += new System.EventHandler(this.Form9_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sched_grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staff_grid)).EndInit();

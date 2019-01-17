@@ -333,5 +333,10 @@ namespace WindowsFormsApplication1
         private void act_box_TextChanged(object sender, EventArgs e)
         {
         }
+
+        private void StaffScheduler_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 }

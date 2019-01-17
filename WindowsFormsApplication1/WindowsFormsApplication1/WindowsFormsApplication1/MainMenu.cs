@@ -107,7 +107,10 @@ namespace WindowsFormsApplication1
 
         private void pictureBox7_Click(object sender, EventArgs e)
         {
-           
+            this.Hide();
+            PlayhouseManagement a = new PlayhouseManagement();
+            a.Show();
+            a.previousform = this;
         }
 
         private void Form2_Activated(object sender, EventArgs e)
@@ -202,7 +205,88 @@ namespace WindowsFormsApplication1
             form2.Show();
             form2.previousform = this;
         }
-        
-   
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form2 form2 = new Form2();
+            form2.Show();
+            form2.previousform = this;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            previousform.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Profiles a = new Profiles();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProductList a = new ProductList();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            PoS a = new PoS();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            salesReport a = new salesReport();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            StaffScheduler a = new StaffScheduler();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form2 form2 = new Form2();
+            form2.Show();
+            form2.previousform = this;
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserList a = new UserList();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            PassChange a = new PassChange();
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 }

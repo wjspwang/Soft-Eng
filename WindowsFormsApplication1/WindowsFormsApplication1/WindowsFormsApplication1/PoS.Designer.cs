@@ -953,6 +953,7 @@
             this.Text = "Form8";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Form8_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PoS_FormClosing);
             this.Load += new System.EventHandler(this.Form8_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);

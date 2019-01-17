@@ -1006,6 +1006,11 @@ namespace WindowsFormsApplication1
         {
             loadall();
         }
+
+        private void ProductList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
         
 }

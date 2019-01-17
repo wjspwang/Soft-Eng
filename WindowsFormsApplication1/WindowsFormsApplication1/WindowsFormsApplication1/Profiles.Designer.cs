@@ -794,6 +794,7 @@
             this.Name = "Profiles";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pawesome Dog Cafe";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Profiles_FormClosing);
             this.Load += new System.EventHandler(this.Form6_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);

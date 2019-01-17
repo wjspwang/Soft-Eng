@@ -541,6 +541,11 @@ namespace WindowsFormsApplication1
 
 
         }
+
+        private void Profiles_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
     }
 

@@ -85,5 +85,10 @@ namespace WindowsFormsApplication1
         {
 
         }
+
+        private void PassChange_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 }

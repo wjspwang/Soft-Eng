@@ -264,6 +264,11 @@ namespace WindowsFormsApplication1
             a.Show();
             a.previousform = this;
         }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 
 

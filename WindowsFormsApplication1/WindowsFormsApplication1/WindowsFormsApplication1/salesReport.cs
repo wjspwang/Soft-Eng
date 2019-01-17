@@ -115,5 +115,10 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["sale_item_quant"].HeaderText = "Quantity Sold";
             dataGridView1.Columns["total_price"].HeaderText = "Total Price";
         }
+
+        private void salesReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 }

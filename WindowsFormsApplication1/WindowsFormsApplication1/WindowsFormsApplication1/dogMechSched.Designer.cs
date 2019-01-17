@@ -228,6 +228,7 @@
             this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.dataGridView1);
             this.Name = "dogMedSched";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form4";
             this.Load += new System.EventHandler(this.dogMedSched_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -315,6 +315,11 @@ namespace WindowsFormsApplication1
 
             }
         }
+
+        private void UserList_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
     }
 }
 

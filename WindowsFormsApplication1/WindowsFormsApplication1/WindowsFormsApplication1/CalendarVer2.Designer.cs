@@ -236,6 +236,7 @@
             this.Controls.Add(this.ClearBtn);
             this.Controls.Add(this.dataGridView1);
             this.Name = "CalendarVer2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

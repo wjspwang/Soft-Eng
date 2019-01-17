@@ -1168,6 +1168,11 @@ namespace WindowsFormsApplication1
 
         }
 
+        private void PoS_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            previousform.Show();
+        }
+
         private void label15_Click(object sender, EventArgs e)
         {
 

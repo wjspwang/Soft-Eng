@@ -158,6 +158,7 @@
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Name = "scheduleTasks";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Scheduling Events";
             this.Load += new System.EventHandler(this.scheduling_Load);
             this.groupBox1.ResumeLayout(false);
