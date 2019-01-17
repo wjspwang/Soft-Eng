@@ -104,6 +104,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["fname"].HeaderText = "Given Name";
             dataGridView1.Columns["gender"].HeaderText = "Gender";
             dataGridView1.Columns["contact"].HeaderText = "Contact no.";
+            dataGridView1.Columns["person_type"].Visible = false;
 
             string query3 = "select * from dog";
             conn.Open();
