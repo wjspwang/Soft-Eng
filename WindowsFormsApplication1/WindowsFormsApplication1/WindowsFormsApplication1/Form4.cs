@@ -13,7 +13,6 @@ namespace WindowsFormsApplication1
 {
     public partial class Form4 : Form
     {
-        
         public Form previousform;
         public Form4()
         {
@@ -27,21 +26,36 @@ namespace WindowsFormsApplication1
         {
 
         }
-        public int hours;
+       
         public int custID { get; set; }
-
+        int hours;
         private void button1_Click(object sender, EventArgs e)
         {
+            
             string now = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string stime = DateTime.Now.ToString("hh:mm tt");
-            string etime = DateTime.Now.AddHours(hours).ToString("hh:mm tt");
+            string stime = DateTime.Now.ToString("h:mm tt");
+            hours = Convert.ToInt32(textBox1.Text);
+            string etime = DateTime.Now.AddHours(hours).ToString("h:mm tt");
+
+            string validate = "select * from playhouse where customer_id = " + custID + " AND '"+stime+"' BETWEEN start_time AND end_time";
+            MySqlCommand cmd = new MySqlCommand(validate, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+            DataTable tb = new DataTable();
+            adp.Fill(tb);
+            
+            if(tb.Rows.Count > 0)
+            {
+                MessageBox.Show("Customer already in Playhouse!");
+                return;
+            }
+
+
             if (textBox1.Text != null || textBox1.Text != "")
             {
                 
-                hours = Convert.ToInt32(textBox1.Text);
                 
-                string qry = "insert into playhouse(customer_id, sched_date, start_time, end_time) values(" +
-                ""+custID+", '"+now+"', '"+stime+"', '"+etime+"')";
+                string qry = "insert into playhouse(customer_id, sched_date, start_time, end_time,status) values(" +
+                ""+custID+", '"+now+"', '"+stime+"', '"+etime+"', 'IN')";
                 conn.Open();
 
                 MySqlCommand comm4 = new MySqlCommand(qry, conn);

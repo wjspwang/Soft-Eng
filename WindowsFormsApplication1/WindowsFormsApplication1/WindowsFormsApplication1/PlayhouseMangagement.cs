@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1
             adp1.Fill(dt1);
             dataGridView2.DataSource = dt1;*/
 
-            string query1 = "select playhouse.customer_id, lname," +
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
                 " fname, sched_start, sched_end, sched_date," +
                 " start_time, end_time, status from person " +
                 "inner join playhouse on person.person_id = playhouse.customer_id " +
@@ -60,12 +60,14 @@ namespace WindowsFormsApplication1
             adp1.Fill(dt1);
 
             dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
             dataGridView2.Columns["customer_id"].Visible = false;
             dataGridView2.Columns["sched_start"].Visible = false;
             dataGridView2.Columns["sched_end"].Visible = false;
             dataGridView2.Columns["lname"].HeaderText = "Last Name";
             dataGridView2.Columns["fname"].HeaderText = "First Name";
             dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
             dataGridView2.Columns["start_time"].HeaderText = "Time Start";
             dataGridView2.Columns["end_time"].HeaderText = "Time End";
             dataGridView2.Columns["status"].HeaderText = "Status";
@@ -93,9 +95,22 @@ namespace WindowsFormsApplication1
             DateTime cur_date = DateTime.Now;
             TimeSpan cur_time = DateTime.Now.TimeOfDay;
             DateTime input_Date = Convert.ToDateTime(date.Text);
-            string login_time = DateTime.Now.TimeOfDay.ToString("HH:mm dd");
+
+            string now = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string stime = DateTime.Now.ToString("h:mm tt");
 
 
+            string validate = "select * from playhouse where customer_id = " + selected_user_id + " AND '" + stime + "' BETWEEN start_time AND end_time";
+            MySqlCommand cmd = new MySqlCommand(validate, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+            DataTable tb = new DataTable();
+            adp.Fill(tb);
+
+            if (tb.Rows.Count > 0)
+            {
+                MessageBox.Show("Customer already in Playhouse!");
+                return;
+            }
 
             if (selected_user_id == -1)
             {
@@ -234,8 +249,8 @@ namespace WindowsFormsApplication1
 
                 lname.Text = dataGridView1.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView1.Rows[e.RowIndex].Cells["fname"].Value.ToString();
-                Form4 form4 = new Form4();
-                form4.custID = selected_user_id;
+                cust_id.Text = Convert.ToString(selected_user_id);
+
             }
         }
 
@@ -256,10 +271,58 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form4 form = new Form4();
-            form.Show();
-            form.previousform = this;
+            if(cust_id.Text == "")
+            {
+                MessageBox.Show("Invalid");
+                MessageBox.Show(cust_id.Text);
+            }
+            else
+            {
+                Form4 form = new Form4();
+                form.Show();
+                form.previousform = this;
+                form.custID = Convert.ToInt32(cust_id.Text);
+            }
             
+            
+        }
+        int selected_playhouse_id = -1;
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           // DateTime time;
+            if (e.RowIndex > -1)
+            {
+
+                selected_playhouse_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["playhouse_id"].Value.ToString());
+
+                lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
+                fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
+                //time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
+                cust_id.Text = Convert.ToString(selected_user_id);
+
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            string query = "DELETE FROM playhouse WHERE playhouse_id = '" + selected_playhouse_id + "'; ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            comm.ExecuteNonQuery();
+            conn.Close();
+            loadall();
+            MessageBox.Show("Successfully Deleted", "Successfully Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information );
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlayhouseManagement_Activated(object sender, EventArgs e)
+        {
+            loadall();
         }
     }
         

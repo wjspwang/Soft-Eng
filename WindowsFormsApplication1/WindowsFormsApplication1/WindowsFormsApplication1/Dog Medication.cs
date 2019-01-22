@@ -182,7 +182,7 @@ namespace WindowsFormsApplication1
 
 
                 if (sHour_int >= eHour_int &&
-                    sMin_int >= eMin_int && sHour.Text != "12")
+                    sMin_int >= eMin_int && sHour.Text != "12" && sday.Text == eday.Text)
                 {
                     MessageBox.Show("case 6 : Invalid Time.", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

@@ -81,6 +81,7 @@
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(799, 557);
             this.dataGridView2.TabIndex = 0;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // lblFN
             // 
@@ -364,6 +365,7 @@
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // button2
             // 
@@ -373,6 +375,7 @@
             this.button2.TabIndex = 13;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnBack
             // 
@@ -479,6 +482,7 @@
             this.Name = "PlayhouseManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PlayhouseMangagement";
+            this.Activated += new System.EventHandler(this.PlayhouseManagement_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayhouseManagement_FormClosed);
             this.Load += new System.EventHandler(this.btnSave_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

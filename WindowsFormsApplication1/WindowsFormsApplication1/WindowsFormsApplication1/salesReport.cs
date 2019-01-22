@@ -94,6 +94,10 @@ namespace WindowsFormsApplication1
 
         private void button7_Click(object sender, EventArgs e)
         {
+            if(textBox1.Text == "" || textBox1.Text == null)
+            {
+                return;
+            }
             string query = " select invoice_id, recipe_list.recipe_name, recipe_list.recipe_cat, recipe_list.recipe_cost," +
                  "recipe_list.recipe_unit, dot, sales_tbl.sale_item_quant, total_price from sales_tbl INNER JOIN recipe_list WHERE sales_tbl.recipe_id = recipe_list.recipe_id " +
                  "AND invoice_id = "+textBox1.Text+" ";

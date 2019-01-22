@@ -209,9 +209,9 @@ namespace WindowsFormsApplication1
         private void label14_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form2 form2 = new Form2();
-            form2.Show();
-            form2.previousform = this;
+            PlayhouseManagement a = new PlayhouseManagement();
+            a.Show();
+            a.previousform = this;
         }
 
         private void label4_Click(object sender, EventArgs e)
