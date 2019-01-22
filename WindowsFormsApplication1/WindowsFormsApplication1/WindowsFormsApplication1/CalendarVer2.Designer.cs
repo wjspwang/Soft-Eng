@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ClearBtn = new System.Windows.Forms.Button();
+            this.Today = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ShowAllBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -58,15 +58,15 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // ClearBtn
+            // Today
             // 
-            this.ClearBtn.Location = new System.Drawing.Point(737, 93);
-            this.ClearBtn.Name = "ClearBtn";
-            this.ClearBtn.Size = new System.Drawing.Size(114, 45);
-            this.ClearBtn.TabIndex = 1;
-            this.ClearBtn.Text = "Clear";
-            this.ClearBtn.UseVisualStyleBackColor = true;
-            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
+            this.Today.Location = new System.Drawing.Point(737, 93);
+            this.Today.Name = "Today";
+            this.Today.Size = new System.Drawing.Size(186, 45);
+            this.Today.TabIndex = 1;
+            this.Today.Text = "Show Today";
+            this.Today.UseVisualStyleBackColor = true;
+            this.Today.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // label1
             // 
@@ -83,7 +83,7 @@
             // 
             this.ShowAllBtn.Location = new System.Drawing.Point(737, 144);
             this.ShowAllBtn.Name = "ShowAllBtn";
-            this.ShowAllBtn.Size = new System.Drawing.Size(114, 45);
+            this.ShowAllBtn.Size = new System.Drawing.Size(186, 45);
             this.ShowAllBtn.TabIndex = 3;
             this.ShowAllBtn.Text = "Show All";
             this.ShowAllBtn.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(737, 195);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 45);
+            this.button1.Size = new System.Drawing.Size(186, 45);
             this.button1.TabIndex = 4;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = true;
@@ -146,7 +146,7 @@
             this.inputField.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.inputField.Location = new System.Drawing.Point(742, 335);
             this.inputField.Name = "inputField";
-            this.inputField.Size = new System.Drawing.Size(159, 26);
+            this.inputField.Size = new System.Drawing.Size(181, 26);
             this.inputField.TabIndex = 8;
             this.inputField.Visible = false;
             this.inputField.TextChanged += new System.EventHandler(this.inputField_TextChanged);
@@ -186,7 +186,7 @@
             this.from_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.from_date.Location = new System.Drawing.Point(742, 367);
             this.from_date.Name = "from_date";
-            this.from_date.Size = new System.Drawing.Size(166, 30);
+            this.from_date.Size = new System.Drawing.Size(181, 30);
             this.from_date.TabIndex = 52;
             this.from_date.Value = new System.DateTime(2018, 7, 18, 0, 0, 0, 0);
             this.from_date.Visible = false;
@@ -199,7 +199,7 @@
             this.to_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.to_date.Location = new System.Drawing.Point(742, 429);
             this.to_date.Name = "to_date";
-            this.to_date.Size = new System.Drawing.Size(166, 30);
+            this.to_date.Size = new System.Drawing.Size(181, 30);
             this.to_date.TabIndex = 53;
             this.to_date.Value = new System.DateTime(2018, 7, 18, 0, 0, 0, 0);
             this.to_date.Visible = false;
@@ -220,7 +220,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(969, 701);
+            this.ClientSize = new System.Drawing.Size(950, 701);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.to_date);
             this.Controls.Add(this.from_date);
@@ -233,7 +233,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.ShowAllBtn);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ClearBtn);
+            this.Controls.Add(this.Today);
             this.Controls.Add(this.dataGridView1);
             this.Name = "CalendarVer2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -248,7 +248,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button ClearBtn;
+        private System.Windows.Forms.Button Today;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button ShowAllBtn;
         private System.Windows.Forms.Button button1;

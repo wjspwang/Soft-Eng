@@ -63,15 +63,19 @@
             this.button6 = new System.Windows.Forms.Button();
             this.dog_id = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.vacc_Text = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dog_grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clinic_grid)).BeginInit();
             this.SuspendLayout();
             // 
             // createStaff
             // 
-            this.createStaff.Location = new System.Drawing.Point(32, 57);
+            this.createStaff.Location = new System.Drawing.Point(32, 55);
             this.createStaff.Name = "createStaff";
-            this.createStaff.Size = new System.Drawing.Size(94, 23);
+            this.createStaff.Size = new System.Drawing.Size(94, 30);
             this.createStaff.TabIndex = 95;
             this.createStaff.Text = "Create";
             this.createStaff.UseVisualStyleBackColor = true;
@@ -79,6 +83,7 @@
             // 
             // eday
             // 
+            this.eday.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.eday.FormattingEnabled = true;
             this.eday.Items.AddRange(new object[] {
             "AM",
@@ -87,7 +92,6 @@
             this.eday.Name = "eday";
             this.eday.Size = new System.Drawing.Size(61, 24);
             this.eday.TabIndex = 94;
-            this.eday.Text = "AM";
             // 
             // eMin
             // 
@@ -178,6 +182,7 @@
             // 
             // sday
             // 
+            this.sday.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.sday.FormattingEnabled = true;
             this.sday.Items.AddRange(new object[] {
             "AM",
@@ -186,7 +191,6 @@
             this.sday.Name = "sday";
             this.sday.Size = new System.Drawing.Size(61, 24);
             this.sday.TabIndex = 87;
-            this.sday.Text = "AM";
             // 
             // sMin
             // 
@@ -277,16 +281,16 @@
             // dog_grid
             // 
             this.dog_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dog_grid.Location = new System.Drawing.Point(32, 87);
+            this.dog_grid.Location = new System.Drawing.Point(32, 102);
             this.dog_grid.Margin = new System.Windows.Forms.Padding(4);
             this.dog_grid.Name = "dog_grid";
-            this.dog_grid.Size = new System.Drawing.Size(320, 520);
+            this.dog_grid.Size = new System.Drawing.Size(320, 518);
             this.dog_grid.TabIndex = 78;
             this.dog_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.staff_grid_CellContentClick);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1178, 66);
+            this.button3.Location = new System.Drawing.Point(1430, 57);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
@@ -341,7 +345,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1046, 66);
+            this.button4.Location = new System.Drawing.Point(1312, 57);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(111, 28);
             this.button4.TabIndex = 80;
@@ -355,14 +359,14 @@
             this.clinic_grid.Location = new System.Drawing.Point(858, 102);
             this.clinic_grid.Margin = new System.Windows.Forms.Padding(4);
             this.clinic_grid.Name = "clinic_grid";
-            this.clinic_grid.Size = new System.Drawing.Size(420, 505);
+            this.clinic_grid.Size = new System.Drawing.Size(682, 518);
             this.clinic_grid.TabIndex = 73;
             this.clinic_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clinic_grid_CellContentClick);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(730, 565);
+            this.button2.Location = new System.Drawing.Point(730, 578);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 42);
@@ -374,7 +378,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(405, 565);
+            this.button1.Location = new System.Drawing.Point(403, 578);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 42);
@@ -421,13 +425,13 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Kitchen",
-            "Dog Care",
-            "Cashier"});
-            this.comboBox1.Location = new System.Drawing.Point(565, 477);
+            "Taken",
+            "To Be Taken"});
+            this.comboBox1.Location = new System.Drawing.Point(566, 519);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(178, 37);
             this.comboBox1.TabIndex = 97;
@@ -436,7 +440,7 @@
             // 
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label12.Location = new System.Drawing.Point(399, 477);
+            this.label12.Location = new System.Drawing.Point(400, 519);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(135, 37);
@@ -460,13 +464,14 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button6.Location = new System.Drawing.Point(565, 565);
+            this.button6.Location = new System.Drawing.Point(565, 578);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(107, 42);
             this.button6.TabIndex = 100;
             this.button6.Text = "Update";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // dog_id
             // 
@@ -494,12 +499,62 @@
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label13.Visible = false;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(258, 55);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(94, 30);
+            this.button5.TabIndex = 103;
+            this.button5.Text = "Refresh";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label14.Location = new System.Drawing.Point(400, 467);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(135, 37);
+            this.label14.TabIndex = 104;
+            this.label14.Text = "Medication";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // vacc_Text
+            // 
+            this.vacc_Text.BackColor = System.Drawing.SystemColors.Window;
+            this.vacc_Text.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.vacc_Text.Font = new System.Drawing.Font("Verdana", 15.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.vacc_Text.ForeColor = System.Drawing.Color.Black;
+            this.vacc_Text.Location = new System.Drawing.Point(565, 466);
+            this.vacc_Text.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.vacc_Text.Name = "vacc_Text";
+            this.vacc_Text.Size = new System.Drawing.Size(264, 33);
+            this.vacc_Text.TabIndex = 105;
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(749, 268);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(62, 30);
+            this.button7.TabIndex = 106;
+            this.button7.Text = "...";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1307, 665);
+            this.ClientSize = new System.Drawing.Size(1553, 633);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.vacc_Text);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.dog_id);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.button6);
@@ -582,5 +637,9 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox dog_id;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox vacc_Text;
+        private System.Windows.Forms.Button button7;
     }
 }

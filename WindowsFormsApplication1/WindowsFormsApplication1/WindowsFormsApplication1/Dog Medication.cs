@@ -30,7 +30,8 @@ namespace WindowsFormsApplication1
 
         void loadall()
         {
-            string qry = "select * from Dog where owner_type = 2";
+            lever = true;
+            string qry = "select * from Dog where owner_type = 1";
             string qry2 = "select * from dog_clinic";
 
             conn.Open();
@@ -69,6 +70,7 @@ namespace WindowsFormsApplication1
             this.Hide();
             previousform.Show();
         }
+        bool lever;
         private int selected_dog_id;
                 private void staff_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
                 {
@@ -82,9 +84,27 @@ namespace WindowsFormsApplication1
 
 
                     }
+            string slct_dog = "select dogsched_date, dogstart_time, dogend_time, c.clinic_name, dog_vaccination, dog_status from dc_dogsched inner join dog_clinic c ON dc_dogsched.clinic_id = c.clinic_id where dog_id = " + selected_dog_id;
+            conn.Open();
+            MySqlCommand com = new MySqlCommand(slct_dog, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(com);
+            DataTable tb = new DataTable();
+            adp.Fill(tb);
+
+            clinic_grid.DataSource = tb;
+            conn.Close();
+            lever = false;
+
                 }
         private int select_clinic_id;
+           
             private void clinic_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+            {
+            if (lever == false)
+            {
+                return;
+            }
+            else
             {
                 if (e.RowIndex > -1)
                 {
@@ -96,6 +116,7 @@ namespace WindowsFormsApplication1
 
 
                 }
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -116,8 +137,15 @@ namespace WindowsFormsApplication1
             TimeSpan cur_time = DateTime.Now.TimeOfDay;
             DateTime input_Date = Convert.ToDateTime(date.Text);
 
-
-
+            int taken = 0;
+            if (comboBox1.Text == "Taken")
+            {
+                taken = 1;
+            }
+            else
+            {
+                taken = 0;
+            }
 
 
 
@@ -133,7 +161,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("case 3 : No Date");
             }
-            else if (input_Date.Date < cur_date.Date)
+            else if (input_Date.Date < cur_date.Date && taken == 0)
             {
                 MessageBox.Show("case 4 : Scheduled for past date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -158,9 +186,13 @@ namespace WindowsFormsApplication1
                 {
                     MessageBox.Show("case 6 : Invalid Time.", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else if (vacc_Text.Text == "" || vacc_Text.Text == null)
+                {
+                    MessageBox.Show("case 6.5 : Empty vaccination ");
+                }
                 else if (comboBox1.Text == "" || comboBox1.Text == null)
                 {
-                    MessageBox.Show("case 7 : No Activity");
+                    MessageBox.Show("case 7 : No Status");
                 }
                 else
                 {
@@ -170,9 +202,9 @@ namespace WindowsFormsApplication1
                     string end_time = eHour.Text + ":" + eMin.Text + " " + eday.Text;
 
                     TimeSpan start_time1 = Convert.ToDateTime(start_time).TimeOfDay;
-                    if (input_Date.Date == cur_date.Date && start_time1 < cur_time)
+                    if (input_Date.Date == cur_date.Date && start_time1 < cur_time && taken == 0 || input_Date.Date > cur_date.Date && start_time1 < cur_time && taken == 1)
                     {
-                        MessageBox.Show("case 4 : Scheduled for past time.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -223,11 +255,11 @@ namespace WindowsFormsApplication1
                         else
                         {
 
-                            string query0003 = "INSERT INTO dc_dogsched(dog_id,dogsched_start, dogsched_end, dogsched_date," +
+                            string query0003 = "INSERT INTO dc_dogsched(dog_id,clinic_id,dogsched_start, dogsched_end, dogsched_date," +
                                 " dogstart_time, dogend_time, dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday, dog_status, dog_vaccination) VALUES('"
-                                + selected_dog_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
+                                + selected_dog_id + "','"+select_clinic_id+"','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
                                 + start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
-                                eday.Text + "','" + comboBox1.Text + "', 'true' )";
+                                eday.Text + "','" + comboBox1.Text + "', '"+vacc_Text.Text+"' )";
                             conn.Open();
 
                             MySqlCommand comm4 = new MySqlCommand(query0003, conn);
@@ -268,6 +300,21 @@ namespace WindowsFormsApplication1
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             previousform.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            loadall();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            loadall();
         }
     }
 

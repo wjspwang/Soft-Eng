@@ -338,5 +338,10 @@ namespace WindowsFormsApplication1
         {
             previousform.Show();
         }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            loadall();
+        }
     }
 }

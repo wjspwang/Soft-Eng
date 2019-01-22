@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace WindowsFormsApplication1
 {
@@ -58,7 +53,21 @@ namespace WindowsFormsApplication1
 
         private void ClearBtn_Click(object sender, EventArgs e)
         {
-            loadall();
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            
+            string query = "select dc_sched.staff_id, fname" +
+               ", lname ,sched_start, sched_end, sched_date, start_time, end_time," +
+               " status from staff inner join person on staff.person_id = person.person_id" +
+               "  inner join dc_sched on staff.staff_id = dc_sched.staff_id where sched_date = '" +
+                 cur_date + "' order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            Debug.WriteLine(query);
+            dataGridView1.DataSource = dt;
         }
 
         private void ShowAllBtn_Click(object sender, EventArgs e)

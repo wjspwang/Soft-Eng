@@ -58,6 +58,7 @@
             this.eMin = new System.Windows.Forms.ComboBox();
             this.eday = new System.Windows.Forms.ComboBox();
             this.createStaff = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sched_grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staff_grid)).BeginInit();
             this.SuspendLayout();
@@ -195,10 +196,10 @@
             // staff_grid
             // 
             this.staff_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.staff_grid.Location = new System.Drawing.Point(21, 41);
+            this.staff_grid.Location = new System.Drawing.Point(21, 56);
             this.staff_grid.Margin = new System.Windows.Forms.Padding(4);
             this.staff_grid.Name = "staff_grid";
-            this.staff_grid.Size = new System.Drawing.Size(320, 520);
+            this.staff_grid.Size = new System.Drawing.Size(320, 505);
             this.staff_grid.TabIndex = 39;
             this.staff_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.staff_grid_CellContentClick);
             // 
@@ -428,13 +429,23 @@
             // 
             // createStaff
             // 
-            this.createStaff.Location = new System.Drawing.Point(21, 11);
+            this.createStaff.Location = new System.Drawing.Point(21, 20);
             this.createStaff.Name = "createStaff";
-            this.createStaff.Size = new System.Drawing.Size(94, 23);
+            this.createStaff.Size = new System.Drawing.Size(94, 28);
             this.createStaff.TabIndex = 67;
             this.createStaff.Text = "Create";
             this.createStaff.UseVisualStyleBackColor = true;
             this.createStaff.Click += new System.EventHandler(this.createStaff_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(236, 20);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(94, 29);
+            this.button5.TabIndex = 68;
+            this.button5.Text = "Refresh";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // StaffScheduler
             // 
@@ -442,6 +453,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1285, 619);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.createStaff);
             this.Controls.Add(this.eday);
             this.Controls.Add(this.eMin);
@@ -514,5 +526,6 @@
         private System.Windows.Forms.ComboBox eMin;
         private System.Windows.Forms.ComboBox eday;
         private System.Windows.Forms.Button createStaff;
+        private System.Windows.Forms.Button button5;
     }
 }

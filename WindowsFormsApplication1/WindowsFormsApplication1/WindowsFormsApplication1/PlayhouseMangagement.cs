@@ -38,14 +38,38 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["contact"].HeaderText = "Contact no.";
             dataGridView1.Columns["person_type"].Visible = false;
 
-            string query1 = "select * from playhouse";
+            /*string query1 = "select * from playhouse";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
             MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
             conn.Close();
             DataTable dt1 = new DataTable();
             adp1.Fill(dt1);
+            dataGridView2.DataSource = dt1;*/
+
+            string query1 = "select playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
             dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+
         }
 
         private void btnSave_Load(object sender, EventArgs e)
@@ -69,6 +93,7 @@ namespace WindowsFormsApplication1
             DateTime cur_date = DateTime.Now;
             TimeSpan cur_time = DateTime.Now.TimeOfDay;
             DateTime input_Date = Convert.ToDateTime(date.Text);
+            string login_time = DateTime.Now.TimeOfDay.ToString("HH:mm dd");
 
 
 
@@ -199,7 +224,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private int selected_user_id = -1;
+        public int selected_user_id = -1;
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
@@ -209,8 +234,32 @@ namespace WindowsFormsApplication1
 
                 lname.Text = dataGridView1.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView1.Rows[e.RowIndex].Cells["fname"].Value.ToString();
-
+                Form4 form4 = new Form4();
+                form4.custID = selected_user_id;
             }
+        }
+
+        private void new_cust_Click(object sender, EventArgs e)
+        {
+            Profiles a = new Profiles();
+            TabControl b = new TabControl();
+            a.tabc.SelectedTab = a.tabc.TabPages["tabPage1"];
+            a.Show();
+            a.previousform = this;
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            loadall();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form4 form = new Form4();
+            form.Show();
+            form.previousform = this;
+            
         }
     }
         

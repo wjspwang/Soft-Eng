@@ -351,6 +351,7 @@ namespace WindowsFormsApplication1
                     if (textBox4.Text == "" || textBox5.Text == "")
                     {
                         MessageBox.Show("Please fill up appropriate fields");
+                        return;
                     }
                     else
                     {
