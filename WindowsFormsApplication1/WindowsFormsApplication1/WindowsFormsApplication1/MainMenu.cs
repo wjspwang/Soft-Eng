@@ -287,7 +287,7 @@ namespace WindowsFormsApplication1
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             Form1 login = new Form1();
-            login.Show();
+            previousform.Show();
         }
     }
 }

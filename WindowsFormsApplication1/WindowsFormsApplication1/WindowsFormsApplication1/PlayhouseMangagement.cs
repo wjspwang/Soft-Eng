@@ -72,8 +72,7 @@ namespace WindowsFormsApplication1
 
         private void PlayhouseManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MainMenu menu = new MainMenu();
-            menu.Show();
+            previousform.Show();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
