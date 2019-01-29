@@ -19,33 +19,15 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
+        public int selected_user_id { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
 
         private void loadall()
         {
-            string query = "select * from person where person_type = 1";
-            conn.Open();
-            MySqlCommand comm = new MySqlCommand(query, conn);
-            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
-            conn.Close();
-            DataTable dt = new DataTable();
-            adp.Fill(dt);
-
-            dataGridView1.DataSource = dt;
-            dataGridView1.Columns["person_id"].HeaderText = "Customer ID";
-            dataGridView1.Columns["lname"].HeaderText = "Family Name";
-            dataGridView1.Columns["fname"].HeaderText = "Given Name";
-            dataGridView1.Columns["gender"].HeaderText = "Gender";
-            dataGridView1.Columns["contact"].HeaderText = "Contact no.";
-            dataGridView1.Columns["person_type"].Visible = false;
-
-            /*string query1 = "select * from playhouse";
-            conn.Open();
-            MySqlCommand comm1 = new MySqlCommand(query1, conn);
-            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
-            conn.Close();
-            DataTable dt1 = new DataTable();
-            adp1.Fill(dt1);
-            dataGridView2.DataSource = dt1;*/
+            cust_id.Text = selected_user_id + "";
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string curr_time = DateTime.Now.ToString("h:mm tt");
 
             string query1 = "select playhouse_id, playhouse.customer_id, lname," +
                 " fname, sched_start, sched_end, sched_date," +
@@ -72,24 +54,32 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["end_time"].HeaderText = "Time End";
             dataGridView2.Columns["status"].HeaderText = "Status";
 
+            string updateToExpire = "UPDATE playhouse SET status = 'Expired' WHERE sched_date < '"+curr_date+"' OR end_time < '"+curr_time+"' ";
+            conn.Open();
+
+            MySqlCommand comm = new MySqlCommand(updateToExpire, conn);
+            comm.ExecuteNonQuery();
+            conn.Close();
+
         }
 
         private void btnSave_Load(object sender, EventArgs e)
         {
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
             loadall();
+            
         }
 
         private void PlayhouseManagement_FormClosed(object sender, FormClosedEventArgs e)
         {
-            previousform.Show();
+            MainMenu menu = new MainMenu();
+            menu.Show();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             DateTime cur_date = DateTime.Now;
@@ -239,20 +229,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        public int selected_user_id = -1;
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
 
-                selected_user_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["person_id"].Value.ToString());
-
-                lname.Text = dataGridView1.Rows[e.RowIndex].Cells["lname"].Value.ToString();
-                fname.Text = dataGridView1.Rows[e.RowIndex].Cells["fname"].Value.ToString();
-                cust_id.Text = Convert.ToString(selected_user_id);
-
-            }
-        }
 
         private void new_cust_Click(object sender, EventArgs e)
         {
@@ -271,17 +248,19 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if(cust_id.Text == "")
+           
+            if(cust_id.Text == ""|| cust_id.Text == Convert.ToString(0))
             {
                 MessageBox.Show("Invalid");
-                MessageBox.Show(cust_id.Text);
             }
             else
             {
-                Form4 form = new Form4();
-                form.Show();
+                Form4 form = new Form4();               
                 form.previousform = this;
-                form.custID = Convert.ToInt32(cust_id.Text);
+                form.selected_user_id = Convert.ToInt32(cust_id.Text);
+                form.lname = lname.Text;
+                form.fname = fname.Text;
+                form.Show();
             }
             
             
@@ -289,18 +268,132 @@ namespace WindowsFormsApplication1
         int selected_playhouse_id = -1;
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           // DateTime time;
+            DateTime time, etime;
+            string shour, smin, sday,
+                ehour, emin, eday; ;
             if (e.RowIndex > -1)
             {
 
                 selected_playhouse_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["playhouse_id"].Value.ToString());
-
+                selected_user_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
                 lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
-                //time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
+                status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
+                time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
+                etime = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["end_time"].Value.ToString());
                 cust_id.Text = Convert.ToString(selected_user_id);
 
+                shour = time.Hour.ToString();
+                smin = time.Minute.ToString();
+                sday = time.Day.ToString();
+                ehour = etime.Hour.ToString();
+                emin = etime.Minute.ToString();
+                eday = etime.Day.ToString();
+
+                string ampm;
+                if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) > 12)
+                {
+                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
+                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12);
+                    ampm = "PM";
+                }
+                else if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) < 12)
+                {
+                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
+                    ampm = "PM";
+                }else if (Convert.ToInt32(ehour) > 12 && Convert.ToInt32(ehour) < 12)
+                {
+                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12 );
+                    ampm = "PM";
+                }
+                else
+                {
+                    ampm = "AM";
+                }
+
+                switch (Convert.ToInt32(smin))
+                {
+                    case 0:
+                        smin = "00";
+                        break;
+                    case 1:
+                        smin = "01";
+                        break;
+                    case 2:
+                        smin = "02";
+                        break;
+                    case 3:
+                        smin = "03";
+                        break;
+                    case 4:
+                        smin = "04";
+                        break;
+                    case 5:
+                        smin = "05";
+                        break;
+                    case 6:
+                        smin = "06";
+                        break;
+                    case 7:
+                        smin = "07";
+                        break;
+                    case 8:
+                        smin = "08";
+                        break;
+                    case 9:
+                        smin = "09";
+                        break;
+                    default:
+                        break;
+                    
+
+                }
+                switch (Convert.ToInt32(emin))
+                {
+                    case 0:
+                        emin = "00";
+                        break;
+                    case 1:
+                        emin = "01";
+                        break;
+                    case 2:
+                        emin = "02";
+                        break;
+                    case 3:
+                        emin = "03";
+                        break;
+                    case 4:
+                        emin = "04";
+                        break;
+                    case 5:
+                        emin = "05";
+                        break;
+                    case 6:
+                        emin = "06";
+                        break;
+                    case 7:
+                        emin = "07";
+                        break;
+                    case 8:
+                        emin = "08";
+                        break;
+                    case 9:
+                        emin = "09";
+                        break;
+                    default:
+                        break;
+
+
+                }
+
+                sHour.Text = shour;
+                sMin.Text = smin;
+                sDay.Text = ampm;
+                eHour.Text = ehour;
+                eMin.Text = emin;
+                eDay.Text = ampm;
             }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -322,7 +415,347 @@ namespace WindowsFormsApplication1
 
         private void PlayhouseManagement_Activated(object sender, EventArgs e)
         {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where sched_date = '" + curr_date + "'"+
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+        }
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show();
+            form5.previousform = this;
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
             loadall();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            /*
+             * string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where sched_date = '" + curr_date + "'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+             */
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where status = 'IN'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where status = 'Expired'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where sched_date = '" + curr_date + "'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            fname.Text = firstname;
+            lname.Text = lastname;
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where status = 'Expired' AND sched_date = '"+curr_date+"'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            dataGridView2.DataSource = dt1;
+            dataGridView2.Columns["playhouse_id"].Visible = false;
+            dataGridView2.Columns["customer_id"].Visible = false;
+            dataGridView2.Columns["sched_start"].Visible = false;
+            dataGridView2.Columns["sched_end"].Visible = false;
+            dataGridView2.Columns["lname"].HeaderText = "Last Name";
+            dataGridView2.Columns["fname"].HeaderText = "First Name";
+            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
+            dataGridView2.Columns["end_time"].HeaderText = "Time End";
+            dataGridView2.Columns["status"].HeaderText = "Status";
+        }
+
+        private void status_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            DateTime time, etime;
+            string shour, smin, sday,
+                ehour, emin, eday; ;
+            if (e.RowIndex > -1)
+            {
+
+                selected_playhouse_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["playhouse_id"].Value.ToString());
+                selected_user_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
+                lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
+                fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
+                status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
+                time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
+                etime = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["end_time"].Value.ToString());
+                cust_id.Text = Convert.ToString(selected_user_id);
+
+                shour = time.Hour.ToString();
+                smin = time.Minute.ToString();
+                sday = time.Day.ToString();
+                ehour = etime.Hour.ToString();
+                emin = etime.Minute.ToString();
+                eday = etime.Day.ToString();
+
+                string ampm;
+                if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) > 12)
+                {
+                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
+                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12);
+                    ampm = "PM";
+                }
+                else if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) < 12)
+                {
+                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
+                    ampm = "PM";
+                }
+                else if (Convert.ToInt32(ehour) > 12 && Convert.ToInt32(ehour) < 12)
+                {
+                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12);
+                    ampm = "PM";
+                }
+                else
+                {
+                    ampm = "AM";
+                }
+
+                switch (Convert.ToInt32(smin))
+                {
+                    case 0:
+                        smin = "00";
+                        break;
+                    case 1:
+                        smin = "01";
+                        break;
+                    case 2:
+                        smin = "02";
+                        break;
+                    case 3:
+                        smin = "03";
+                        break;
+                    case 4:
+                        smin = "04";
+                        break;
+                    case 5:
+                        smin = "05";
+                        break;
+                    case 6:
+                        smin = "06";
+                        break;
+                    case 7:
+                        smin = "07";
+                        break;
+                    case 8:
+                        smin = "08";
+                        break;
+                    case 9:
+                        smin = "09";
+                        break;
+                    default:
+                        break;
+
+
+                }
+                switch (Convert.ToInt32(emin))
+                {
+                    case 0:
+                        emin = "00";
+                        break;
+                    case 1:
+                        emin = "01";
+                        break;
+                    case 2:
+                        emin = "02";
+                        break;
+                    case 3:
+                        emin = "03";
+                        break;
+                    case 4:
+                        emin = "04";
+                        break;
+                    case 5:
+                        emin = "05";
+                        break;
+                    case 6:
+                        emin = "06";
+                        break;
+                    case 7:
+                        emin = "07";
+                        break;
+                    case 8:
+                        emin = "08";
+                        break;
+                    case 9:
+                        emin = "09";
+                        break;
+                    default:
+                        break;
+
+
+                }
+
+                sHour.Text = shour;
+                sMin.Text = smin;
+                sDay.Text = ampm;
+                eHour.Text = ehour;
+                eMin.Text = emin;
+                eDay.Text = ampm;
+            }
         }
     }
         
