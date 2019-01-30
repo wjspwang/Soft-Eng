@@ -12,9 +12,9 @@ using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form5 : Form
+    public partial class Playhouse_custSelect : Form
     {
-        public Form5()
+        public Playhouse_custSelect()
         {
             InitializeComponent();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
@@ -126,11 +126,11 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                PlayhouseManagement previousform = new PlayhouseManagement();
+                PlayhouseManagement previousform = new PlayhouseManagement(Convert.ToInt32(textBox3.Text), textBox2.Text, textBox1.Text);
                 previousform.selected_user_id = Convert.ToInt32(textBox3.Text);
                 previousform.firstname = textBox2.Text;
                 previousform.lastname = textBox1.Text;
-                 Form4 form4 = new Form4();
+                 LoginTimePlayhouse form4 = new LoginTimePlayhouse();
                 form4.selected_user_id = Convert.ToInt32(textBox3.Text);
                 MessageBox.Show(previousform.selected_user_id + " " + previousform.firstname + " " + previousform.lastname + " was selected.");
                 previousform.Show();

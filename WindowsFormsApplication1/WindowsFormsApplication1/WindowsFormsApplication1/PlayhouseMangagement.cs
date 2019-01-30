@@ -19,13 +19,24 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
+        public PlayhouseManagement(int cust_id, string fname, string lname)
+        {
+            InitializeComponent();
+            this.selected_user_id = cust_id;
+            this.fname.Text = fname;
+            this.lname.Text = lname;
+     
+            //MessageBox.Show(cust_id + " NEW CUST ID");
+            //this.dataGridView2.CurrentCell = null;
+        }
         public int selected_user_id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
 
         private void loadall()
         {
-            cust_id.Text = selected_user_id + "";
+
+            cust_id.Text = this.selected_user_id + "";
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
             string curr_time = DateTime.Now.ToString("h:mm tt");
 
@@ -54,6 +65,7 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["end_time"].HeaderText = "Time End";
             dataGridView2.Columns["status"].HeaderText = "Status";
 
+            //dataGridView2.Rows[-1].Selected = true;
             string updateToExpire = "UPDATE playhouse SET status = 'Expired' WHERE sched_date < '"+curr_date+"' OR end_time < '"+curr_time+"' ";
             conn.Open();
 
@@ -67,6 +79,7 @@ namespace WindowsFormsApplication1
         {
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
             loadall();
+            MessageBox.Show(this.selected_user_id + "");
             
         }
 
@@ -254,9 +267,10 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                Form4 form = new Form4();               
+                LoginTimePlayhouse form = new LoginTimePlayhouse();               
                 form.previousform = this;
-                form.selected_user_id = Convert.ToInt32(cust_id.Text);
+                MessageBox.Show(this.selected_user_id + "");
+                form.selected_user_id = Convert.ToInt32(this.selected_user_id);
                 form.lname = lname.Text;
                 form.fname = fname.Text;
                 form.Show();
@@ -269,18 +283,19 @@ namespace WindowsFormsApplication1
         {
             DateTime time, etime;
             string shour, smin, sday,
-                ehour, emin, eday; ;
+                ehour, emin, eday;
+           
             if (e.RowIndex > -1)
             {
 
                 selected_playhouse_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["playhouse_id"].Value.ToString());
-                selected_user_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
+                //selected_user_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
                 lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
                 status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
                 time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
                 etime = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["end_time"].Value.ToString());
-                cust_id.Text = Convert.ToString(selected_user_id);
+                //cust_id.Text = Convert.ToString(selected_user_id);
 
                 shour = time.Hour.ToString();
                 smin = time.Minute.ToString();
@@ -415,9 +430,9 @@ namespace WindowsFormsApplication1
         private void PlayhouseManagement_Activated(object sender, EventArgs e)
         {
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            fname.Text = firstname;
-            lname.Text = lastname;
-            cust_id.Text = selected_user_id + "";
+            //fname.Text = firstname;
+            //lname.Text = lastname;
+            //cust_id.Text = selected_user_id + "";
             string query1 = "select playhouse_id, playhouse.customer_id, lname," +
                 " fname, sched_start, sched_end, sched_date," +
                 " start_time, end_time, status from person " +
@@ -448,7 +463,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Form5 form5 = new Form5();
+            Playhouse_custSelect form5 = new Playhouse_custSelect();
             form5.Show();
             form5.previousform = this;
             this.Hide();
@@ -629,7 +644,7 @@ namespace WindowsFormsApplication1
 
         private void dataGridView2_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            DateTime time, etime;
+            /*DateTime time, etime;
             string shour, smin, sday,
                 ehour, emin, eday; ;
             if (e.RowIndex > -1)
@@ -755,6 +770,12 @@ namespace WindowsFormsApplication1
                 eMin.Text = emin;
                 eDay.Text = ampm;
             }
+            */
+        }
+
+        private void cust_id_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
         

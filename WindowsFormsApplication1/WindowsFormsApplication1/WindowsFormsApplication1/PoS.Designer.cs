@@ -953,7 +953,6 @@
             this.Name = "PoS";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form8";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Form8_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PoS_FormClosing);
             this.Load += new System.EventHandler(this.Form8_Load);
