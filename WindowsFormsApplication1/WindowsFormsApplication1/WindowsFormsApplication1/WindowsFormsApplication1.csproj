@@ -204,6 +204,7 @@
     <EmbeddedResource Include="PlayhouseMangagement.resx">
       <DependentUpon>PlayhouseMangagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="Sales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Sales.cs</LastGenOutput>
@@ -257,6 +258,20 @@
     <EmbeddedResource Include="scheduleTasks.resx">
       <DependentUpon>scheduleTasks.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="pawesome_dbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="pawesome_dbDataSet1.xsc">
+      <DependentUpon>pawesome_dbDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="pawesome_dbDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="pawesome_dbDataSet1.xss">
+      <DependentUpon>pawesome_dbDataSet1.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

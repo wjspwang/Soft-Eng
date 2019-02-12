@@ -26,10 +26,21 @@ namespace WindowsFormsApplication1.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;password=root;database=system_db1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localD:\\vs_proj\\WindowsFormsApplication1\\WindowsFormsApplication1\\WindowsF" +
+            "ormsApplication1\\App.confighost;user id=root;password=root;database=system_db1")]
         public string system_db1ConnectionString {
             get {
                 return ((string)(this["system_db1ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;password=root;database=pawesome_db")]
+        public string conn {
+            get {
+                return ((string)(this["conn"]));
             }
         }
     }

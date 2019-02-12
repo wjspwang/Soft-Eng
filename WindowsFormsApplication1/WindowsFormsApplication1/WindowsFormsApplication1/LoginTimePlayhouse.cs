@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1
             hours = Convert.ToInt32(textBox1.Text);
             string etime = DateTime.Now.AddHours(hours).ToString("h:mm tt");
 
-            string validate = "select * from playhouse where customer_id = " + selected_user_id + " AND '"+stime+"' BETWEEN start_time AND end_time";
+            string validate = "select * from playhouse where customer_id = " + selected_user_id + " AND '"+stime+"' BETWEEN start_time AND end_time AND sched_date = '"+now+"'";
             MySqlCommand cmd = new MySqlCommand(validate, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable tb = new DataTable();

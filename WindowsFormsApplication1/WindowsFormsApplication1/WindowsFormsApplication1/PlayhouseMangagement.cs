@@ -412,14 +412,23 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            string query = "DELETE FROM playhouse WHERE playhouse_id = '" + selected_playhouse_id + "'; ";
-            conn.Open();
-            MySqlCommand comm = new MySqlCommand(query, conn);
-            comm.ExecuteNonQuery();
-            conn.Close();
-            loadall();
-            MessageBox.Show("Successfully Deleted", "Successfully Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information );
+           // MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
+            if (dialogResult == DialogResult.OK)
+            {
+                string query = "DELETE FROM playhouse WHERE playhouse_id = '" + selected_playhouse_id + "'; ";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.ExecuteNonQuery();
+                conn.Close();
+                loadall();
+                MessageBox.Show("Successfully Deleted", "Successfully Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (dialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
+            
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
