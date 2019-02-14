@@ -67,7 +67,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.nostock = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
             this.lowstock = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.textBox14 = new System.Windows.Forms.TextBox();
@@ -92,6 +92,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.invoice_ui = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -608,6 +609,7 @@
             this.textBox11.Size = new System.Drawing.Size(132, 22);
             this.textBox11.TabIndex = 35;
             this.textBox11.Text = "0";
+            this.textBox11.Visible = false;
             this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             this.textBox11.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox11_KeyDown);
             this.textBox11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox11_KeyPress);
@@ -615,7 +617,8 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.nostock);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.label33);
             this.groupBox3.Controls.Add(this.lowstock);
             this.groupBox3.Controls.Add(this.dataGridView3);
             this.groupBox3.Controls.Add(this.textBox14);
@@ -648,35 +651,36 @@
             this.groupBox3.Text = "groupBox3";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
-            // nostock
+            // label33
             // 
-            this.nostock.AutoSize = true;
-            this.nostock.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.nostock.Location = new System.Drawing.Point(546, 495);
-            this.nostock.Name = "nostock";
-            this.nostock.Size = new System.Drawing.Size(57, 17);
-            this.nostock.TabIndex = 38;
-            this.nostock.Text = "nostock";
-            this.nostock.Click += new System.EventHandler(this.nostock_Click);
+            this.label33.AutoSize = true;
+            this.label33.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label33.Location = new System.Drawing.Point(537, 612);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(57, 17);
+            this.label33.TabIndex = 38;
+            this.label33.Text = "nostock";
+            this.label33.Visible = false;
             // 
             // lowstock
             // 
             this.lowstock.AutoSize = true;
             this.lowstock.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lowstock.Location = new System.Drawing.Point(440, 495);
+            this.lowstock.Location = new System.Drawing.Point(440, 610);
             this.lowstock.Name = "lowstock";
             this.lowstock.Size = new System.Drawing.Size(61, 17);
             this.lowstock.TabIndex = 37;
             this.lowstock.Text = "lowstock";
+            this.lowstock.Visible = false;
             this.lowstock.Click += new System.EventHandler(this.lowstock_Click);
             // 
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(351, 324);
+            this.dataGridView3.Location = new System.Drawing.Point(351, 360);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowTemplate.Height = 24;
-            this.dataGridView3.Size = new System.Drawing.Size(336, 150);
+            this.dataGridView3.Size = new System.Drawing.Size(336, 231);
             this.dataGridView3.TabIndex = 36;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             // 
@@ -700,6 +704,7 @@
             this.label13.Size = new System.Drawing.Size(88, 17);
             this.label13.TabIndex = 31;
             this.label13.Text = "existing prod";
+            this.label13.Visible = false;
             this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label3
@@ -813,7 +818,7 @@
             this.textBox5.Location = new System.Drawing.Point(195, 492);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(191, 22);
+            this.textBox5.Size = new System.Drawing.Size(132, 22);
             this.textBox5.TabIndex = 15;
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
@@ -856,20 +861,20 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(197, 645);
+            this.textBox6.Location = new System.Drawing.Point(200, 656);
             this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(191, 22);
+            this.textBox6.Size = new System.Drawing.Size(132, 22);
             this.textBox6.TabIndex = 19;
             this.textBox6.ModifiedChanged += new System.EventHandler(this.textBox7_TextChanged);
             this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(195, 610);
+            this.textBox7.Location = new System.Drawing.Point(200, 621);
             this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(191, 22);
+            this.textBox7.Size = new System.Drawing.Size(130, 22);
             this.textBox7.TabIndex = 17;
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             this.textBox7.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox7_KeyDown);
@@ -881,7 +886,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label15.Location = new System.Drawing.Point(17, 650);
+            this.label15.Location = new System.Drawing.Point(22, 661);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(89, 20);
@@ -894,7 +899,7 @@
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label16.Location = new System.Drawing.Point(15, 610);
+            this.label16.Location = new System.Drawing.Point(20, 621);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(143, 20);
@@ -917,23 +922,34 @@
             // 
             this.label32.AutoSize = true;
             this.label32.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label32.Location = new System.Drawing.Point(594, 29);
+            this.label32.Location = new System.Drawing.Point(738, 34);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(54, 17);
+            this.label32.Size = new System.Drawing.Size(147, 17);
             this.label32.TabIndex = 36;
-            this.label32.Text = "label32";
+            this.label32.Text = "Now Serving Invoice #";
             this.label32.Click += new System.EventHandler(this.label32_Click);
             // 
             // invoice_ui
             // 
             this.invoice_ui.AutoSize = true;
             this.invoice_ui.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.invoice_ui.Location = new System.Drawing.Point(795, 29);
+            this.invoice_ui.Location = new System.Drawing.Point(891, 36);
             this.invoice_ui.Name = "invoice_ui";
             this.invoice_ui.Size = new System.Drawing.Size(115, 17);
             this.invoice_ui.TabIndex = 37;
             this.invoice_ui.Text = "Current Invoice #";
             this.invoice_ui.Click += new System.EventHandler(this.invoice_ui_Click);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label34.Location = new System.Drawing.Point(346, 320);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(170, 29);
+            this.label34.TabIndex = 38;
+            this.label34.Text = "Recipe Details";
             // 
             // PoS
             // 
@@ -1023,7 +1039,6 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker fromdate;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.DateTimePicker todate;
@@ -1033,8 +1048,10 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.Label lowstock;
-        private System.Windows.Forms.Label nostock;
         private System.Windows.Forms.Label invoice_ui;
+        private System.Windows.Forms.Label lowstock;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
     }
 }

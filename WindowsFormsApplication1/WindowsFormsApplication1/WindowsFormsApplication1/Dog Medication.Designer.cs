@@ -88,7 +88,7 @@
             this.eday.Items.AddRange(new object[] {
             "AM",
             "PM"});
-            this.eday.Location = new System.Drawing.Point(750, 426);
+            this.eday.Location = new System.Drawing.Point(733, 365);
             this.eday.Name = "eday";
             this.eday.Size = new System.Drawing.Size(61, 24);
             this.eday.TabIndex = 94;
@@ -109,7 +109,7 @@
             "45",
             "50",
             "55"});
-            this.eMin.Location = new System.Drawing.Point(656, 426);
+            this.eMin.Location = new System.Drawing.Point(639, 365);
             this.eMin.Name = "eMin";
             this.eMin.Size = new System.Drawing.Size(62, 24);
             this.eMin.TabIndex = 93;
@@ -127,7 +127,7 @@
             "6",
             "7",
             "8"});
-            this.eHour.Location = new System.Drawing.Point(566, 426);
+            this.eHour.Location = new System.Drawing.Point(549, 365);
             this.eHour.Name = "eHour";
             this.eHour.Size = new System.Drawing.Size(58, 24);
             this.eHour.TabIndex = 92;
@@ -136,7 +136,7 @@
             // 
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label11.Location = new System.Drawing.Point(725, 426);
+            this.label11.Location = new System.Drawing.Point(708, 365);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(18, 24);
@@ -148,7 +148,7 @@
             // 
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label10.Location = new System.Drawing.Point(725, 375);
+            this.label10.Location = new System.Drawing.Point(708, 314);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(18, 24);
@@ -160,7 +160,7 @@
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label9.Location = new System.Drawing.Point(631, 426);
+            this.label9.Location = new System.Drawing.Point(614, 365);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(18, 24);
@@ -172,7 +172,7 @@
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label8.Location = new System.Drawing.Point(631, 375);
+            this.label8.Location = new System.Drawing.Point(614, 314);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(18, 24);
@@ -187,7 +187,7 @@
             this.sday.Items.AddRange(new object[] {
             "AM",
             "PM"});
-            this.sday.Location = new System.Drawing.Point(750, 375);
+            this.sday.Location = new System.Drawing.Point(733, 314);
             this.sday.Name = "sday";
             this.sday.Size = new System.Drawing.Size(61, 24);
             this.sday.TabIndex = 87;
@@ -208,7 +208,7 @@
             "45",
             "50",
             "55"});
-            this.sMin.Location = new System.Drawing.Point(656, 375);
+            this.sMin.Location = new System.Drawing.Point(639, 314);
             this.sMin.Name = "sMin";
             this.sMin.Size = new System.Drawing.Size(62, 24);
             this.sMin.TabIndex = 86;
@@ -226,7 +226,7 @@
             "6",
             "7",
             "8"});
-            this.sHour.Location = new System.Drawing.Point(565, 375);
+            this.sHour.Location = new System.Drawing.Point(548, 314);
             this.sHour.Name = "sHour";
             this.sHour.Size = new System.Drawing.Size(59, 24);
             this.sHour.TabIndex = 85;
@@ -235,7 +235,7 @@
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label6.Location = new System.Drawing.Point(400, 426);
+            this.label6.Location = new System.Drawing.Point(383, 365);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(150, 32);
@@ -247,7 +247,7 @@
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(399, 367);
+            this.label2.Location = new System.Drawing.Point(382, 306);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(150, 32);
@@ -260,7 +260,7 @@
             this.date.CustomFormat = "yyyy/MM/dd";
             this.date.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date.Location = new System.Drawing.Point(567, 318);
+            this.date.Location = new System.Drawing.Point(550, 257);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(176, 34);
             this.date.TabIndex = 82;
@@ -270,7 +270,7 @@
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label7.Location = new System.Drawing.Point(398, 322);
+            this.label7.Location = new System.Drawing.Point(381, 261);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 32);
@@ -318,7 +318,7 @@
             this.dog_breed.Enabled = false;
             this.dog_breed.Font = new System.Drawing.Font("Verdana", 15.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dog_breed.ForeColor = System.Drawing.Color.Black;
-            this.dog_breed.Location = new System.Drawing.Point(568, 217);
+            this.dog_breed.Location = new System.Drawing.Point(551, 156);
             this.dog_breed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dog_breed.Name = "dog_breed";
             this.dog_breed.Size = new System.Drawing.Size(175, 33);
@@ -331,7 +331,7 @@
             this.dog_name.Enabled = false;
             this.dog_name.Font = new System.Drawing.Font("Verdana", 15.8F);
             this.dog_name.ForeColor = System.Drawing.Color.Black;
-            this.dog_name.Location = new System.Drawing.Point(567, 162);
+            this.dog_name.Location = new System.Drawing.Point(550, 101);
             this.dog_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dog_name.Name = "dog_name";
             this.dog_name.Size = new System.Drawing.Size(176, 33);
@@ -366,7 +366,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(730, 578);
+            this.button2.Location = new System.Drawing.Point(713, 517);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 42);
@@ -378,7 +378,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(403, 578);
+            this.button1.Location = new System.Drawing.Point(386, 517);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 42);
@@ -391,7 +391,7 @@
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(400, 264);
+            this.label4.Location = new System.Drawing.Point(383, 203);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 37);
@@ -403,7 +403,7 @@
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(400, 220);
+            this.label3.Location = new System.Drawing.Point(383, 159);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 32);
@@ -415,7 +415,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(400, 165);
+            this.label1.Location = new System.Drawing.Point(383, 104);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 32);
@@ -431,7 +431,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Taken",
             "To Be Taken"});
-            this.comboBox1.Location = new System.Drawing.Point(566, 519);
+            this.comboBox1.Location = new System.Drawing.Point(549, 458);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(178, 37);
             this.comboBox1.TabIndex = 97;
@@ -440,7 +440,7 @@
             // 
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label12.Location = new System.Drawing.Point(400, 519);
+            this.label12.Location = new System.Drawing.Point(383, 458);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(135, 37);
@@ -455,7 +455,7 @@
             this.clinic_text.Enabled = false;
             this.clinic_text.Font = new System.Drawing.Font("Verdana", 15.8F);
             this.clinic_text.ForeColor = System.Drawing.Color.Black;
-            this.clinic_text.Location = new System.Drawing.Point(566, 268);
+            this.clinic_text.Location = new System.Drawing.Point(549, 207);
             this.clinic_text.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clinic_text.Name = "clinic_text";
             this.clinic_text.Size = new System.Drawing.Size(177, 33);
@@ -464,7 +464,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button6.Location = new System.Drawing.Point(565, 578);
+            this.button6.Location = new System.Drawing.Point(548, 517);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(107, 42);
@@ -479,7 +479,7 @@
             this.dog_id.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dog_id.Font = new System.Drawing.Font("Verdana", 15.8F);
             this.dog_id.ForeColor = System.Drawing.Color.Black;
-            this.dog_id.Location = new System.Drawing.Point(567, 114);
+            this.dog_id.Location = new System.Drawing.Point(1020, 28);
             this.dog_id.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dog_id.Name = "dog_id";
             this.dog_id.Size = new System.Drawing.Size(176, 33);
@@ -490,7 +490,7 @@
             // 
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label13.Location = new System.Drawing.Point(400, 117);
+            this.label13.Location = new System.Drawing.Point(853, 31);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(165, 32);
@@ -513,7 +513,7 @@
             // 
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label14.Location = new System.Drawing.Point(400, 467);
+            this.label14.Location = new System.Drawing.Point(383, 406);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(135, 37);
@@ -527,7 +527,7 @@
             this.vacc_Text.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.vacc_Text.Font = new System.Drawing.Font("Verdana", 15.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vacc_Text.ForeColor = System.Drawing.Color.Black;
-            this.vacc_Text.Location = new System.Drawing.Point(565, 466);
+            this.vacc_Text.Location = new System.Drawing.Point(548, 405);
             this.vacc_Text.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.vacc_Text.Name = "vacc_Text";
             this.vacc_Text.Size = new System.Drawing.Size(264, 33);
@@ -536,7 +536,7 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(749, 268);
+            this.button7.Location = new System.Drawing.Point(732, 207);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(62, 30);
             this.button7.TabIndex = 106;

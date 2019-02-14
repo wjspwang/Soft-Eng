@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -25,9 +26,6 @@ namespace WindowsFormsApplication1
             this.selected_user_id = cust_id;
             this.fname.Text = fname;
             this.lname.Text = lname;
-     
-            //MessageBox.Show(cust_id + " NEW CUST ID");
-            //this.dataGridView2.CurrentCell = null;
         }
         public int selected_user_id { get; set; }
         public string firstname { get; set; }
@@ -79,8 +77,23 @@ namespace WindowsFormsApplication1
         {
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
             loadall();
-            MessageBox.Show(this.selected_user_id + "");
-            
+
+            string query = "select * from person where person_type = 1";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["person_id"].HeaderText = "Customer ID";
+            dataGridView1.Columns["lname"].HeaderText = "Family Name";
+            dataGridView1.Columns["fname"].HeaderText = "Given Name";
+            dataGridView1.Columns["gender"].HeaderText = "Gender";
+            dataGridView1.Columns["contact"].HeaderText = "Contact no.";
+            dataGridView1.Columns["person_type"].Visible = false;
+
         }
 
         private void PlayhouseManagement_FormClosed(object sender, FormClosedEventArgs e)
@@ -269,7 +282,6 @@ namespace WindowsFormsApplication1
             {
                 LoginTimePlayhouse form = new LoginTimePlayhouse();               
                 form.previousform = this;
-                MessageBox.Show(this.selected_user_id + "");
                 form.selected_user_id = Convert.ToInt32(this.selected_user_id);
                 form.lname = lname.Text;
                 form.fname = fname.Text;
@@ -284,18 +296,19 @@ namespace WindowsFormsApplication1
             DateTime time, etime;
             string shour, smin, sday,
                 ehour, emin, eday;
-           
+            int select_cust_id;
+
             if (e.RowIndex > -1)
             {
 
                 selected_playhouse_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["playhouse_id"].Value.ToString());
-                //selected_user_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
+                select_cust_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
                 lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
                 status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
                 time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
                 etime = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["end_time"].Value.ToString());
-                //cust_id.Text = Convert.ToString(selected_user_id);
+                selected_user_id = select_cust_id;
 
                 shour = time.Hour.ToString();
                 smin = time.Minute.ToString();
@@ -407,12 +420,17 @@ namespace WindowsFormsApplication1
                 eMin.Text = emin;
                 eDay.Text = ampm;
             }
-            
+            cust_id.Text = selected_user_id + "";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (cust_id.Text == "" || cust_id.Text == Convert.ToString(0))
+            {
+                MessageBox.Show("Invalid");
+            }
+            else
+            {
             DialogResult dialogResult = MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
             if (dialogResult == DialogResult.OK)
             {
@@ -422,18 +440,36 @@ namespace WindowsFormsApplication1
                 comm.ExecuteNonQuery();
                 conn.Close();
                 loadall();
+                fname.Clear();
+                lname.Clear();
                 MessageBox.Show("Successfully Deleted", "Successfully Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dialogResult == DialogResult.Cancel)
             {
                 return;
             }
+            }
+            
             
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            if (cust_id.Text == "" || cust_id.Text == Convert.ToString(0))
+            {
+                MessageBox.Show("Invalid");
+            }
+            else
+            {
+            //string endtime = eHour.Text + ":" + eMin.Text;
+            Form4 frm4 = new Form4();
+            frm4.selected_user_id = Convert.ToInt32(this.selected_user_id);
+            frm4.lname = lname.Text;
+            frm4.fname = fname.Text;
+            frm4.Show();
+            frm4.previousform = this;
+            }
+            
         }
 
         private void PlayhouseManagement_Activated(object sender, EventArgs e)
@@ -472,10 +508,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Playhouse_custSelect form5 = new Playhouse_custSelect();
-            form5.Show();
-            form5.previousform = this;
-            this.Hide();
+            gbSelect.Visible = true;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -485,37 +518,6 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
-            /*
-             * string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            fname.Text = firstname;
-            lname.Text = lastname;
-            cust_id.Text = selected_user_id + "";
-            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
-                " fname, sched_start, sched_end, sched_date," +
-                " start_time, end_time, status from person " +
-                "inner join playhouse on person.person_id = playhouse.customer_id " +
-                "where sched_date = '" + curr_date + "'" +
-                "order by sched_date, start_time";
-            conn.Open();
-            MySqlCommand comm1 = new MySqlCommand(query1, conn);
-            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
-            conn.Close();
-            DataTable dt1 = new DataTable();
-            adp1.Fill(dt1);
-
-            dataGridView2.DataSource = dt1;
-            dataGridView2.Columns["playhouse_id"].Visible = false;
-            dataGridView2.Columns["customer_id"].Visible = false;
-            dataGridView2.Columns["sched_start"].Visible = false;
-            dataGridView2.Columns["sched_end"].Visible = false;
-            dataGridView2.Columns["lname"].HeaderText = "Last Name";
-            dataGridView2.Columns["fname"].HeaderText = "First Name";
-            dataGridView2.Columns["sched_date"].HeaderText = "Scheduled Date";
-            dataGridView2.Columns["sched_date"].DefaultCellStyle.Format = "yyyy-MM-dd";
-            dataGridView2.Columns["start_time"].HeaderText = "Time Start";
-            dataGridView2.Columns["end_time"].HeaderText = "Time End";
-            dataGridView2.Columns["status"].HeaderText = "Status";
-             */
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
             fname.Text = firstname;
             lname.Text = lastname;
@@ -785,6 +787,107 @@ namespace WindowsFormsApplication1
         private void cust_id_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text != null || textBox1.Text != "")
+            {
+                string query = "select * from person where person_type = 1 AND lname like '%" + textBox1.Text + "%'";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                conn.Close();
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+
+                dataGridView1.DataSource = dt;
+                dataGridView1.Columns["person_id"].HeaderText = "Customer ID";
+                dataGridView1.Columns["lname"].HeaderText = "Family Name";
+                dataGridView1.Columns["fname"].HeaderText = "Given Name";
+                dataGridView1.Columns["gender"].HeaderText = "Gender";
+                dataGridView1.Columns["contact"].HeaderText = "Contact no.";
+                dataGridView1.Columns["person_type"].Visible = false;
+            }
+            else if (textBox2.Text != null || textBox2.Text != "")
+            {
+
+
+                string query = "select * from person where person_type = 1 where lname = '" + textBox2.Text + "'";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                conn.Close();
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+
+                dataGridView1.DataSource = dt;
+                dataGridView1.Columns["person_id"].HeaderText = "Customer ID";
+                dataGridView1.Columns["lname"].HeaderText = "Family Name";
+                dataGridView1.Columns["fname"].HeaderText = "Given Name";
+                dataGridView1.Columns["gender"].HeaderText = "Gender";
+                dataGridView1.Columns["contact"].HeaderText = "Contact no.";
+                dataGridView1.Columns["person_type"].Visible = false;
+
+
+            }
+            else
+            {
+                string query = "select * from person where person_type = 1 where lname = '" + textBox2.Text + "' && fname ='" + textBox1.Text + "'";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                conn.Close();
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+
+                dataGridView1.DataSource = dt;
+                dataGridView1.Columns["person_id"].HeaderText = "Customer ID";
+                dataGridView1.Columns["lname"].HeaderText = "Family Name";
+                dataGridView1.Columns["fname"].HeaderText = "Given Name";
+                dataGridView1.Columns["gender"].HeaderText = "Gender";
+                dataGridView1.Columns["contact"].HeaderText = "Contact no.";
+                dataGridView1.Columns["person_type"].Visible = false;
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+
+
+                selected_user_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["person_id"].Value.ToString());
+                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells["lname"].Value.ToString();
+                textBox2.Text = dataGridView1.Rows[e.RowIndex].Cells["fname"].Value.ToString();
+                textBox3.Text = dataGridView1.Rows[e.RowIndex].Cells["person_id"].Value.ToString();
+
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            gbSelect.Visible = false;
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (textBox3.Text == null || textBox3.Text == "" || Regex.IsMatch(textBox3.Text, @"^[a-zA-Z]+$"))
+            {
+                return;
+            }
+            else
+            {
+                cust_id.Text = Convert.ToInt32(textBox3.Text) + "";
+                selected_user_id = Convert.ToInt32(textBox3.Text);
+                fname.Text = textBox2.Text;
+                lname.Text = textBox1.Text;
+                gbSelect.Visible = false;
+            }
         }
     }
         

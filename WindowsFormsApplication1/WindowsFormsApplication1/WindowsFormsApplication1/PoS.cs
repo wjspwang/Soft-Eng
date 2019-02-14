@@ -72,19 +72,12 @@ namespace WindowsFormsApplication1
 
 
         }
-        //private int tmp;
         private void loadall()
         {
-            //invoice_ui.Text = cur_Invoice + "";
             current_invoice();
             updateOrderCount();
-            //lowStocks();
-            //noStock();
-            //current_Invoice();
-            // MessageBox.Show("Invoice # "+tmp + "");
             textBox14.Text = Convert.ToString(invoice_ui.Text);
             string query = " select * from order_line where invoice_id = " + invoice_ui.Text + " ;";
-            //MessageBox.Show(query);
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -185,7 +178,6 @@ namespace WindowsFormsApplication1
             if (textBox1.Text == "")
             {
                 string query = "select * from order_line where date_time >= '" + fromdate.Value.ToString("yyyy-MM-dd") + "' and date_time <= '" + todate.Value.ToString("yyyy-MM-dd") + "' ";
-                MessageBox.Show(query);
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(query, conn);
                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -198,7 +190,6 @@ namespace WindowsFormsApplication1
             else
             {
                 string query1 = "select * from order_line where invoice_id = '" + textBox1.Text + "' AND date_time >= '" + fromdate.Value.ToString("yyyy-MM-dd") + "' and date_time <= '" + todate.Value.ToString("yyyy-MM-dd") + "' ";
-                MessageBox.Show(query1);
                 conn.Open();
                 MySqlCommand comm1 = new MySqlCommand(query1, conn);
                 MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
@@ -227,7 +218,7 @@ namespace WindowsFormsApplication1
                 textBox16.Text = dataGridView2.Rows[e.RowIndex].Cells["recipe_id"].Value.ToString();
             }
             textBox7.Text = Convert.ToString(0);
-            string query = "select a.prodid, a.prodquant, a.restock_val from product a, recipe_item_list b, recipe_list c where c.recipe_id = " + selected_user_id1 + " AND c.recipe_id = b.recipe_id AND a.prodid = b.prod_id ";
+            string query = "select a.prodname, a.prodquant, b.prod_quant from product a, recipe_item_list b, recipe_list c where c.recipe_id = " + selected_user_id1 + " AND c.recipe_id = b.recipe_id AND a.prodid = b.prod_id ";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -236,9 +227,11 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView3.DataSource = dt;
+            dataGridView3.Columns["prodname"].HeaderText = "Ingredient";
+            dataGridView3.Columns["prod_quant"].HeaderText = "Consumption";
+            dataGridView3.Columns["prodquant"].HeaderText = "Stocks";
 
             updateOrderCount();
-            MessageBox.Show(selected_user_id1 + "");
 
         }
         private void lowStocks()
@@ -267,7 +260,7 @@ namespace WindowsFormsApplication1
             conn.Close();
 
             conn.Open();
-            nostock.Text = comm3.ExecuteScalar().ToString();
+            label33.Text = comm3.ExecuteScalar().ToString();
             conn.Close();
         }
         private void updateOrderCount()
@@ -298,8 +291,6 @@ namespace WindowsFormsApplication1
             {
                 int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
                 string id = dr["prod_id"] + "";
-                //MessageBox.Show(quantity + "");
-                // MessageBox.Show(dr["recipe_id"] + " " + dr["prod_id"] + " " + dr["prod_quant"]);
                 string queryb = "select * from product where prodid = " + id;
                 conn.Open();
                 MySqlCommand comm2 = new MySqlCommand(queryb, conn);
@@ -311,7 +302,6 @@ namespace WindowsFormsApplication1
                 foreach (DataRow dr2 in dt2.Rows)
                 {
                     int total_prod = Convert.ToInt32(dr2["prodquant"]);
-                    MessageBox.Show(total_prod + " " + quantity);
                     if (quantity > total_prod)
                     {
 
@@ -323,17 +313,14 @@ namespace WindowsFormsApplication1
             }
             if (Convert.ToInt32(textBox7.Text) == 0)
             {
-                //MessageBox.Show(2 + "");
                 MessageBox.Show("Please Fill Up Quantity Required Field", "Point of Sale", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                //MessageBox.Show(3 + "");
                 Total = Convert.ToDouble(textBox5.Text) * Convert.ToDouble(textBox7.Text);
                 textBox6.Text = Convert.ToString(Total);
-                if (Convert.ToInt32(nostock.Text) > 0)
+                if (Convert.ToInt32(label33.Text) > 0)
                 {
-                    //MessageBox.Show(4 + "");
                     string query2 = "select prodname from product a, recipe_item_list b, recipe_list c where c.recipe_id = " + selected_user_id1 + " AND prodquant <= restock_val AND c.recipe_id = b.recipe_id AND a.prodid = b.prod_id ";
                     conn.Open();
                     MySqlCommand comm = new MySqlCommand(query2, conn);
@@ -350,7 +337,6 @@ namespace WindowsFormsApplication1
                 }
                 else if (Convert.ToInt32(lowstock.Text) > 0)
                 {
-                    //MessageBox.Show(5 + "");
                     string query2 = "select prodname from product a, recipe_item_list b, recipe_list c where c.recipe_id = " + selected_user_id1 + " AND prodquant <= restock_val AND c.recipe_id = b.recipe_id AND a.prodid = b.prod_id ";
                     conn.Open();
                     MySqlCommand comm = new MySqlCommand(query2, conn);
@@ -367,10 +353,8 @@ namespace WindowsFormsApplication1
                 }
                 if (Convert.ToInt32(label13.Text) == 0)
                 {
-                    //MessageBox.Show(6 + "");
                     MessageBox.Show("ITEM ADDED TO THE ORDER");
                     string query = "INSERT INTO order_line(date_time, invoice_id, prod_id, prodname, category, prod_unit, prod_quant, prod_price, total) VALUES(CURRENT_DATE, '" + invoice_ui.Text + "', '" + textBox16.Text + "', '" + textBox3.Text + "', '" + textBox8.Text + "', '" + textBox9.Text + "', '" + textBox7.Text + "', '" + textBox5.Text + "', '" + textBox6.Text + "');";
-                    //MessageBox.Show(query + "");
                     conn.Open();
 
                     MySqlCommand comm = new MySqlCommand(query, conn);
@@ -381,11 +365,8 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    //MessageBox.Show(7 + "");
-                    //MessageBox.Show("ITEM UPDATED");
                     string query = " update order_line set prod_quant =  prod_quant + '" + textBox7.Text + "' , total = total + '" + textBox6.Text + "' where prod_id = '" + textBox16.Text + "' ";
                     conn.Open();
-                    //MessageBox.Show(query);
                     MySqlCommand comm = new MySqlCommand(query, conn);
                     comm.ExecuteNonQuery();
                     conn.Close();
@@ -596,7 +577,6 @@ namespace WindowsFormsApplication1
                 {
                     float.TryParse(label17.Text, out payable);
                     float.TryParse(textBox13.Text, out tendered);
-                    //MessageBox.Show(Convert.ToString(tendered + "-" + payable  ));
                     label29.Text = Convert.ToString(tendered - payable);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -651,7 +631,6 @@ namespace WindowsFormsApplication1
                             int[] data = new int[num];
                             for (int i = 0; i < num; i++)
                             {
-                                MessageBox.Show("index number " + i);
                                 int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                 int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
                                 string querya = "select * from recipe_item_list where recipe_id = " + recipe_id;
@@ -694,7 +673,6 @@ namespace WindowsFormsApplication1
                             int[] data0 = new int[num0];
                             for (int i = 0; i < num0; i++)
                             {
-                                MessageBox.Show("index number " + i);
                                 int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                 int recipe_quant = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
                                 string total_price0 = Convert.ToString(dataGridView1.Rows[i].Cells[9].Value.ToString());
@@ -802,7 +780,7 @@ namespace WindowsFormsApplication1
                                         {
                                             int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
                                             string id = dr["prod_id"] + "";
-                                            //MessageBox.Show(dr["recipe_id"] + " " + dr["prod_id"] + " " + dr["prod_quant"]);
+                                           
                                             string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
 
                                             conn.Open();
@@ -815,9 +793,9 @@ namespace WindowsFormsApplication1
 
                                     string query4 = "INSERT INTO sales_tbl(invoice_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + textBox2.Text + "' , '" + textBox10.Text + "'  )";
                                     conn.Open();
-                                    //MessageBox.Show(query + "");
+                                    
                                     MySqlCommand comm4 = new MySqlCommand(query4, conn);
-                                    MessageBox.Show(textBox10.Text + "total_price");
+                                   
                                     comm4.ExecuteNonQuery();
                                     conn.Close();
                                     MessageBox.Show("Invoice Submitted, Thank you");
@@ -876,7 +854,7 @@ namespace WindowsFormsApplication1
         private void button7_Click(object sender, EventArgs e)
         {
             string query1 = "select * from order_line where invoice_id = '" + textBox1.Text + "'  ";
-            //MessageBox.Show(query1);
+           
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
             MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
