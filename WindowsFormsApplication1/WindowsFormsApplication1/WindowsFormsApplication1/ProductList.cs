@@ -336,7 +336,7 @@ namespace WindowsFormsApplication1
         private void button3_Click(object sender, EventArgs e)
         {
             string query = "UPDATE product SET prodname = '" + textBox1.Text + "', description = '"
-                + textBox4.Text + "', category = '" + comboBox2.Text + "', exp_date = '"+exp_date.Value.Date.ToString("yyyy/MM/dd") +"' , prodquant = '" + textBox3.Text + "', produnit = '" + comboBox1.Text + "', restock_val = '" + textBox22.Text + "' WHERE prodid = " + selected_user_id + "  ";
+                + textBox4.Text + "', category = '" + comboBox2.Text + "', prodquant = '" + textBox3.Text + "', produnit = '" + comboBox1.Text + "', restock_val = '" + textBox22.Text + "' WHERE prodid = " + selected_user_id + "  ";
             conn.Open();
 
             MySqlCommand comm = new MySqlCommand(query, conn);

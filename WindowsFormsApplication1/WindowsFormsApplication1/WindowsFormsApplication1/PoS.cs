@@ -606,12 +606,12 @@ namespace WindowsFormsApplication1
 
                         if (Convert.ToDouble(label29.Text) >= 0)
                         {
-
+                            /*
 
                             Print a = new Print();
                             a.Show();
                             a.previousform = this;
-
+                            */
 
                             int num = 0;
                             string query = "select count(prod_id) from order_line " +
@@ -742,10 +742,7 @@ namespace WindowsFormsApplication1
                                 {
 
 
-
-                                    Print a = new Print();
-                                    a.Show();
-                                    a.previousform = this;
+                                  
 
 
                                     int num = 0;

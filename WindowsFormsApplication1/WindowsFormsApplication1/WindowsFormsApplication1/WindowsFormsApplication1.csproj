@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -66,17 +82,17 @@
     <Compile Include="dogMechSched.Designer.cs">
       <DependentUpon>dogMechSched.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form4.cs">
+    <Compile Include="Print.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form4.Designer.cs">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <Compile Include="Print.Designer.cs">
+      <DependentUpon>Print.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form5.cs">
+    <Compile Include="PlayhouseExtend.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form5.Designer.cs">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <Compile Include="PlayhouseExtend.Designer.cs">
+      <DependentUpon>PlayhouseExtend.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginTimePlayhouse.cs">
       <SubType>Form</SubType>
@@ -181,12 +197,6 @@
     <Compile Include="StaffScheduler.designer.cs">
       <DependentUpon>StaffScheduler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Print.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Print.Designer.cs">
-      <DependentUpon>Print.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CalendarVer2.resx">
@@ -198,11 +208,11 @@
     <EmbeddedResource Include="dogMechSched.resx">
       <DependentUpon>dogMechSched.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form4.resx">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <EmbeddedResource Include="Print.resx">
+      <DependentUpon>Print.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form5.resx">
-      <DependentUpon>Form5.cs</DependentUpon>
+    <EmbeddedResource Include="PlayhouseExtend.resx">
+      <DependentUpon>PlayhouseExtend.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginTimePlayhouse.resx">
       <DependentUpon>LoginTimePlayhouse.cs</DependentUpon>
@@ -213,7 +223,6 @@
     <EmbeddedResource Include="PlayhouseMangagement.resx">
       <DependentUpon>PlayhouseMangagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="Sales.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>Sales.cs</LastGenOutput>
@@ -251,9 +260,6 @@
     <EmbeddedResource Include="StaffScheduler.resx">
       <DependentUpon>StaffScheduler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Print.resx">
-      <DependentUpon>Print.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -263,7 +269,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="scheduleTasks.resx">
       <DependentUpon>scheduleTasks.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +292,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

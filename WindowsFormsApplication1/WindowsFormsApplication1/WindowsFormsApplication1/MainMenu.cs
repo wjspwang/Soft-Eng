@@ -21,7 +21,6 @@ namespace WindowsFormsApplication1
         public MainMenu()
         {
             InitializeComponent();
-            Form1 f2 = new Form1();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root;");
         }
 

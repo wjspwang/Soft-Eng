@@ -11,11 +11,11 @@ using MySql.Data.MySqlClient;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form4 : Form
+    public partial class PlayhouseExtend : Form
     {
         public Form previousform;
         string endtime;
-        public Form4()
+        public PlayhouseExtend()
         {
             InitializeComponent();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");

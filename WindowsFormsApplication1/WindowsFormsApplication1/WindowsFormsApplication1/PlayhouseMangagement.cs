@@ -462,7 +462,7 @@ namespace WindowsFormsApplication1
             else
             {
             //string endtime = eHour.Text + ":" + eMin.Text;
-            Form4 frm4 = new Form4();
+            PlayhouseExtend frm4 = new PlayhouseExtend();
             frm4.selected_user_id = Convert.ToInt32(this.selected_user_id);
             frm4.lname = lname.Text;
             frm4.fname = fname.Text;

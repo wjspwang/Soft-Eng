@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form4
+    partial class PlayhouseExtend
     {
         /// <summary>
         /// Required designer variable.

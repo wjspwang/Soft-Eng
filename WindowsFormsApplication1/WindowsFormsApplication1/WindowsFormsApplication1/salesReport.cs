@@ -124,5 +124,11 @@ namespace WindowsFormsApplication1
         {
             previousform.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Print prnt = new Print();
+            prnt.Show();
+        }
     }
 }
