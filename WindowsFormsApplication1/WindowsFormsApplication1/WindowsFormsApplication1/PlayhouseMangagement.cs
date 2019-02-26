@@ -431,23 +431,49 @@ namespace WindowsFormsApplication1
             }
             else
             {
-            DialogResult dialogResult = MessageBox.Show("Deleting Entry", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
-            if (dialogResult == DialogResult.OK)
-            {
-                string query = "DELETE FROM playhouse WHERE playhouse_id = '" + selected_playhouse_id + "'; ";
-                conn.Open();
-                MySqlCommand comm = new MySqlCommand(query, conn);
-                comm.ExecuteNonQuery();
-                conn.Close();
-                loadall();
-                fname.Clear();
-                lname.Clear();
-                MessageBox.Show("Successfully Deleted", "Successfully Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (dialogResult == DialogResult.Cancel)
-            {
-                return;
-            }
+                    string check = "select status from playhouse WHERE playhouse_id = " + selected_playhouse_id + "";
+                    string query = "UPDATE playhouse SET status = 'OUT' WHERE playhouse_id = "+selected_playhouse_id+"";
+                    conn.Open();
+                    MySqlCommand comm_check = new MySqlCommand(check, conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(comm_check);
+                    DataTable dt = new DataTable();
+                    adp.Fill(dt);
+                    conn.Close();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string checker = dr["status"] + "";
+                        if (checker == "IN")
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Customer Time has not expired yet", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                            if (dialogResult == DialogResult.OK)
+                            {
+                            conn.Open();
+                            MySqlCommand comm = new MySqlCommand(query, conn);
+                            comm.ExecuteNonQuery();
+                            conn.Close();
+                            ShowTodayIn();
+                            fname.Clear();
+                            lname.Clear();
+                            }
+                            else if (dialogResult == DialogResult.Cancel)
+                            {
+                            return;
+                            }
+                        }else if(checker == "Expired")
+                    {
+                        conn.Open();
+                        MySqlCommand comm = new MySqlCommand(query, conn);
+                        comm.ExecuteNonQuery();
+                        conn.Close();
+                        ShowTodayIn();
+                        fname.Clear();
+                        lname.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Customer already logged out");
+                    }
+                    }
             }
             
             
@@ -518,6 +544,11 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
+            ShowTodayIn();
+        }
+
+        private void ShowTodayIn()
+        {
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
             fname.Text = firstname;
             lname.Text = lastname;
@@ -548,7 +579,6 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["end_time"].HeaderText = "Time End";
             dataGridView2.Columns["status"].HeaderText = "Status";
         }
-
         private void button7_Click(object sender, EventArgs e)
         {
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
@@ -583,6 +613,11 @@ namespace WindowsFormsApplication1
         }
 
         private void button6_Click(object sender, EventArgs e)
+        {
+            ShowTodayAll();
+        }
+
+        private void ShowTodayAll()
         {
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
             fname.Text = firstname;
@@ -888,6 +923,11 @@ namespace WindowsFormsApplication1
                 lname.Text = textBox1.Text;
                 gbSelect.Visible = false;
             }
+        }
+
+        private void gbSelect_Enter(object sender, EventArgs e)
+        {
+
         }
     }
         

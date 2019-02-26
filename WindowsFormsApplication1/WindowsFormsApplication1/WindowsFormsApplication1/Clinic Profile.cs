@@ -23,6 +23,7 @@ namespace WindowsFormsApplication1
 
         private void Form3_Load(object sender, EventArgs e)
         {
+
             loadall();
         }
 
@@ -182,10 +183,16 @@ namespace WindowsFormsApplication1
 
         private void button5_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text.Contains("'") || textBox2.Text.Contains("'"))
+            {
+                textBox1.Text = textBox1.Text.Replace("'", "''");
+                textBox2.Text = textBox2.Text.Replace("'", "''");
+                MessageBox.Show(textBox1.Text + " "+ textBox2.Text);
+            }
             string search = "select * from dog_clinic where clinic_name like '%"+
-                textBox1.Text+"%' AND clinic_address like '%"+
-                textBox2.Text+"%' AND clinic_contact like '%"+textBox3.Text+"%'  ";
-
+                textBox1.Text + "%' AND clinic_address like '%"+
+                textBox2.Text + "%' AND clinic_contact like '%"+textBox3.Text+"%'  ";
+            
             if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "")
             {
                 string qry = "select * from dog_clinic";
@@ -220,5 +227,6 @@ namespace WindowsFormsApplication1
                 MessageBox.Show(dt.Rows.Count + " Clinics Found");
             }
         }
+
     }
 }

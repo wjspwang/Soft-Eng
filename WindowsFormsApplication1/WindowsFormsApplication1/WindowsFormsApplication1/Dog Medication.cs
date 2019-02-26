@@ -15,6 +15,12 @@ namespace WindowsFormsApplication1
     {
         MySqlConnection conn;
         public Form previousform;
+
+        string clinic_name;
+        public Form2(string clinic_name)
+        {
+            this.clinic_name = clinic_name;
+        }
         public Form2()
         {
             InitializeComponent();
@@ -24,8 +30,19 @@ namespace WindowsFormsApplication1
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            date.Value = DateTime.Now.Date;
-            loadall();
+            if(clinic_name != null)
+            {
+                clinic_text.Text = clinic_name;
+                date.Value = DateTime.Now.Date;
+                loadall();
+            }
+            else
+            {
+                date.Value = DateTime.Now.Date;
+                loadall();
+            }
+
+            
         }
 
         void loadall()
@@ -305,11 +322,6 @@ namespace WindowsFormsApplication1
         private void button5_Click(object sender, EventArgs e)
         {
             loadall();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button7_Click(object sender, EventArgs e)

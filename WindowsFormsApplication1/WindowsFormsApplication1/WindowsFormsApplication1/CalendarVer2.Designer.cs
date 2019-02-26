@@ -42,6 +42,8 @@
             this.from_date = new System.Windows.Forms.DateTimePicker();
             this.to_date = new System.Windows.Forms.DateTimePicker();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +93,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(737, 195);
+            this.button1.Location = new System.Drawing.Point(737, 297);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(186, 45);
             this.button1.TabIndex = 4;
@@ -104,7 +106,7 @@
             this.SearchByLabel.AutoSize = true;
             this.SearchByLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchByLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SearchByLabel.Location = new System.Drawing.Point(737, 243);
+            this.SearchByLabel.Location = new System.Drawing.Point(737, 345);
             this.SearchByLabel.Name = "SearchByLabel";
             this.SearchByLabel.Size = new System.Drawing.Size(127, 29);
             this.SearchByLabel.TabIndex = 5;
@@ -122,7 +124,7 @@
             "First Name",
             "Date",
             "Shift"});
-            this.SearchByBox.Location = new System.Drawing.Point(742, 275);
+            this.SearchByBox.Location = new System.Drawing.Point(742, 377);
             this.SearchByBox.Name = "SearchByBox";
             this.SearchByBox.Size = new System.Drawing.Size(181, 28);
             this.SearchByBox.TabIndex = 6;
@@ -134,7 +136,7 @@
             this.InputLbl.AutoSize = true;
             this.InputLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InputLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.InputLbl.Location = new System.Drawing.Point(737, 306);
+            this.InputLbl.Location = new System.Drawing.Point(737, 408);
             this.InputLbl.Name = "InputLbl";
             this.InputLbl.Size = new System.Drawing.Size(71, 26);
             this.InputLbl.TabIndex = 7;
@@ -144,7 +146,7 @@
             // inputField
             // 
             this.inputField.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputField.Location = new System.Drawing.Point(742, 335);
+            this.inputField.Location = new System.Drawing.Point(742, 437);
             this.inputField.Name = "inputField";
             this.inputField.Size = new System.Drawing.Size(181, 26);
             this.inputField.TabIndex = 8;
@@ -159,7 +161,7 @@
             this.endDateLbl.AutoSize = true;
             this.endDateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endDateLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.endDateLbl.Location = new System.Drawing.Point(737, 400);
+            this.endDateLbl.Location = new System.Drawing.Point(737, 515);
             this.endDateLbl.Name = "endDateLbl";
             this.endDateLbl.Size = new System.Drawing.Size(36, 26);
             this.endDateLbl.TabIndex = 9;
@@ -171,7 +173,7 @@
             this.startDateLbl.AutoSize = true;
             this.startDateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startDateLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.startDateLbl.Location = new System.Drawing.Point(737, 338);
+            this.startDateLbl.Location = new System.Drawing.Point(737, 440);
             this.startDateLbl.Name = "startDateLbl";
             this.startDateLbl.Size = new System.Drawing.Size(63, 26);
             this.startDateLbl.TabIndex = 11;
@@ -184,7 +186,7 @@
             this.from_date.CustomFormat = "yyyy/MM/dd";
             this.from_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.from_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.from_date.Location = new System.Drawing.Point(742, 367);
+            this.from_date.Location = new System.Drawing.Point(742, 469);
             this.from_date.Name = "from_date";
             this.from_date.Size = new System.Drawing.Size(181, 30);
             this.from_date.TabIndex = 52;
@@ -197,7 +199,7 @@
             this.to_date.CustomFormat = "yyyy/MM/dd";
             this.to_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.to_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.to_date.Location = new System.Drawing.Point(742, 429);
+            this.to_date.Location = new System.Drawing.Point(742, 531);
             this.to_date.Name = "to_date";
             this.to_date.Size = new System.Drawing.Size(181, 30);
             this.to_date.TabIndex = 53;
@@ -215,12 +217,34 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(737, 195);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(186, 45);
+            this.button3.TabIndex = 55;
+            this.button3.Text = "Show Past Sched";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(737, 246);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(186, 45);
+            this.button4.TabIndex = 56;
+            this.button4.Text = "Show Incoming Sched";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // CalendarVer2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(950, 701);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.to_date);
             this.Controls.Add(this.from_date);
@@ -261,5 +285,7 @@
         private System.Windows.Forms.DateTimePicker from_date;
         private System.Windows.Forms.DateTimePicker to_date;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
     }
 }

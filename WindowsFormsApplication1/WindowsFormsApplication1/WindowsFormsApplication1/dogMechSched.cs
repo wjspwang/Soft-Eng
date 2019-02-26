@@ -56,10 +56,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void ClearBtn_Click(object sender, EventArgs e)
-        {
-            loadall();
-        }
+
 
         private void ShowAllBtn_Click(object sender, EventArgs e)
         {
@@ -188,6 +185,129 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView1.DataSource = dt;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ShowToday();
+        }
+        public void ShowToday()
+        {
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "select dc_dogsched.dog_id, dog_name," +
+                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
+                " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+                //  "inner join person on staff.person_id = person.person_id  " +
+                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date = '"+ cur_date + "' " +
+                "order by dogsched_date, dogstart_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_vaccination"].HeaderText = "Medication";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+        }
+        public void ShowIncoming()
+        {
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "select dc_dogsched.dog_id, dog_name," +
+                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
+                " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+                //  "inner join person on staff.person_id = person.person_id  " +
+                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date >= '" + cur_date + "' " +
+                "order by dogsched_date, dogstart_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_vaccination"].HeaderText = "Medication";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+        }
+        public void ShowPast()
+        {
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "select dc_dogsched.dog_id, dog_name," +
+                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
+                " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+                //  "inner join person on staff.person_id = person.person_id  " +
+                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date < '" + cur_date + "' " +
+                "order by dogsched_date, dogstart_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_vaccination"].HeaderText = "Medication";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ShowPast();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ShowIncoming();
+        }
+        int selected_clinic_id;
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                selected_clinic_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["dog_id"].Value.ToString());
+                dog_name.Text = dataGridView1.Rows[e.RowIndex].Cells["dog_name"].Value.ToString();
+                dog_status.Text = dataGridView1.Rows[e.RowIndex].Cells["dog_status"].Value.ToString();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if(comboBox1.Text == "")
+            {
+                return;
+            }
+            string query = "update dc_dogsched set dog_status = " + dog_status.Text + " WHERE dogsched_id = "+selected_clinic_id+" ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            comm.ExecuteNonQuery();
+            conn.Close();
+            MessageBox.Show("Status Updated");
         }
     }
 }

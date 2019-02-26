@@ -457,5 +457,43 @@ namespace WindowsFormsApplication1
         {
 
         }
+        //past sched
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+
+            string query = "select dc_sched.staff_id, fname" +
+               ", lname ,sched_start, sched_end, sched_date, start_time, end_time," +
+               " status from staff inner join person on staff.person_id = person.person_id" +
+               "  inner join dc_sched on staff.staff_id = dc_sched.staff_id where sched_date < '" +
+                 cur_date + "' order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            Debug.WriteLine(query);
+            dataGridView1.DataSource = dt;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+
+            string query = "select dc_sched.staff_id, fname" +
+               ", lname ,sched_start, sched_end, sched_date, start_time, end_time," +
+               " status from staff inner join person on staff.person_id = person.person_id" +
+               "  inner join dc_sched on staff.staff_id = dc_sched.staff_id where sched_date >= '" +
+                 cur_date + "' order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            Debug.WriteLine(query);
+            dataGridView1.DataSource = dt;
+        }
     }
 }
