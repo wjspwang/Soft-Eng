@@ -51,12 +51,16 @@
             this.dog_status = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(933, 637);
+            this.button2.Location = new System.Drawing.Point(933, 601);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 45);
             this.button2.TabIndex = 68;
@@ -69,7 +73,7 @@
             this.to_date.CustomFormat = "yyyy/MM/dd";
             this.to_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.to_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.to_date.Location = new System.Drawing.Point(938, 523);
+            this.to_date.Location = new System.Drawing.Point(933, 533);
             this.to_date.Name = "to_date";
             this.to_date.Size = new System.Drawing.Size(166, 30);
             this.to_date.TabIndex = 67;
@@ -82,7 +86,7 @@
             this.from_date.CustomFormat = "yyyy/MM/dd";
             this.from_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.from_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.from_date.Location = new System.Drawing.Point(938, 461);
+            this.from_date.Location = new System.Drawing.Point(933, 471);
             this.from_date.Name = "from_date";
             this.from_date.Size = new System.Drawing.Size(166, 30);
             this.from_date.TabIndex = 66;
@@ -95,7 +99,7 @@
             this.startDateLbl.AutoSize = true;
             this.startDateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startDateLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.startDateLbl.Location = new System.Drawing.Point(933, 432);
+            this.startDateLbl.Location = new System.Drawing.Point(928, 442);
             this.startDateLbl.Name = "startDateLbl";
             this.startDateLbl.Size = new System.Drawing.Size(63, 26);
             this.startDateLbl.TabIndex = 65;
@@ -107,7 +111,7 @@
             this.endDateLbl.AutoSize = true;
             this.endDateLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.endDateLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.endDateLbl.Location = new System.Drawing.Point(933, 494);
+            this.endDateLbl.Location = new System.Drawing.Point(928, 504);
             this.endDateLbl.Name = "endDateLbl";
             this.endDateLbl.Size = new System.Drawing.Size(36, 26);
             this.endDateLbl.TabIndex = 64;
@@ -117,7 +121,7 @@
             // inputField
             // 
             this.inputField.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputField.Location = new System.Drawing.Point(938, 429);
+            this.inputField.Location = new System.Drawing.Point(933, 439);
             this.inputField.Name = "inputField";
             this.inputField.Size = new System.Drawing.Size(159, 26);
             this.inputField.TabIndex = 63;
@@ -129,7 +133,7 @@
             this.InputLbl.AutoSize = true;
             this.InputLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InputLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.InputLbl.Location = new System.Drawing.Point(933, 400);
+            this.InputLbl.Location = new System.Drawing.Point(928, 410);
             this.InputLbl.Name = "InputLbl";
             this.InputLbl.Size = new System.Drawing.Size(71, 26);
             this.InputLbl.TabIndex = 62;
@@ -145,7 +149,7 @@
             "Dog Name",
             "Breed",
             "Date"});
-            this.SearchByBox.Location = new System.Drawing.Point(938, 369);
+            this.SearchByBox.Location = new System.Drawing.Point(933, 379);
             this.SearchByBox.Name = "SearchByBox";
             this.SearchByBox.Size = new System.Drawing.Size(181, 28);
             this.SearchByBox.TabIndex = 61;
@@ -156,7 +160,7 @@
             this.SearchByLabel.AutoSize = true;
             this.SearchByLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SearchByLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SearchByLabel.Location = new System.Drawing.Point(933, 337);
+            this.SearchByLabel.Location = new System.Drawing.Point(928, 347);
             this.SearchByLabel.Name = "SearchByLabel";
             this.SearchByLabel.Size = new System.Drawing.Size(127, 29);
             this.SearchByLabel.TabIndex = 60;
@@ -240,10 +244,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(495, 524);
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(480, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 29);
             this.label2.TabIndex = 73;
@@ -252,9 +256,9 @@
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(735, 574);
+            this.button6.Location = new System.Drawing.Point(781, 601);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(129, 36);
+            this.button6.Size = new System.Drawing.Size(129, 45);
             this.button6.TabIndex = 74;
             this.button6.Text = "Update";
             this.button6.UseVisualStyleBackColor = true;
@@ -268,7 +272,7 @@
             "Taken",
             "To Be Taken",
             "Not Taken"});
-            this.comboBox1.Location = new System.Drawing.Point(484, 574);
+            this.comboBox1.Location = new System.Drawing.Point(469, 82);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(213, 37);
             this.comboBox1.TabIndex = 75;
@@ -278,8 +282,8 @@
             this.dog_name.AutoSize = true;
             this.dog_name.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dog_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dog_name.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dog_name.Location = new System.Drawing.Point(44, 578);
+            this.dog_name.ForeColor = System.Drawing.SystemColors.Control;
+            this.dog_name.Location = new System.Drawing.Point(29, 86);
             this.dog_name.Name = "dog_name";
             this.dog_name.Size = new System.Drawing.Size(0, 29);
             this.dog_name.TabIndex = 76;
@@ -289,8 +293,8 @@
             this.dog_status.AutoSize = true;
             this.dog_status.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dog_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dog_status.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dog_status.Location = new System.Drawing.Point(217, 577);
+            this.dog_status.ForeColor = System.Drawing.SystemColors.Control;
+            this.dog_status.Location = new System.Drawing.Point(202, 85);
             this.dog_status.Name = "dog_status";
             this.dog_status.Size = new System.Drawing.Size(0, 29);
             this.dog_status.TabIndex = 77;
@@ -298,10 +302,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(217, 523);
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(202, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 29);
             this.label3.TabIndex = 79;
@@ -310,28 +314,62 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(44, 523);
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
+            this.label4.Location = new System.Drawing.Point(29, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 29);
             this.label4.TabIndex = 78;
             this.label4.Text = "Name";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.groupBox1.Controls.Add(this.button8);
+            this.groupBox1.Controls.Add(this.button7);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.dog_status);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.dog_name);
+            this.groupBox1.Location = new System.Drawing.Point(49, 497);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(861, 197);
+            this.groupBox1.TabIndex = 80;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Visible = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(440, 136);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(201, 51);
+            this.button8.TabIndex = 80;
+            this.button8.Text = "Save";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(657, 136);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(188, 51);
+            this.button7.TabIndex = 0;
+            this.button7.Text = "Back";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // dogMedSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1150, 698);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.dog_status);
-            this.Controls.Add(this.dog_name);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -350,9 +388,11 @@
             this.Controls.Add(this.dataGridView1);
             this.Name = "dogMedSched";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form4";
+            this.Text = "Clinic Schedule";
             this.Load += new System.EventHandler(this.dogMedSched_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,5 +423,8 @@
         private System.Windows.Forms.Label dog_status;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }

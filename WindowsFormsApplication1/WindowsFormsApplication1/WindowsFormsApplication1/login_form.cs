@@ -96,6 +96,7 @@ namespace WindowsFormsApplication1
                 f.previousform = this;
             }
             else MessageBox.Show("Wrong username or password", "Please type again", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            btnpass.Text = "";
         }
 
         private void btnuser_TextChanged(object sender, EventArgs e)

@@ -306,7 +306,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage1.Controls.Add(this.label40);
             this.tabPage1.Controls.Add(this.label39);
             this.tabPage1.Controls.Add(this.label34);
@@ -494,7 +494,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Black;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage2.Controls.Add(this.label45);
             this.tabPage2.Controls.Add(this.exp_date);
             this.tabPage2.Controls.Add(this.Search_btn);
@@ -857,7 +857,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.BackColor = System.Drawing.Color.Black;
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage3.Controls.Add(this.button15);
             this.tabPage3.Controls.Add(this.dataGridView4);
             this.tabPage3.Controls.Add(this.label22);
@@ -1159,7 +1159,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.BackColor = System.Drawing.Color.Black;
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tabPage4.Controls.Add(this.button25);
             this.tabPage4.Controls.Add(this.button19);
             this.tabPage4.Controls.Add(this.button26);
@@ -1192,10 +1192,10 @@
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(708, 591);
+            this.button25.Location = new System.Drawing.Point(694, 591);
             this.button25.Margin = new System.Windows.Forms.Padding(4);
             this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(100, 46);
+            this.button25.Size = new System.Drawing.Size(135, 46);
             this.button25.TabIndex = 99;
             this.button25.Text = "Update";
             this.button25.UseVisualStyleBackColor = true;
@@ -1206,7 +1206,7 @@
             this.button19.Location = new System.Drawing.Point(541, 591);
             this.button19.Margin = new System.Windows.Forms.Padding(4);
             this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(140, 46);
+            this.button19.Size = new System.Drawing.Size(145, 46);
             this.button19.TabIndex = 98;
             this.button19.Text = "Add Product";
             this.button19.UseVisualStyleBackColor = true;
@@ -1449,7 +1449,7 @@
             this.comboBox8.Location = new System.Drawing.Point(213, 302);
             this.comboBox8.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(231, 32);
+            this.comboBox8.Size = new System.Drawing.Size(254, 32);
             this.comboBox8.TabIndex = 101;
             // 
             // textBox23
@@ -1459,7 +1459,7 @@
             this.textBox23.Location = new System.Drawing.Point(33, 302);
             this.textBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(111, 34);
+            this.textBox23.Size = new System.Drawing.Size(173, 34);
             this.textBox23.TabIndex = 100;
             // 
             // label37
@@ -1486,10 +1486,10 @@
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(168, 374);
+            this.button23.Location = new System.Drawing.Point(172, 374);
             this.button23.Margin = new System.Windows.Forms.Padding(4);
             this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(100, 46);
+            this.button23.Size = new System.Drawing.Size(142, 46);
             this.button23.TabIndex = 90;
             this.button23.Text = "Update";
             this.button23.UseVisualStyleBackColor = true;
@@ -1568,7 +1568,7 @@
             this.button16.Location = new System.Drawing.Point(33, 374);
             this.button16.Margin = new System.Windows.Forms.Padding(4);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(100, 46);
+            this.button16.Size = new System.Drawing.Size(131, 46);
             this.button16.TabIndex = 76;
             this.button16.Text = "Add";
             this.button16.UseVisualStyleBackColor = true;
@@ -1597,10 +1597,10 @@
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(308, 374);
+            this.button17.Location = new System.Drawing.Point(322, 374);
             this.button17.Margin = new System.Windows.Forms.Padding(4);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(137, 46);
+            this.button17.Size = new System.Drawing.Size(146, 46);
             this.button17.TabIndex = 79;
             this.button17.Text = "Remove";
             this.button17.UseVisualStyleBackColor = true;
@@ -1688,7 +1688,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1679, 933);
             this.Controls.Add(this.button27);
             this.Controls.Add(this.button22);
@@ -1696,7 +1696,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ProductList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "d";
+            this.Text = "Product List";
             this.Activated += new System.EventHandler(this.Form5_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductList_FormClosing);
             this.Load += new System.EventHandler(this.Form5_Load);

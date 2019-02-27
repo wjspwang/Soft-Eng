@@ -25,11 +25,12 @@ namespace WindowsFormsApplication1
 
         private void dogMedSched_Load(object sender, EventArgs e)
         {
+            
             loadall();
         }
         public void loadall()
         {
-            string query = "select dc_dogsched.dog_id, dog_name," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
               //  "inner join person on staff.person_id = person.person_id  " +
@@ -43,6 +44,7 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
             dataGridView1.Columns["dog_id"].Visible = false;
             dataGridView1.Columns["dogsched_start"].Visible = false;
             dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -104,7 +106,7 @@ namespace WindowsFormsApplication1
         {
             if (SearchByBox.Text == "Dog Name")
             {
-                string query = "select dc_dogsched.dog_id, dog_name ,dog_breed, dogsched_start, dogsched_end, dogsched_date, dogstart_time, dogend_time, dog_vaccination, dog_status from dog inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dog_name like '%" + inputField.Text + "%' order by dogsched_date";
+                string query = "select dogsched_id, dc_dogsched.dog_id, dog_name ,dog_breed, dogsched_start, dogsched_end, dogsched_date, dogstart_time, dogend_time, dog_vaccination, dog_status from dog inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dog_name like '%" + inputField.Text + "%' order by dogsched_date";
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(query, conn);
                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -113,6 +115,7 @@ namespace WindowsFormsApplication1
                 adp.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                dataGridView1.Columns["dogsched_id"].Visible = false;
                 dataGridView1.Columns["dog_id"].Visible = false;
                 dataGridView1.Columns["dogsched_start"].Visible = false;
                 dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -126,7 +129,7 @@ namespace WindowsFormsApplication1
             }
             else if (SearchByBox.Text == "Breed")
             {
-                string query = "select dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
+                string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
                     " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
                     "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dog_breed like '%" + inputField.Text + "%' order by dogsched_date";
                 conn.Open();
@@ -137,6 +140,7 @@ namespace WindowsFormsApplication1
                 adp.Fill(dt);
 
                 dataGridView1.DataSource = dt;
+                dataGridView1.Columns["dogsched_id"].Visible = false;
                 dataGridView1.Columns["dog_id"].Visible = false;
                 dataGridView1.Columns["dogsched_start"].Visible = false;
                 dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -157,7 +161,7 @@ namespace WindowsFormsApplication1
 
         private void from_date_ValueChanged(object sender, EventArgs e)
         {
-            string query = "select dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
                     " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
                     "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date >= '" +
                from_date.Text + "' AND dogsched_date <= '" + to_date.Text + "' order by dogsched_date, dogstart_time";
@@ -173,7 +177,7 @@ namespace WindowsFormsApplication1
 
         private void to_date_ValueChanged(object sender, EventArgs e)
         {
-            string query = "select dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
                     " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
                     "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date >= '" +
                from_date.Text + "' AND dogsched_date <= '" + to_date.Text + "' order by dogsched_date, dogstart_time";
@@ -194,7 +198,7 @@ namespace WindowsFormsApplication1
         public void ShowToday()
         {
             string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string query = "select dc_dogsched.dog_id, dog_name," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
                 //  "inner join person on staff.person_id = person.person_id  " +
@@ -208,6 +212,7 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
             dataGridView1.Columns["dog_id"].Visible = false;
             dataGridView1.Columns["dogsched_start"].Visible = false;
             dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -222,7 +227,7 @@ namespace WindowsFormsApplication1
         public void ShowIncoming()
         {
             string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string query = "select dc_dogsched.dog_id, dog_name," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
                 //  "inner join person on staff.person_id = person.person_id  " +
@@ -236,6 +241,7 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
             dataGridView1.Columns["dog_id"].Visible = false;
             dataGridView1.Columns["dogsched_start"].Visible = false;
             dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -250,7 +256,7 @@ namespace WindowsFormsApplication1
         public void ShowPast()
         {
             string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string query = "select dc_dogsched.dog_id, dog_name," +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
                 //  "inner join person on staff.person_id = person.person_id  " +
@@ -264,6 +270,7 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
 
             dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
             dataGridView1.Columns["dog_id"].Visible = false;
             dataGridView1.Columns["dogsched_start"].Visible = false;
             dataGridView1.Columns["dogsched_end"].Visible = false;
@@ -285,12 +292,12 @@ namespace WindowsFormsApplication1
         {
             ShowIncoming();
         }
-        int selected_clinic_id;
+        int selected_dogsched_id;
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                selected_clinic_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["dog_id"].Value.ToString());
+                selected_dogsched_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["dogsched_id"].Value.ToString());
                 dog_name.Text = dataGridView1.Rows[e.RowIndex].Cells["dog_name"].Value.ToString();
                 dog_status.Text = dataGridView1.Rows[e.RowIndex].Cells["dog_status"].Value.ToString();
             }
@@ -298,16 +305,52 @@ namespace WindowsFormsApplication1
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if(comboBox1.Text == "")
+            if (dataGridView1.SelectedRows.Count > 0 && dataGridView1.SelectedRows.Count < 2) 
             {
-                return;
+                groupBox1.Visible = true;
+
+
+                
             }
-            string query = "update dc_dogsched set dog_status = " + dog_status.Text + " WHERE dogsched_id = "+selected_clinic_id+" ";
-            conn.Open();
-            MySqlCommand comm = new MySqlCommand(query, conn);
-            comm.ExecuteNonQuery();
-            conn.Close();
-            MessageBox.Show("Status Updated");
+            else
+            {
+                MessageBox.Show("Select a report");
+            }
+            
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            groupBox1.Visible = false;
+            comboBox1.Text = "";
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "")
+            {
+                MessageBox.Show("Fill out combo box!");
+            }
+            else
+            {
+                if (comboBox1.Text == "")
+                {
+                    return;
+                }
+                string query = "UPDATE dc_dogsched set dog_status = '" + comboBox1.Text + "' WHERE dogsched_id = " + selected_dogsched_id + " ";
+                //MessageBox.Show(query);
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.ExecuteNonQuery();
+                conn.Close();
+                MessageBox.Show("Status Updated");
+                loadall();
+            }
         }
     }
 }

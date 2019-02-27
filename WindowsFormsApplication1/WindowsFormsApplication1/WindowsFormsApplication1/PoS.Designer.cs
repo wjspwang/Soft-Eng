@@ -67,6 +67,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.lowstock = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
@@ -92,7 +93,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.invoice_ui = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -150,7 +150,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Controls.Add(this.button4);
@@ -181,7 +181,6 @@
             this.groupBox1.Size = new System.Drawing.Size(1243, 814);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // comboBox1
@@ -307,7 +306,6 @@
             this.groupBox2.Size = new System.Drawing.Size(661, 246);
             this.groupBox2.TabIndex = 38;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // label29
@@ -648,8 +646,18 @@
             this.groupBox3.Size = new System.Drawing.Size(709, 820);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label34.Location = new System.Drawing.Point(346, 320);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(170, 29);
+            this.label34.TabIndex = 38;
+            this.label34.Text = "Recipe Details";
             // 
             // label33
             // 
@@ -940,23 +948,12 @@
             this.invoice_ui.Text = "Current Invoice #";
             this.invoice_ui.Click += new System.EventHandler(this.invoice_ui_Click);
             // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label34.Location = new System.Drawing.Point(346, 320);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(170, 29);
-            this.label34.TabIndex = 38;
-            this.label34.Text = "Recipe Details";
-            // 
             // PoS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1924, 894);
             this.Controls.Add(this.invoice_ui);
             this.Controls.Add(this.label32);
@@ -968,7 +965,7 @@
             this.MinimizeBox = false;
             this.Name = "PoS";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form8";
+            this.Text = "POS";
             this.Activated += new System.EventHandler(this.Form8_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PoS_FormClosing);
             this.Load += new System.EventHandler(this.Form8_Load);

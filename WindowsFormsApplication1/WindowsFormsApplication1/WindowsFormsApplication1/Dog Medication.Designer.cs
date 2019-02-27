@@ -261,7 +261,7 @@
             this.date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date.Location = new System.Drawing.Point(550, 257);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(176, 34);
+            this.date.Size = new System.Drawing.Size(262, 34);
             this.date.TabIndex = 82;
             this.date.Value = new System.DateTime(2018, 7, 18, 0, 0, 0, 0);
             // 
@@ -320,7 +320,7 @@
             this.dog_breed.Location = new System.Drawing.Point(551, 156);
             this.dog_breed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dog_breed.Name = "dog_breed";
-            this.dog_breed.Size = new System.Drawing.Size(175, 33);
+            this.dog_breed.Size = new System.Drawing.Size(261, 33);
             this.dog_breed.TabIndex = 75;
             // 
             // dog_name
@@ -333,7 +333,7 @@
             this.dog_name.Location = new System.Drawing.Point(550, 101);
             this.dog_name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dog_name.Name = "dog_name";
-            this.dog_name.Size = new System.Drawing.Size(176, 33);
+            this.dog_name.Size = new System.Drawing.Size(262, 33);
             this.dog_name.TabIndex = 74;
             // 
             // contextMenuStrip1
@@ -365,10 +365,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(607, 527);
+            this.button2.Location = new System.Drawing.Point(619, 527);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 42);
+            this.button2.Size = new System.Drawing.Size(193, 42);
             this.button2.TabIndex = 72;
             this.button2.Text = "Medical History";
             this.button2.UseVisualStyleBackColor = false;
@@ -377,10 +377,10 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(442, 527);
+            this.button1.Location = new System.Drawing.Point(387, 527);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 42);
+            this.button1.Size = new System.Drawing.Size(220, 42);
             this.button1.TabIndex = 71;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = false;
@@ -432,7 +432,7 @@
             "To Be Taken"});
             this.comboBox1.Location = new System.Drawing.Point(549, 458);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(178, 37);
+            this.comboBox1.Size = new System.Drawing.Size(263, 37);
             this.comboBox1.TabIndex = 97;
             // 
             // label12
@@ -457,7 +457,7 @@
             this.clinic_text.Location = new System.Drawing.Point(549, 207);
             this.clinic_text.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clinic_text.Name = "clinic_text";
-            this.clinic_text.Size = new System.Drawing.Size(177, 33);
+            this.clinic_text.Size = new System.Drawing.Size(195, 33);
             this.clinic_text.TabIndex = 98;
             // 
             // dog_id
@@ -523,7 +523,7 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(732, 207);
+            this.button7.Location = new System.Drawing.Point(750, 207);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(62, 30);
             this.button7.TabIndex = 106;
@@ -536,7 +536,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1553, 633);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.vacc_Text);
@@ -576,7 +576,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form2";
+            this.Text = "Dog Medication";
             this.Activated += new System.EventHandler(this.Form2_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);

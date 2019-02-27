@@ -107,7 +107,7 @@
             this.button1.Location = new System.Drawing.Point(400, 399);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 42);
+            this.button1.Size = new System.Drawing.Size(202, 42);
             this.button1.TabIndex = 26;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = false;
@@ -116,10 +116,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(563, 399);
+            this.button2.Location = new System.Drawing.Point(610, 399);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 42);
+            this.button2.Size = new System.Drawing.Size(188, 42);
             this.button2.TabIndex = 27;
             this.button2.Text = "Calendar";
             this.button2.UseVisualStyleBackColor = false;
@@ -213,7 +213,7 @@
             "Cashier"});
             this.act_box.Location = new System.Drawing.Point(562, 340);
             this.act_box.Name = "act_box";
-            this.act_box.Size = new System.Drawing.Size(166, 37);
+            this.act_box.Size = new System.Drawing.Size(233, 37);
             this.act_box.TabIndex = 45;
             this.act_box.SelectedIndexChanged += new System.EventHandler(this.act_box_SelectedIndexChanged);
             this.act_box.TextChanged += new System.EventHandler(this.act_box_TextChanged);
@@ -235,7 +235,7 @@
             this.date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date.Location = new System.Drawing.Point(562, 170);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(166, 34);
+            this.date.Size = new System.Drawing.Size(233, 34);
             this.date.TabIndex = 51;
             this.date.Value = new System.DateTime(2018, 7, 18, 0, 0, 0, 0);
             // 
@@ -451,7 +451,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1285, 619);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.createStaff);
@@ -485,7 +485,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "StaffScheduler";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form9";
+            this.Text = "Staff Scheduling";
             this.Activated += new System.EventHandler(this.Form9_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StaffScheduler_FormClosing);
             this.Load += new System.EventHandler(this.Form9_Load);
