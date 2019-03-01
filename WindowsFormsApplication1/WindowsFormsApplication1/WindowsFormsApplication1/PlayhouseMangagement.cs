@@ -929,6 +929,18 @@ namespace WindowsFormsApplication1
         {
 
         }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
+            dt = dataGridView2.DataSource as DataTable;
+            // MessageBox.Show(dataGridView1.DataSource + "");
+            ds.Tables.Add(dt);
+            Form4 f = new Form4(ds, "playhouse_report");
+            f.Show();
+        }
     }
         
     }

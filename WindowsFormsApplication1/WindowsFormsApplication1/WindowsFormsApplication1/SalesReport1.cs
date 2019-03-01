@@ -16,14 +16,14 @@ namespace WindowsFormsApplication1 {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Sales : ReportClass {
+    public class SalesReport1 : ReportClass {
         
-        public Sales() {
+        public SalesReport1() {
         }
         
         public override string ResourceName {
             get {
-                return "Sales.rpt";
+                return "SalesReport1.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1 {
         
         public override string FullResourceName {
             get {
-                return "WindowsFormsApplication1.Sales.rpt";
+                return "WindowsFormsApplication1.SalesReport1.rpt";
             }
             set {
                 // Do nothing
@@ -87,76 +87,12 @@ namespace WindowsFormsApplication1 {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_Invoice_no {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dish_name {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dish_cat {
-            get {
-                return this.DataDefinition.ParameterFields[2];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dish_cost {
-            get {
-                return this.DataDefinition.ParameterFields[3];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dish_unit {
-            get {
-                return this.DataDefinition.ParameterFields[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_dot {
-            get {
-                return this.DataDefinition.ParameterFields[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_item_qty {
-            get {
-                return this.DataDefinition.ParameterFields[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_t_price {
-            get {
-                return this.DataDefinition.ParameterFields[7];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedSales : Component, ICachedReport {
+    public class CachedSalesReport1 : Component, ICachedReport {
         
-        public CachedSales() {
+        public CachedSalesReport1() {
         }
         
         [Browsable(false)]
@@ -193,7 +129,7 @@ namespace WindowsFormsApplication1 {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Sales rpt = new Sales();
+            SalesReport1 rpt = new SalesReport1();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -127,8 +127,14 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Print prnt = new Print();
-            prnt.Show();
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
+            dt = dataGridView1.DataSource as DataTable;
+            //MessageBox.Show(dataGridView1.DataSource + "");
+            ds.Tables.Add(dt);
+            Form4 f = new Form4(ds,"sales");
+            f.Show();
         }
     }
 }

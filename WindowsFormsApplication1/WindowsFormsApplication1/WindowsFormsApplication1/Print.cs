@@ -42,10 +42,5 @@ namespace WindowsFormsApplication1
         {
             webBrowser1.Print();
         }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
     }
 }
