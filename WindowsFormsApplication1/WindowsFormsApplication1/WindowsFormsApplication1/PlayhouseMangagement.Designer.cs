@@ -66,6 +66,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.gbSelect = new System.Windows.Forms.GroupBox();
             this.button9 = new System.Windows.Forms.Button();
@@ -78,7 +79,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button12 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -567,6 +567,16 @@
             this.groupBox3.TabIndex = 116;
             this.groupBox3.TabStop = false;
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(22, 282);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(163, 39);
+            this.button12.TabIndex = 113;
+            this.button12.Text = "Print ";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -698,22 +708,13 @@
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(22, 282);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(163, 39);
-            this.button12.TabIndex = 113;
-            this.button12.Text = "Print ";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
             // PlayhouseManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1479, 639);
+            this.Controls.Add(this.gbSelect);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -721,7 +722,6 @@
             this.Controls.Add(this.cust_id);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.gbSelect);
             this.Name = "PlayhouseManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Playhouse Management Module";

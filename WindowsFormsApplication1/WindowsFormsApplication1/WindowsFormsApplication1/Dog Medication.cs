@@ -101,7 +101,7 @@ namespace WindowsFormsApplication1
 
 
                     }
-            string slct_dog = "select dogsched_date, dogstart_time, dogend_time, c.clinic_name, dog_vaccination, dog_status from dc_dogsched inner join dog_clinic c ON dc_dogsched.clinic_id = c.clinic_id where dog_id = " + selected_dog_id;
+            string slct_dog = "select dogsched_date, dogstart_time, dogend_time, c.clinic_name, dog_vaccination, dog_status from dc_dogsched inner join dog_clinic c ON dc_dogsched.clinic_id = c.clinic_id where dog_id = " + selected_dog_id+ " order by dogsched_date desc ";
             conn.Open();
             MySqlCommand com = new MySqlCommand(slct_dog, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(com);
@@ -163,8 +163,7 @@ namespace WindowsFormsApplication1
             {
                 taken = 0;
             }
-
-
+            
 
             if (selected_dog_id == -1)
             {
@@ -229,7 +228,15 @@ namespace WindowsFormsApplication1
                         string selectquery2 = "select * from dc_dogsched where dog_id = '" + dog_id.Text + "' AND dogsched_date = '" + date.Text + "' AND dogstart_time = '" + start_time + "' ";
                         string stquery = "SELECT * FROM dc_dogsched WHERE ('" + sched_start + "' BETWEEN dogsched_start AND dogsched_end) OR ('" + sched_end + "' BETWEEN dogsched_start AND dogsched_end) AND dog_id = '" + dog_id.Text + "'";
                         string etquery = "SELECT * FROM dc_dogsched WHERE (dogsched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "') OR  (dogsched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND dog_id = '" + dog_id.Text + "')";
-
+                        // "INSERT INTO dc_dogsched(dog_id,clinic_id,dogsched_start, dogsched_end, dogsched_date," +
+                        //" dogstart_time, dogend_time, dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday, dog_status, dog_vaccination) VALUES('"
+                        //+ selected_dog_id + "','" + select_clinic_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
+                        //+ start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
+                        //eday.Text + "','" + comboBox1.Text + "', '" + vacc_Text.Text + "' )";
+                        string duplicates = "select * from dc_dogsched where dog_id = " + selected_dog_id + " " +
+                            "AND clinic_id = " + select_clinic_id + " AND dogstart_time = '" + start_time + "' AND dogend_time = '" + end_time + "'" +
+                            "AND dog_vaccination = '"+vacc_Text.Text+"' ";
+                        MessageBox.Show(duplicates);
                         conn.Open();
 
                         MySqlCommand comm1 = new MySqlCommand(selectquery, conn);
@@ -252,10 +259,16 @@ namespace WindowsFormsApplication1
                         DataTable dtet = new DataTable();
                         adpe.Fill(dtet);
 
+                        MySqlCommand commdup = new MySqlCommand(duplicates, conn);
+                        MySqlDataAdapter adpdup = new MySqlDataAdapter(commdup);
+                        DataTable dtdup = new DataTable();
+                        adpdup.Fill(dtdup);
+                        //MessageBox.Show("Dup.Count = "+dtdup.Rows.Count + "");
+
                         conn.Close();
 
 
-
+                        MessageBox.Show(dtdup.Rows.Count + "");
 
                         if (dt1.Rows.Count > 0)
                         {
@@ -269,6 +282,11 @@ namespace WindowsFormsApplication1
                         {
                             MessageBox.Show("Time in Conflict with another schedule!", "Conflict Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }*/
+         
+                        else if(dtdup.Rows.Count > 0)
+                        {
+                            MessageBox.Show("Duplicated Entry", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         else
                         {
 

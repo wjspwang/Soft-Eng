@@ -30,12 +30,14 @@ namespace WindowsFormsApplication1
         }
         public void loadall()
         {
-            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
-                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
-                " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
-              //  "inner join person on staff.person_id = person.person_id  " +
-                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
-                "order by dogsched_date, dogstart_time";
+            
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name, " +
+            "dog_breed,dog_clinic.clinic_name, dogsched_start, dogsched_end, dogsched_date, " +
+            "dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+            "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
+            "inner join dog_clinic on dc_dogsched.clinic_id = dog_clinic.clinic_id " +
+            "Order by dogsched_date, dogstart_time";
+            //MessageBox.Show(query);
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -50,6 +52,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["dogsched_end"].Visible = false;
             dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
             dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["clinic_name"].HeaderText = "Clinic";
             dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
             dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
             dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
