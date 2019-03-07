@@ -48,6 +48,18 @@ namespace WindowsFormsApplication1
                 crystalReportViewer1.ReportSource = cos;
                 ds.WriteXml(@"C:\dog_med.xml", XmlWriteMode.WriteSchema);
             }
+            if (type == "receipt")
+            {
+                receipt cos = new receipt();
+                cos.SetDataSource(ds);
+                crystalReportViewer1.ReportSource = cos;
+                ds.WriteXml(@"C:\receipt.xml", XmlWriteMode.WriteSchema);
+            }
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -80,6 +80,12 @@
     <Compile Include="CalendarVer2.Designer.cs">
       <DependentUpon>CalendarVer2.cs</DependentUpon>
     </Compile>
+    <Compile Include="receipt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>receipt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DogMedRep.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,6 +238,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Clinic Profile.resx">
       <DependentUpon>Clinic Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="receipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>receipt.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DogMedRep.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

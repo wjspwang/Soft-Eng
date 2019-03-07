@@ -104,6 +104,7 @@ namespace WindowsFormsApplication1
             string slct_dog = "select dogsched_date, dogstart_time, dogend_time, c.clinic_name, dog_vaccination, dog_status from dc_dogsched inner join dog_clinic c ON dc_dogsched.clinic_id = c.clinic_id where dog_id = " + selected_dog_id+ " order by dogsched_date desc ";
             conn.Open();
             MySqlCommand com = new MySqlCommand(slct_dog, conn);
+
             MySqlDataAdapter adp = new MySqlDataAdapter(com);
             DataTable tb = new DataTable();
             adp.Fill(tb);

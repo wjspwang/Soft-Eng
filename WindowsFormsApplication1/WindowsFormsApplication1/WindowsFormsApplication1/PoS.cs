@@ -684,21 +684,30 @@ namespace WindowsFormsApplication1
                                 DataTable dt = new DataTable();
                                 adp.Fill(dt);
                             }
+                            DataTable dt1 = new DataTable();
+                            DataSet ds = new DataSet();
 
-                         
+                            dt1 = dataGridView1.DataSource as DataTable;
+                            //MessageBox.Show(dataGridView1.DataSource + "");
+                            ds.Tables.Add(dt1);
+                            Form4 f = new Form4(ds, "receipt");
+                            f.Show();
 
-                                /*string query4 = "INSERT INTO sales_tbl(invoice_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + textBox2.Text + "' , '" + textBox10.Text + "'  )";
-                                conn.Open();
-                                //MessageBox.Show(query + "");
-                                MySqlCommand comm4 = new MySqlCommand(query4, conn);
-                                MessageBox.Show(textBox10.Text + "total_price");
-                                comm4.ExecuteNonQuery();
-                                conn.Close();
-                                MessageBox.Show("Invoice Submitted, Thank you");
-                                textBox2.Clear();
-                                textBox10.Clear();*/
 
-                                MessageBox.Show("Invoice Submitted, Thank you");
+
+                            /*string query4 = "INSERT INTO sales_tbl(invoice_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + textBox2.Text + "' , '" + textBox10.Text + "'  )";
+                            conn.Open();
+                            //MessageBox.Show(query + "");
+                            MySqlCommand comm4 = new MySqlCommand(query4, conn);
+                            MessageBox.Show(textBox10.Text + "total_price");
+                            comm4.ExecuteNonQuery();
+                            conn.Close();
+                            MessageBox.Show("Invoice Submitted, Thank you");
+                            textBox2.Clear();
+                            textBox10.Clear();*/
+
+                            MessageBox.Show("Invoice Submitted, Thank you");
+                                
                                 textBox2.Clear();
                                 textBox10.Clear();
 
@@ -717,6 +726,7 @@ namespace WindowsFormsApplication1
 
                                 loadall();
 
+                            
 
 
 
@@ -724,7 +734,7 @@ namespace WindowsFormsApplication1
 
 
 
-                            }
+                        }
                         
 
 
