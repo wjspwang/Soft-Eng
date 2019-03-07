@@ -562,12 +562,20 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                
+                MessageBox.Show(tendered + "");
                 if (label17.Text == Convert.ToString(0))
                 {
                     label18.Text = Convert.ToString(0);
                     label27.Text = Convert.ToString(0);
                     float.TryParse(textBox13.Text, out tendered);
+                        
                     float.TryParse(textBox10.Text, out total);
+                    if (tendered <= 0 || label17.Text == "" || tendered < total)
+                    {
+                        MessageBox.Show("Invalid Paid Amount");
+                        return;
+                    }
                     label29.Text = Convert.ToString(tendered - total);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -577,6 +585,11 @@ namespace WindowsFormsApplication1
                 {
                     float.TryParse(label17.Text, out payable);
                     float.TryParse(textBox13.Text, out tendered);
+                    if (tendered <= 0 || label17.Text == "" || tendered < payable)
+                    {
+                        MessageBox.Show("Invalid Paid Amount");
+                        return;
+                    }
                     label29.Text = Convert.ToString(tendered - payable);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -707,26 +720,26 @@ namespace WindowsFormsApplication1
                             textBox10.Clear();*/
 
                             MessageBox.Show("Invoice Submitted, Thank you");
-                                
-                                textBox2.Clear();
-                                textBox10.Clear();
+
+                            textBox2.Clear();
+                            textBox10.Clear();
 
 
 
 
-                                label17.Text = "0";
-                                label25.Text = "0";
-                                label26.Text = "0";
-                                label27.Text = "0";
-                                label18.Text = "0";
-                                label28.Text = "0";
-                                label29.Text = "0";
-                                textBox13.Clear();
+                            label17.Text = "0";
+                            label25.Text = "0";
+                            label26.Text = "0";
+                            label27.Text = "0";
+                            label18.Text = "0";
+                            label28.Text = "0";
+                            label29.Text = "0";
+                            textBox13.Clear();
 
 
-                                loadall();
+                            loadall();
 
-                            
+
 
 
 
@@ -735,10 +748,10 @@ namespace WindowsFormsApplication1
 
 
                         }
-                        
 
 
-                        else if (label17.Text == Convert.ToString(0))
+
+                        else if (tendered <= 0 || label17.Text == "")
                         {
                             if (Convert.ToDouble(textBox13.Text) < Convert.ToDouble(textBox10.Text))
                             {

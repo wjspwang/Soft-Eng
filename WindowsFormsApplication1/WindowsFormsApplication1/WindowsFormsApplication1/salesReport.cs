@@ -28,7 +28,9 @@ namespace WindowsFormsApplication1
         }
         public void loadall()
         {
-            
+            DateTime currdate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
+            fromdate.Value = currdate;
+            todate.Value = currdate;
             string query = " select invoice_id, recipe_list.recipe_name, recipe_list.recipe_cat, recipe_list.recipe_cost," +
                 " recipe_list.recipe_unit, dot, sales_tbl.sale_item_quant, total_price from sales_tbl INNER JOIN recipe_list WHERE sales_tbl.recipe_id = recipe_list.recipe_id";
             conn.Open();
@@ -68,6 +70,7 @@ namespace WindowsFormsApplication1
             string query = " select invoice_id, recipe_list.recipe_name, recipe_list.recipe_cat, recipe_list.recipe_cost,"+
                  "recipe_list.recipe_unit, dot, sales_tbl.sale_item_quant, total_price from sales_tbl INNER JOIN recipe_list WHERE sales_tbl.recipe_id = recipe_list.recipe_id "+
                  "AND dot >= '"+ fromdate.Text +"' AND dot <= '"+ todate.Text +"'; ";
+            //MessageBox.Show(fromdate.Text + " " + todate.Text);
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
