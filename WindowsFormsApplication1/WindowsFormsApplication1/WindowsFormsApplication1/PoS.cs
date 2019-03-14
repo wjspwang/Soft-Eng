@@ -563,19 +563,19 @@ namespace WindowsFormsApplication1
             else
             {
                 
-                MessageBox.Show(tendered + "");
+                //MessageBox.Show(tendered + "");
                 if (label17.Text == Convert.ToString(0))
                 {
                     label18.Text = Convert.ToString(0);
                     label27.Text = Convert.ToString(0);
                     float.TryParse(textBox13.Text, out tendered);
                         
-                    float.TryParse(textBox10.Text, out total);
+                    /*float.TryParse(textBox10.Text, out total);
                     if (tendered <= 0 || label17.Text == "" || tendered < total)
                     {
                         MessageBox.Show("Invalid Paid Amount");
                         return;
-                    }
+                    }*/
                     label29.Text = Convert.ToString(tendered - total);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -585,11 +585,13 @@ namespace WindowsFormsApplication1
                 {
                     float.TryParse(label17.Text, out payable);
                     float.TryParse(textBox13.Text, out tendered);
-                    if (tendered <= 0 || label17.Text == "" || tendered < payable)
+
+                    /*if (tendered <= 0 || label17.Text == "" || tendered < payable)
                     {
                         MessageBox.Show("Invalid Paid Amount");
                         return;
-                    }
+                    }*/
+
                     label29.Text = Convert.ToString(tendered - payable);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -619,12 +621,6 @@ namespace WindowsFormsApplication1
 
                         if (Convert.ToDouble(label29.Text) >= 0)
                         {
-                            /*
-
-                            Print a = new Print();
-                            a.Show();
-                            a.previousform = this;
-                            */
 
                             int num = 0;
                             string query = "select count(prod_id) from order_line " +
@@ -638,9 +634,6 @@ namespace WindowsFormsApplication1
                             }
                             conn.Close();
 
-
-                            // int prodid_data = 0;
-                            // int prodquant_data = 0;
                             int[] data = new int[num];
                             for (int i = 0; i < num; i++)
                             {
@@ -658,7 +651,7 @@ namespace WindowsFormsApplication1
                                 {
                                     int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
                                     string id = dr["prod_id"] + "";
-                                    //MessageBox.Show(dr["recipe_id"] + " " + dr["prod_id"] + " " + dr["prod_quant"]);
+                                    
                                     string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
 
                                     conn.Open();
@@ -679,73 +672,56 @@ namespace WindowsFormsApplication1
                                 num0 = Convert.ToInt32(reader0["count(prod_id)"]);
                             }
                             conn.Close();
-
-
-                            // int prodid_data = 0;
-                            // int prodquant_data = 0;
-                            int[] data0 = new int[num0];
-                            for (int i = 0; i < num0; i++)
+                            DialogResult Confirm;
+                            Confirm = MessageBox.Show("Proceed with Order ?", "Verification", MessageBoxButtons.YesNo);
+                            if(Confirm == DialogResult.Yes)
                             {
-                                int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
-                                int recipe_quant = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
-                                string total_price0 = Convert.ToString(dataGridView1.Rows[i].Cells[9].Value.ToString());
-                                string querya = "insert into sales_tbl(invoice_id, recipe_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '" + recipe_quant + "' , '" + total_price0 + "'  )";
-                                conn.Open();
-                                MySqlCommand comm = new MySqlCommand(querya, conn);
-                                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
-                                conn.Close();
-                                DataTable dt = new DataTable();
-                                adp.Fill(dt);
+                                int[] data0 = new int[num0];
+                                for (int i = 0; i < num0; i++)
+                                {
+                                    int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                                    int recipe_quant = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
+                                    string total_price0 = Convert.ToString(dataGridView1.Rows[i].Cells[9].Value.ToString());
+                                    string querya = "insert into sales_tbl(invoice_id, recipe_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '" + recipe_quant + "' , '" + total_price0 + "'  )";
+                                    conn.Open();
+                                    MySqlCommand comm = new MySqlCommand(querya, conn);
+                                    MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                                    conn.Close();
+                                    DataTable dt = new DataTable();
+                                    adp.Fill(dt);
+                                }
+                                DataTable dt1 = new DataTable();
+                                DataSet ds = new DataSet();
+
+                                dt1 = dataGridView1.DataSource as DataTable;
+                                ds.Tables.Add(dt1);
+                                Form4 f = new Form4(ds, "receipt");
+                                f.Show();
+
+                                MessageBox.Show("Invoice Submitted, Thank you");
+
+                                textBox2.Clear();
+                                textBox10.Clear();
+
+
+
+
+                                label17.Text = "0";
+                                label25.Text = "0";
+                                label26.Text = "0";
+                                label27.Text = "0";
+                                label18.Text = "0";
+                                label28.Text = "0";
+                                label29.Text = "0";
+                                textBox13.Clear();
+
+
+                                loadall();
                             }
-                            DataTable dt1 = new DataTable();
-                            DataSet ds = new DataSet();
-
-                            dt1 = dataGridView1.DataSource as DataTable;
-                            //MessageBox.Show(dataGridView1.DataSource + "");
-                            ds.Tables.Add(dt1);
-                            Form4 f = new Form4(ds, "receipt");
-                            f.Show();
-
-
-
-                            /*string query4 = "INSERT INTO sales_tbl(invoice_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + textBox2.Text + "' , '" + textBox10.Text + "'  )";
-                            conn.Open();
-                            //MessageBox.Show(query + "");
-                            MySqlCommand comm4 = new MySqlCommand(query4, conn);
-                            MessageBox.Show(textBox10.Text + "total_price");
-                            comm4.ExecuteNonQuery();
-                            conn.Close();
-                            MessageBox.Show("Invoice Submitted, Thank you");
-                            textBox2.Clear();
-                            textBox10.Clear();*/
-
-                            MessageBox.Show("Invoice Submitted, Thank you");
-
-                            textBox2.Clear();
-                            textBox10.Clear();
-
-
-
-
-                            label17.Text = "0";
-                            label25.Text = "0";
-                            label26.Text = "0";
-                            label27.Text = "0";
-                            label18.Text = "0";
-                            label28.Text = "0";
-                            label29.Text = "0";
-                            textBox13.Clear();
-
-
-                            loadall();
-
-
-
-
-
-
-
-
+                            else
+                            {
+                                return;
+                            }       
 
                         }
 

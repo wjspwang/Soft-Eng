@@ -1232,6 +1232,7 @@
             this.label36.Size = new System.Drawing.Size(54, 17);
             this.label36.TabIndex = 96;
             this.label36.Text = "label36";
+            this.label36.Visible = false;
             // 
             // button18
             // 
@@ -1461,6 +1462,7 @@
             this.textBox23.Name = "textBox23";
             this.textBox23.Size = new System.Drawing.Size(173, 34);
             this.textBox23.TabIndex = 100;
+            this.textBox23.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox23_KeyPress);
             // 
             // label37
             // 

@@ -1011,6 +1011,14 @@ namespace WindowsFormsApplication1
         {
             previousform.Show();
         }
+
+        private void textBox23_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
     }
         
 }
