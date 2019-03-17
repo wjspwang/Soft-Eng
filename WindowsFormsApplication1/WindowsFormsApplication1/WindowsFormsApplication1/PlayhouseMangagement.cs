@@ -36,7 +36,7 @@ namespace WindowsFormsApplication1
 
             cust_id.Text = this.selected_user_id + "";
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string curr_time = DateTime.Now.ToString("h:mm tt");
+            string curr_time = DateTime.Now.ToString("hh:mm tt");
 
             string query1 = "select playhouse_id, playhouse.customer_id, lname," +
                 " fname, sched_start, sched_end, sched_date," +
@@ -64,7 +64,7 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["status"].HeaderText = "Status";
 
             //dataGridView2.Rows[-1].Selected = true;
-            string updateToExpire = "UPDATE playhouse SET status = 'Expired' WHERE sched_date < '"+curr_date+"' OR end_time < '"+curr_time+"' ";
+            string updateToExpire = "UPDATE playhouse SET status = 'Overtime' WHERE sched_date < '"+curr_date+"' OR end_time < '"+curr_time+"' ";
             conn.Open();
 
             MySqlCommand comm = new MySqlCommand(updateToExpire, conn);
@@ -107,151 +107,7 @@ namespace WindowsFormsApplication1
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            DateTime cur_date = DateTime.Now;
-            TimeSpan cur_time = DateTime.Now.TimeOfDay;
-            DateTime input_Date = Convert.ToDateTime(date.Text);
-
-            string now = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string stime = DateTime.Now.ToString("h:mm tt");
-
-
-            string validate = "select * from playhouse where customer_id = " + selected_user_id + " AND '" + stime + "' BETWEEN start_time AND end_time";
-            MySqlCommand cmd = new MySqlCommand(validate, conn);
-            MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
-            DataTable tb = new DataTable();
-            adp.Fill(tb);
-
-            if (tb.Rows.Count > 0)
-            {
-                MessageBox.Show("Customer already in Playhouse!");
-                return;
-            }
-
-            if (selected_user_id == -1)
-            {
-                MessageBox.Show("case 1 : No Staff ID");
-            }
-            else if (lname.Text == "" || fname.Text == null)
-            {
-                MessageBox.Show("case 2 : No Customer Selected");
-            }
-            else if (date.Text == "" || date.Text == null)
-            {
-                MessageBox.Show("case 3 : No Date");
-            }
-            else if (input_Date.Date < cur_date.Date)
-            {
-                MessageBox.Show("case 4 : Scheduled for past date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-            else if (sHour.Text == "" || sHour.Text == null ||
-                sMin.Text == "" || sMin.Text == null ||
-                eHour.Text == "" || eHour.Text == null ||
-                eMin.Text == "" || eMin.Text == null ||
-                sDay.Text == "" || eDay.Text == null)
-            {
-                MessageBox.Show("case 5 : No Start Time/ End time");
-            }
-            else if (sHour.Text != "13")
-            {
-                int sHour_int = Convert.ToInt32(sHour.Text);
-                int eHour_int = Convert.ToInt32(eHour.Text);
-                int sMin_int = Convert.ToInt32(sMin.Text);
-                int eMin_int = Convert.ToInt32(eMin.Text);
-
-
-                if (sHour_int >= eHour_int &&
-                    sMin_int >= eMin_int && sHour.Text != "12")
-                {
-                    MessageBox.Show("case 6 : Invalid Time.", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (status.Text == "" || status.Text == null)
-                {
-                    MessageBox.Show("case 7 : No Activity");
-                }
-                else
-                {
-                    string sched_start = date.Text + " " + sHour.Text + ":" + sMin.Text;
-                    string sched_end = date.Text + " " + eHour.Text + ":" + eMin.Text;
-                    string start_time = sHour.Text + ":" + sMin.Text + " " + sDay.Text;
-                    string end_time = eHour.Text + ":" + eMin.Text + " " + eDay.Text;
-
-                    TimeSpan start_time1 = Convert.ToDateTime(start_time).TimeOfDay;
-                    if (input_Date.Date == cur_date.Date && start_time1 < cur_time)
-                    {
-                        MessageBox.Show("case 4 : Scheduled for past time.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        string selectquery = "select * from playhouse where customer_id = '" + cust_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' AND end_time = '" + end_time + "' ";
-                        string selectquery2 = "select * from playhouse where customer_id = '" + cust_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' ";
-                        string stquery = "SELECT * FROM playhouse WHERE ('" + sched_start + "' BETWEEN sched_start AND sched_end) OR ('" + sched_end + "' BETWEEN sched_start AND sched_end) ";
-                        string etquery = "SELECT * FROM playhouse WHERE (sched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "' AND customer_id = '" + cust_id.Text + "') OR  (sched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND customer_id = '" + cust_id.Text + "')";
-
-                        conn.Open();
-
-                        MySqlCommand comm1 = new MySqlCommand(selectquery, conn);
-                        MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
-                        DataTable dt1 = new DataTable();
-                        adp1.Fill(dt1);
-
-                        MySqlCommand comm2 = new MySqlCommand(selectquery2, conn);
-                        MySqlDataAdapter adp2 = new MySqlDataAdapter(comm2);
-                        DataTable dt2 = new DataTable();
-                        adp2.Fill(dt2);
-
-                        MySqlCommand commStartSelect = new MySqlCommand(stquery, conn);
-                        MySqlDataAdapter adps = new MySqlDataAdapter(commStartSelect);
-                        DataTable dtst = new DataTable();
-                        adps.Fill(dtst);
-
-                        MySqlCommand commEndSelect = new MySqlCommand(etquery, conn);
-                        MySqlDataAdapter adpe = new MySqlDataAdapter(commEndSelect);
-                        DataTable dtet = new DataTable();
-                        adpe.Fill(dtet);
-
-                        conn.Close();
-
-
-
-
-                        if (dt1.Rows.Count > 0)
-                        {
-                            MessageBox.Show("The selected customer is already assigned for this period ", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (dt2.Rows.Count > 0)
-                        {
-                            MessageBox.Show("The selected customer is already assigned for this period", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (dtst.Rows.Count > 0 || dtet.Rows.Count > 0)
-                        {
-                            MessageBox.Show("Time in Conflict with another schedule!", "Conflict Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-
-                            string query0003 = "INSERT INTO playhouse(customer_id,sched_start, sched_end, sched_date," +
-                                " start_time, end_time, shour, sminute, sday, ehour, eminute, eday, status) VALUES('"
-                                + selected_user_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
-                                + start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sDay.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
-                                eDay.Text + "','" + status.Text + "' )";
-                            conn.Open();
-
-                            MySqlCommand comm4 = new MySqlCommand(query0003, conn);
-                            comm4.ExecuteNonQuery();
-                            conn.Close();
-                            MessageBox.Show("Schedule Successfully Added");
-                            loadall();
-
-                        }
-                    }
-
-
-
-                }
-
-
-            }
+           
         }
 
 
@@ -294,8 +150,7 @@ namespace WindowsFormsApplication1
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DateTime time, etime;
-            string shour, smin, sday,
-                ehour, emin, eday;
+
             int select_cust_id;
 
             if (e.RowIndex > -1)
@@ -305,120 +160,13 @@ namespace WindowsFormsApplication1
                 select_cust_id = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["customer_id"].Value.ToString());
                 lname.Text = dataGridView2.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 fname.Text = dataGridView2.Rows[e.RowIndex].Cells["fname"].Value.ToString();
-                status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
+                //status.Text = dataGridView2.Rows[e.RowIndex].Cells["status"].Value.ToString();
                 time = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["start_time"].Value.ToString());
                 etime = Convert.ToDateTime(dataGridView2.Rows[e.RowIndex].Cells["end_time"].Value.ToString());
                 selected_user_id = select_cust_id;
 
-                shour = time.Hour.ToString();
-                smin = time.Minute.ToString();
-                sday = time.Day.ToString();
-                ehour = etime.Hour.ToString();
-                emin = etime.Minute.ToString();
-                eday = etime.Day.ToString();
-
-                string ampm;
-                if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) > 12)
-                {
-                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
-                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12);
-                    ampm = "PM";
-                }
-                else if (Convert.ToInt32(shour) > 12 && Convert.ToInt32(ehour) < 12)
-                {
-                    shour = Convert.ToString(Convert.ToInt32(shour) - 12);
-                    ampm = "PM";
-                }else if (Convert.ToInt32(ehour) > 12 && Convert.ToInt32(ehour) < 12)
-                {
-                    ehour = Convert.ToString(Convert.ToInt32(ehour) - 12 );
-                    ampm = "PM";
-                }
-                else
-                {
-                    ampm = "AM";
-                }
-
-                switch (Convert.ToInt32(smin))
-                {
-                    case 0:
-                        smin = "00";
-                        break;
-                    case 1:
-                        smin = "01";
-                        break;
-                    case 2:
-                        smin = "02";
-                        break;
-                    case 3:
-                        smin = "03";
-                        break;
-                    case 4:
-                        smin = "04";
-                        break;
-                    case 5:
-                        smin = "05";
-                        break;
-                    case 6:
-                        smin = "06";
-                        break;
-                    case 7:
-                        smin = "07";
-                        break;
-                    case 8:
-                        smin = "08";
-                        break;
-                    case 9:
-                        smin = "09";
-                        break;
-                    default:
-                        break;
-                    
-
-                }
-                switch (Convert.ToInt32(emin))
-                {
-                    case 0:
-                        emin = "00";
-                        break;
-                    case 1:
-                        emin = "01";
-                        break;
-                    case 2:
-                        emin = "02";
-                        break;
-                    case 3:
-                        emin = "03";
-                        break;
-                    case 4:
-                        emin = "04";
-                        break;
-                    case 5:
-                        emin = "05";
-                        break;
-                    case 6:
-                        emin = "06";
-                        break;
-                    case 7:
-                        emin = "07";
-                        break;
-                    case 8:
-                        emin = "08";
-                        break;
-                    case 9:
-                        emin = "09";
-                        break;
-                    default:
-                        break;
 
 
-                }
-
-                sHour.Text = shour;
-                sMin.Text = smin;
-                sDay.Text = ampm;
-                eHour.Text = ehour;
-                eMin.Text = emin;
-                eDay.Text = ampm;
             }
             cust_id.Text = selected_user_id + "";
         }
@@ -459,7 +207,7 @@ namespace WindowsFormsApplication1
                             {
                             return;
                             }
-                        }else if(checker == "Expired")
+                        }else if(checker == "Overtime")
                     {
                         conn.Open();
                         MySqlCommand comm = new MySqlCommand(query, conn);
@@ -589,7 +337,7 @@ namespace WindowsFormsApplication1
                 " fname, sched_start, sched_end, sched_date," +
                 " start_time, end_time, status from person " +
                 "inner join playhouse on person.person_id = playhouse.customer_id " +
-                "where status = 'Expired'" +
+                "where status = 'Overtime'" +
                 "order by sched_date, start_time";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
@@ -660,7 +408,7 @@ namespace WindowsFormsApplication1
                 " fname, sched_start, sched_end, sched_date," +
                 " start_time, end_time, status from person " +
                 "inner join playhouse on person.person_id = playhouse.customer_id " +
-                "where status = 'Expired' AND sched_date = '"+curr_date+"'" +
+                "where status = 'Overtime' AND sched_date = '"+curr_date+"'" +
                 "order by sched_date, start_time";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
@@ -940,6 +688,15 @@ namespace WindowsFormsApplication1
             ds.Tables.Add(dt);
             Form4 f = new Form4(ds, "playhouse_report");
             f.Show();
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
         

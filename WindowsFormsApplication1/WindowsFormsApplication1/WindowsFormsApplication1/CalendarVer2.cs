@@ -10,6 +10,7 @@ namespace WindowsFormsApplication1
     {
         MySqlConnection conn;
         public Form previousform;
+        string dateFormat = "yyyy-MM-dd";
 
         public CalendarVer2()
         {
@@ -43,6 +44,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["lname"].HeaderText = "Last Name";
             dataGridView1.Columns["fname"].HeaderText = "First Name";
             dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["start_time"].HeaderText = "Time Start";
             dataGridView1.Columns["end_time"].HeaderText = "Time End";
             dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -161,6 +163,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -180,6 +183,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["sched_start"].Visible = false;
                 dataGridView1.Columns["sched_end"].Visible = false;
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -201,6 +205,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -222,6 +227,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -299,6 +305,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -318,6 +325,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["sched_start"].Visible = false;
                 dataGridView1.Columns["sched_end"].Visible = false;
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -339,6 +347,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -360,6 +369,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -385,6 +395,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -404,6 +415,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["sched_start"].Visible = false;
                 dataGridView1.Columns["sched_end"].Visible = false;
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -425,6 +437,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";
@@ -446,6 +459,7 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["lname"].HeaderText = "Last Name";
                 dataGridView1.Columns["fname"].HeaderText = "First Name";
                 dataGridView1.Columns["sched_date"].HeaderText = "Scheduled Date";
+                dataGridView1.Columns["sched_date"].DefaultCellStyle.Format = dateFormat;
                 dataGridView1.Columns["start_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["end_time"].HeaderText = "Time End";
                 dataGridView1.Columns["status"].HeaderText = "Shift";

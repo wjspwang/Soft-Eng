@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
 
         MySqlConnection conn;
         public Form previousform;
+        string dateFormat = "yyyy-MM-dd";
         public ProductList()
         {
             InitializeComponent();
@@ -44,7 +45,8 @@ namespace WindowsFormsApplication1
         private int recipelist = 0;
         private void loadall()
         {
-    
+            autoExpireLog();
+            exp_date.Value = Convert.ToDateTime(currdate);
             string query = "select * from product ;";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
@@ -94,10 +96,10 @@ namespace WindowsFormsApplication1
 
             stck_in_Grid.DataSource = stck_in_tbl;
             stck_in_Grid.Columns["date_added"].HeaderText = "Stock In Date";
-            stck_in_Grid.Columns["date_added"].DefaultCellStyle.Format = "yyyy/MM/dd";
+            stck_in_Grid.Columns["date_added"].DefaultCellStyle.Format = dateFormat;
             stck_in_Grid.Columns["prodname"].HeaderText = "Product Name";
             stck_in_Grid.Columns["exp_date"].HeaderText = "Expiry Date";
-            stck_in_Grid.Columns["exp_date"].DefaultCellStyle.Format = "yyyy/MM/dd";
+            stck_in_Grid.Columns["exp_date"].DefaultCellStyle.Format = dateFormat;
             stck_in_Grid.Columns["add_quant"].HeaderText = "Added Quantity";
 
 
@@ -160,7 +162,7 @@ namespace WindowsFormsApplication1
             dataGridView4.Columns["prod_id"].HeaderText = "Product Code";
             dataGridView4.Columns["prodname"].HeaderText = "Product Name";
             dataGridView4.Columns["date"].HeaderText = "Stock Out Date";
-            dataGridView4.Columns["date"].DefaultCellStyle.Format = "yyyy/MM/dd";
+            dataGridView4.Columns["date"].DefaultCellStyle.Format = dateFormat;
             dataGridView4.Columns["category"].HeaderText = "Category";
             dataGridView4.Columns["prod_quant"].HeaderText = "Quantity";
             dataGridView4.Columns["status"].HeaderText = "Status";
@@ -228,15 +230,53 @@ namespace WindowsFormsApplication1
             adp3.Fill(dt3);
 
             dataGridView6.DataSource = dt3;
-            //dataGridView6.Columns["recipe_id"].Visible = false;
-            //dataGridView6.Columns["recipe_code"].Visible = false;
-            //dataGridView6.Columns["prod_id"].HeaderText = "Product Code";
             dataGridView6.Columns["prodid"].HeaderText = "Product ID";
             dataGridView6.Columns["prodname"].HeaderText = "Ingredient";
             dataGridView6.Columns["prod_quant"].HeaderText = "Quantity";
-            //dataGridView6.Columns["recipe_name"].Visible = false;
-           // dataGridView6.Columns["recipe_cat"].Visible = false;
-           // dataGridView6.Columns["recipe_desc"].Visible = false;
+
+        }
+        string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+        public void autoExpireLog()
+        {
+            
+
+            string findExpire = "select *, p.prodname, p.category from stock_in s INNER JOIN " +
+                "product p ON s.prod_id = p.prodid where exp_date <= '" + currdate + "' AND status = 0 ";
+            conn.Open();
+            MySqlCommand comz = new MySqlCommand(findExpire, conn);
+            MySqlDataAdapter adap = new MySqlDataAdapter(comz);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adap.Fill(dt);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                int expiredStocks = Convert.ToInt32(dr["add_quant"]);
+                int stockIn_id = Convert.ToInt32(dr["stockIn_id"]);
+                int stockIn_prodId = Convert.ToInt32(dr["prod_id"]);
+                string prodName = dr["prodname"] + "";
+                string prodCat = dr["category"] + "";
+                string subractExpireDate = "update product set prodquant = prodquant - " + expiredStocks +
+                    " WHERE prodid = " + stockIn_prodId + "  ";
+                string addLogToStockOut = "insert into stock_out(prod_id,date,prodname,category,prod_quant,status)" +
+                    " VALUES(" + stockIn_prodId + ", '" + currdate + "','" + prodName + "','"+prodCat+"'," + expiredStocks + ", 'Expired')";
+                string updateStockInStatus = "update stock_in set status = 1 where stockIn_id = '"+stockIn_id+"'";
+                conn.Open();
+                MySqlCommand runSubractExpireDate = new MySqlCommand(subractExpireDate, conn);
+                MySqlCommand runAddLogToStockOut = new MySqlCommand(addLogToStockOut, conn);
+                MySqlCommand runUpdateStockInStatus = new MySqlCommand(updateStockInStatus, conn);
+                runSubractExpireDate.ExecuteNonQuery();
+                runAddLogToStockOut.ExecuteNonQuery();
+                runUpdateStockInStatus.ExecuteNonQuery();
+                conn.Close();              
+                
+            }
+            if(dt.Rows.Count >= 1)
+            {
+                MessageBox.Show(dt.Rows.Count + " Items have expired. Please Check Stock Out log");
+                loadall();
+            }
+            
         }
         private void textBox2_Click(object sender, EventArgs e)
         {
@@ -324,7 +364,8 @@ namespace WindowsFormsApplication1
             loadall();
             Disable_text();
             dateTimePicker1.Value = DateTime.Now.Date;
-            dateTimePicker2.Value = DateTime.Now.Date.AddDays(1);
+            //dateTimePicker2.Value = DateTime.Now.Date.AddDays(1);
+            dateTimePicker2.Value = DateTime.Now.Date;
         }
         private void Disable_text()
         {
@@ -429,6 +470,11 @@ namespace WindowsFormsApplication1
 
         private void button10_Click(object sender, EventArgs e)
         {
+            if(exp_date.Value <= Convert.ToDateTime(currdate))
+            {
+                MessageBox.Show("Invalid Expiry Date, Product already expired");
+                return;
+            }
             if(textBox10.Text == "")
             {
                 MessageBox.Show("Please input Valid Number");
@@ -453,6 +499,7 @@ namespace WindowsFormsApplication1
                 comm.ExecuteNonQuery();
                 conn.Close();
                 loadall();
+                MessageBox.Show("Stocked in Product ID: " + textBox6.Text+ " by " + textBox10.Text );
             }
            
         }
@@ -488,7 +535,7 @@ namespace WindowsFormsApplication1
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
-            loadall();
+            //loadall();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -838,6 +885,7 @@ namespace WindowsFormsApplication1
         private void Form5_Activated(object sender, EventArgs e)
         {
             loadfsix();
+            autoExpireLog();
         }
 
         private void button25_Click(object sender, EventArgs e)
@@ -959,7 +1007,7 @@ namespace WindowsFormsApplication1
             {
                 string search = "select date_added, product.prodname, add_quant from stock_in " +
                                 "JOIN product where stock_in.prod_id = product.prodid AND" +
-                                "(date_added >= '"+dateTimePicker1.Value.ToString("yyyy-M-dd") + "' and date_added <= '"+dateTimePicker2.Value.ToString("yyyy-M-dd") + "' ) AND" +
+                                "(date_added >= '"+dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and date_added <= '"+dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' ) AND" +
                                 " stock_in.prod_id = "+textBox2.Text+" ";
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(search, conn);
@@ -975,7 +1023,7 @@ namespace WindowsFormsApplication1
             {
                 string search = "select date_added, product.prodname, add_quant from stock_in " +
                                 "JOIN product where stock_in.prod_id = product.prodid AND" +
-                                "(date_added >= '" + dateTimePicker1.Value.ToString("yyyy-M-dd") + "' and date_added <= '"+dateTimePicker2.Value.ToString("yyyy-M-dd") + "')";
+                                "(date_added >= '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and date_added <= '"+dateTimePicker2.Value.ToString("yyyy-MM-dd") + "')";
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(search, conn);
                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -1018,6 +1066,125 @@ namespace WindowsFormsApplication1
             {
                 e.Handled = true;
             }
+        }
+
+        private void id_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void comboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void textBox22_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox10_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox9_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox11_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox14_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox15_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox19_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox18_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            if (textBox24.Text != "")
+            {
+                string search = "select date, product.prodname, prod_quant from stock_out " +
+                                "JOIN product where stock_out.prod_id = product.prodid AND" +
+                                "(date >= '" + dateTimePicker4.Value.ToString("yyyy-MM-dd") + "' and date <= '" + dateTimePicker3.Value.ToString("yyyy-MM-dd") + "' ) AND" +
+                                " stock_out.prod_id = " + textBox24.Text + " ";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(search, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                conn.Close();
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+
+                dataGridView4.DataSource = dt;
+
+            }
+            else
+            {
+                string search = "select date, product.prodname, prod_quant from stock_out " +
+                                "JOIN product where stock_out.prod_id = product.prodid AND" +
+                                "(date >= '" + dateTimePicker4.Value.ToString("yyyy-MM-dd") + "' and date <= '" + dateTimePicker3.Value.ToString("yyyy-MM-dd") + "')";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(search, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                conn.Close();
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+
+                dataGridView4.DataSource = dt;
+
+            }
+        }
+
+        private void textBox24_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
         

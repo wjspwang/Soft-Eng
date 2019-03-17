@@ -110,13 +110,17 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("case 7 : No Activity");
                 }
                 else
-                {
-                    string sched_start = date.Text + " " + sHour.Text + ":" + sMin.Text;
-                    string sched_end = date.Text + " " + eHour.Text + ":" + eMin.Text;
+                {                
                     string start_time = sHour.Text + ":" + sMin.Text + " " + sday.Text;
                     string end_time = eHour.Text + ":" + eMin.Text + " " + eday.Text;
 
                     TimeSpan start_time1 = Convert.ToDateTime(start_time).TimeOfDay;
+                    TimeSpan end_time1 = Convert.ToDateTime(end_time).TimeOfDay;
+
+                    string sched_start = date.Text + " " +start_time1;
+                    string sched_end = date.Text + " " +end_time1;
+
+                    // MessageBox.Show("start_time1 = "+start_time1 + "");
                     if (input_Date.Date == cur_date.Date && start_time1 < cur_time)
                     {
                         MessageBox.Show("case 4 : Scheduled for past time.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -124,10 +128,10 @@ namespace WindowsFormsApplication1
                     else
                     {
                         string selectquery = "select * from dc_sched where staff_id = '" + staff_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' AND end_time = '" + end_time + "' ";
-                        string selectquery2 = "select * from dc_sched where staff_id = '" + staff_id.Text + "' AND sched_date = '" + date.Text + "' AND start_time = '" + start_time + "' ";
-                        string stquery = "SELECT * FROM dc_sched WHERE ('" + sched_start + "' BETWEEN sched_start AND sched_end) AND staff_id = '" + staff_id.Text + "'  OR ('" + sched_end + "' BETWEEN sched_start AND sched_end) AND staff_id = '" + staff_id.Text + "' ";
-                        string etquery = "SELECT * FROM dc_sched WHERE (sched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "' AND staff_id = '" + staff_id.Text + "') OR  (sched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND staff_id = '" + staff_id.Text + "')";
-
+                        string selectquery2 = "SELECT * FROM dc_sched WHERE  ((sched_start <= '"+sched_start+"'  AND sched_end >= '"+ sched_start + "' )" +
+                        "OR(sched_start <= '"+sched_end+"'  AND sched_end >= '"+sched_end+"'))"+ 
+                        "AND staff_id = "+staff_id.Text+"";
+   
                         conn.Open();
 
                         MySqlCommand comm1 = new MySqlCommand(selectquery, conn);
@@ -139,7 +143,7 @@ namespace WindowsFormsApplication1
                         MySqlDataAdapter adp2 = new MySqlDataAdapter(comm2);
                         DataTable dt2 = new DataTable();
                         adp2.Fill(dt2);
-
+                        /*
                         MySqlCommand commStartSelect = new MySqlCommand(stquery, conn);
                         MySqlDataAdapter adps = new MySqlDataAdapter(commStartSelect);
                         DataTable dtst = new DataTable();
@@ -149,28 +153,23 @@ namespace WindowsFormsApplication1
                         MySqlDataAdapter adpe = new MySqlDataAdapter(commEndSelect);
                         DataTable dtet = new DataTable();
                         adpe.Fill(dtet);
-
+                        */
                         conn.Close();
-
-                        foreach (DataRow dr in dtst.Rows)
-                        {
-                            string staffid = dr["staff_id"] + "";
-                            MessageBox.Show(staffid);
-                        }
-
 
                         if (dt1.Rows.Count > 0)
                         {
-                            MessageBox.Show("The selected employee is already assigned for this period " , "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("The selected employee is already assigned" , "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else if (dt2.Rows.Count > 0)
                         {
-                            MessageBox.Show("The selected employee is already assigned for this period" , "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Conflicting with an Existing Schedule" , "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        /*
                         else if (dtst.Rows.Count > 0 || dtet.Rows.Count > 0)
                         {
                             MessageBox.Show("Time in Conflict with another schedule!", "Conflict Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        */
                         else
                         {
 
@@ -234,7 +233,7 @@ namespace WindowsFormsApplication1
                     {
 
                         selected_user_id = int.Parse(staff_grid.Rows[e.RowIndex].Cells["staff_id"].Value.ToString());
-                        //staff_id.Text = staff_grid.Rows[e.RowIndex].Cells["staff_id"].Value.ToString();
+                        staff_id.Text = staff_grid.Rows[e.RowIndex].Cells["staff_id"].Value.ToString();
                         staff_name.Text = staff_grid.Rows[e.RowIndex].Cells["lname"].Value.ToString() + ", " + staff_grid.Rows[e.RowIndex].Cells["fname"].Value.ToString();
 
                     }

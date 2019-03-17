@@ -28,6 +28,7 @@ namespace WindowsFormsApplication1
         int quant;
         float pos_total;
         float percent;
+        string dateFormat = "yyyy-MM-dd";
         private void connectionState()
         {
             if (conn.State != ConnectionState.Open)
@@ -78,6 +79,7 @@ namespace WindowsFormsApplication1
             updateOrderCount();
             textBox14.Text = Convert.ToString(invoice_ui.Text);
             string query = " select * from order_line where invoice_id = " + invoice_ui.Text + " ;";
+            //string query = " select * from order_line";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -89,6 +91,7 @@ namespace WindowsFormsApplication1
 
             dataGridView1.Columns["order_line_id"].Visible = false;
             dataGridView1.Columns["date_time"].HeaderText = "Date of Transaction";
+            dataGridView1.Columns["date_time"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["invoice_id"].HeaderText = "Invoice #";
             dataGridView1.Columns["prod_id"].HeaderText = "Item Code";
             dataGridView1.Columns["prodname"].HeaderText = "Item Name";
@@ -558,25 +561,20 @@ namespace WindowsFormsApplication1
         {
             if (textBox2.Text == Convert.ToString(0))
             {
-                MessageBox.Show("Invalid Purchase");
+                MessageBox.Show("No Items Select");
+                return;
             }
             else
             {
                 
-                //MessageBox.Show(tendered + "");
                 if (label17.Text == Convert.ToString(0))
                 {
                     label18.Text = Convert.ToString(0);
                     label27.Text = Convert.ToString(0);
                     float.TryParse(textBox13.Text, out tendered);
-                        
-                    /*float.TryParse(textBox10.Text, out total);
-                    if (tendered <= 0 || label17.Text == "" || tendered < total)
-                    {
-                        MessageBox.Show("Invalid Paid Amount");
-                        return;
-                    }*/
-                    label29.Text = Convert.ToString(tendered - total);
+                   
+                    //label29.Text = Convert.ToString(tendered - total);
+                    label29.Text = Convert.ToString(0);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
                     label28.Text = textBox13.Text;
@@ -592,7 +590,8 @@ namespace WindowsFormsApplication1
                         return;
                     }*/
 
-                    label29.Text = Convert.ToString(tendered - payable);
+                    //label29.Text = Convert.ToString(tendered - payable);
+                    label29.Text = Convert.ToString(0);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
                     label27.Text = comboBox1.Text;
@@ -612,12 +611,19 @@ namespace WindowsFormsApplication1
                     if (Convert.ToDouble(textBox13.Text) < Convert.ToDouble(label17.Text))
                     {
                         MessageBox.Show("Invalid Paid Amount", "Invalid Input", MessageBoxButtons.OK);
-
+                        return;
                     }
                     else
                     {
 
-
+                        if (label17.Text == Convert.ToString(0))
+                        {
+                            label29.Text = Convert.ToString(tendered - total);
+                        }
+                        else
+                        {
+                            label29.Text = Convert.ToString(tendered - payable);
+                        }
 
                         if (Convert.ToDouble(label29.Text) >= 0)
                         {
@@ -676,13 +682,14 @@ namespace WindowsFormsApplication1
                             Confirm = MessageBox.Show("Proceed with Order ?", "Verification", MessageBoxButtons.YesNo);
                             if(Confirm == DialogResult.Yes)
                             {
+                                string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
                                 int[] data0 = new int[num0];
                                 for (int i = 0; i < num0; i++)
                                 {
                                     int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                     int recipe_quant = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
                                     string total_price0 = Convert.ToString(dataGridView1.Rows[i].Cells[9].Value.ToString());
-                                    string querya = "insert into sales_tbl(invoice_id, recipe_id, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '" + recipe_quant + "' , '" + total_price0 + "'  )";
+                                    string querya = "insert into sales_tbl(invoice_id, recipe_id, dot, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '"+currdate+"', '" + recipe_quant + "' , '" + total_price0 + "'  )";
                                     conn.Open();
                                     MySqlCommand comm = new MySqlCommand(querya, conn);
                                     MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -1145,6 +1152,15 @@ namespace WindowsFormsApplication1
         private void PoS_FormClosing(object sender, FormClosingEventArgs e)
         {
             previousform.Show();
+        }
+
+        private void textBox13_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
 
         private void label15_Click(object sender, EventArgs e)

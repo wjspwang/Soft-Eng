@@ -36,19 +36,6 @@
             this.lname = new System.Windows.Forms.TextBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.date = new System.Windows.Forms.DateTimePicker();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.sHour = new System.Windows.Forms.ComboBox();
-            this.sMin = new System.Windows.Forms.ComboBox();
-            this.sDay = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.eHour = new System.Windows.Forms.ComboBox();
-            this.eMin = new System.Windows.Forms.ComboBox();
-            this.eDay = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.Extend = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -62,7 +49,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.status = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -80,7 +66,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -173,200 +158,6 @@
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(183, 36);
             this.date.TabIndex = 3;
-            // 
-            // lblStart
-            // 
-            this.lblStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStart.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblStart.Location = new System.Drawing.Point(54, 2);
-            this.lblStart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(70, 32);
-            this.lblStart.TabIndex = 22;
-            this.lblStart.Text = "Start:";
-            this.lblStart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // sHour
-            // 
-            this.sHour.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sHour.FormattingEnabled = true;
-            this.sHour.Items.AddRange(new object[] {
-            "12",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.sHour.Location = new System.Drawing.Point(59, 47);
-            this.sHour.Name = "sHour";
-            this.sHour.Size = new System.Drawing.Size(65, 37);
-            this.sHour.TabIndex = 4;
-            // 
-            // sMin
-            // 
-            this.sMin.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sMin.FormattingEnabled = true;
-            this.sMin.Items.AddRange(new object[] {
-            "00",
-            "05",
-            "10",
-            "15",
-            "20",
-            "25",
-            "30",
-            "35",
-            "40",
-            "45",
-            "50",
-            "55"});
-            this.sMin.Location = new System.Drawing.Point(157, 47);
-            this.sMin.Name = "sMin";
-            this.sMin.Size = new System.Drawing.Size(65, 37);
-            this.sMin.TabIndex = 5;
-            // 
-            // sDay
-            // 
-            this.sDay.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sDay.FormattingEnabled = true;
-            this.sDay.Items.AddRange(new object[] {
-            "AM",
-            "PM"});
-            this.sDay.Location = new System.Drawing.Point(271, 47);
-            this.sDay.Name = "sDay";
-            this.sDay.Size = new System.Drawing.Size(65, 37);
-            this.sDay.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(132, 39);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(18, 32);
-            this.label1.TabIndex = 22;
-            this.label1.Text = ":";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(246, 39);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(18, 32);
-            this.label2.TabIndex = 22;
-            this.label2.Text = ":";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(54, 87);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 32);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "End:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(132, 124);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(18, 32);
-            this.label4.TabIndex = 22;
-            this.label4.Text = ":";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label4.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(246, 124);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(18, 32);
-            this.label5.TabIndex = 22;
-            this.label5.Text = ":";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Visible = false;
-            // 
-            // eHour
-            // 
-            this.eHour.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eHour.FormattingEnabled = true;
-            this.eHour.Items.AddRange(new object[] {
-            "12",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.eHour.Location = new System.Drawing.Point(59, 132);
-            this.eHour.Name = "eHour";
-            this.eHour.Size = new System.Drawing.Size(65, 37);
-            this.eHour.TabIndex = 7;
-            // 
-            // eMin
-            // 
-            this.eMin.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eMin.FormattingEnabled = true;
-            this.eMin.Items.AddRange(new object[] {
-            "00",
-            "05",
-            "10",
-            "15",
-            "20",
-            "25",
-            "30",
-            "35",
-            "40",
-            "45",
-            "50",
-            "55"});
-            this.eMin.Location = new System.Drawing.Point(157, 132);
-            this.eMin.Name = "eMin";
-            this.eMin.Size = new System.Drawing.Size(65, 37);
-            this.eMin.TabIndex = 8;
-            // 
-            // eDay
-            // 
-            this.eDay.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eDay.FormattingEnabled = true;
-            this.eDay.Items.AddRange(new object[] {
-            "AM",
-            "PM"});
-            this.eDay.Location = new System.Drawing.Point(271, 132);
-            this.eDay.Name = "eDay";
-            this.eDay.Size = new System.Drawing.Size(65, 37);
-            this.eDay.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.Control;
-            this.label6.Location = new System.Drawing.Point(28, 198);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 32);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Status:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnSave
             // 
@@ -504,35 +295,9 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // status
-            // 
-            this.status.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.status.FormattingEnabled = true;
-            this.status.Items.AddRange(new object[] {
-            "IN",
-            "Expired"});
-            this.status.Location = new System.Drawing.Point(168, 198);
-            this.status.Name = "status";
-            this.status.Size = new System.Drawing.Size(183, 37);
-            this.status.TabIndex = 113;
-            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.status);
-            this.groupBox1.Controls.Add(this.lblStart);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.sHour);
-            this.groupBox1.Controls.Add(this.eHour);
-            this.groupBox1.Controls.Add(this.sMin);
-            this.groupBox1.Controls.Add(this.eMin);
-            this.groupBox1.Controls.Add(this.sDay);
-            this.groupBox1.Controls.Add(this.eDay);
             this.groupBox1.Location = new System.Drawing.Point(12, 293);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(434, 253);
@@ -630,6 +395,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 18;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // label7
             // 
@@ -729,7 +495,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PlayhouseManagement_FormClosed);
             this.Load += new System.EventHandler(this.btnSave_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -750,19 +515,6 @@
         private System.Windows.Forms.TextBox lname;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.DateTimePicker date;
-        private System.Windows.Forms.Label lblStart;
-        private System.Windows.Forms.ComboBox sHour;
-        private System.Windows.Forms.ComboBox sMin;
-        private System.Windows.Forms.ComboBox sDay;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox eHour;
-        private System.Windows.Forms.ComboBox eMin;
-        private System.Windows.Forms.ComboBox eDay;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button Extend;
         private System.Windows.Forms.Button button2;
@@ -776,7 +528,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.ComboBox status;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;

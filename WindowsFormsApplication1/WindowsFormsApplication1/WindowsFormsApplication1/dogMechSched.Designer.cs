@@ -127,6 +127,7 @@
             this.inputField.Size = new System.Drawing.Size(159, 26);
             this.inputField.TabIndex = 63;
             this.inputField.Visible = false;
+            this.inputField.TextChanged += new System.EventHandler(this.inputField_TextChanged);
             this.inputField.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputField_KeyPress);
             // 
             // InputLbl
@@ -155,6 +156,7 @@
             this.SearchByBox.Size = new System.Drawing.Size(181, 28);
             this.SearchByBox.TabIndex = 61;
             this.SearchByBox.Visible = false;
+            this.SearchByBox.SelectedIndexChanged += new System.EventHandler(this.SearchByBox_SelectedIndexChanged);
             // 
             // SearchByLabel
             // 

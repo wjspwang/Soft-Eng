@@ -61,5 +61,10 @@ namespace WindowsFormsApplication1
         {
 
         }
+
+        private void Form4_FormClosed(object sender, FormClosedEventArgs e)
+        {
+           // MessageBox.Show("Invoice Submitted, Thank you");
+        }
     }
 }

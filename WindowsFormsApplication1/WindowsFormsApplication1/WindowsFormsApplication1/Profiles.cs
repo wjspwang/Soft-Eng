@@ -48,7 +48,6 @@ namespace WindowsFormsApplication1
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void contact(object sender, EventArgs e)
@@ -118,7 +117,7 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["dog_id"].Visible = false;
             dataGridView2.Columns["dog_name"].HeaderText = "Dog Name";
             dataGridView2.Columns["dog_breed"].HeaderText = "Dog Breed";
-            dataGridView2.Columns["dog_owner"].HeaderText = "Dog Owner";
+            dataGridView2.Columns["dog_owner"].Visible = false;
             dataGridView2.Columns["owner_type"].Visible = false;
 
             string query2 = "select staff_id, lname, fname, gender, contact from staff inner join person on staff.person_id = person.person_id";
@@ -547,6 +546,20 @@ namespace WindowsFormsApplication1
         private void Profiles_FormClosing(object sender, FormClosingEventArgs e)
         {
             previousform.Show();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void num_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
     }

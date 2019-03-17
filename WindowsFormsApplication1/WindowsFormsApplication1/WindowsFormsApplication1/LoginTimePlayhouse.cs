@@ -37,17 +37,33 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             string now = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            string stime = DateTime.Now.ToString("h:mm tt");
+            string stime = DateTime.Now.ToString("hh:mm tt");
             hours = Convert.ToInt32(textBox1.Text);
-            string etime = DateTime.Now.AddHours(hours).ToString("h:mm tt");
+            string etime = DateTime.Now.AddHours(hours).ToString("hh:mm tt");
+            /*
+            "SELECT * FROM dc_sched 
+            WHERE  ((sched_start <= '"+sched_start+"'  AND sched_end >= '"+ sched_start + "' )" +
+            "OR(sched_start <= '"+sched_end+"'  AND sched_end >= '"+sched_end+"'))"+ 
+            "AND staff_id = "+staff_id.Text+"";
+            */
+            TimeSpan start_time1 = Convert.ToDateTime(stime).TimeOfDay;
+            TimeSpan end_time1 = Convert.ToDateTime(etime).TimeOfDay;
 
-            string validate = "select * from playhouse where customer_id = " + selected_user_id + " AND '"+stime+"' BETWEEN start_time AND end_time AND sched_date = '"+now+"'";
+            string sched_start = now + " " + start_time1;
+            string sched_end = now + " " + end_time1;
+
+            string validate = "select * from playhouse" +
+                " WHERE ((sched_start <= '"+sched_start+"' AND sched_end >= '"+sched_start+"')" +
+                "OR(sched_start <= '" + sched_end + "'  AND sched_end >= '" + sched_end + "'))" +
+                "AND customer_id = " + selected_user_id + "";
+
             MySqlCommand cmd = new MySqlCommand(validate, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             DataTable tb = new DataTable();
             adp.Fill(tb);
-            
-            if(tb.Rows.Count > 0)
+
+            //MessageBox.Show(validate + " " + tb.Rows.Count);
+            if (tb.Rows.Count > 0)
             {
                 MessageBox.Show("Customer already in Playhouse!");
                 return;
@@ -57,9 +73,9 @@ namespace WindowsFormsApplication1
             if (textBox1.Text != null || textBox1.Text != "")
             {
                 
-                
-                string qry = "insert into playhouse(customer_id, sched_date, start_time, end_time,status) values(" +
-                ""+selected_user_id+", '"+now+"', '"+stime+"', '"+etime+"', 'IN')";
+
+                string qry = "insert into playhouse(customer_id,sched_start,sched_end, sched_date, start_time, end_time,status) values(" +
+                ""+selected_user_id+",'"+sched_start+"','"+sched_end+"', '"+now+"', '"+stime+"', '"+etime+"', 'IN')";
                 conn.Open();
 
                 MySqlCommand comm4 = new MySqlCommand(qry, conn);
@@ -74,6 +90,20 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Error");
             }
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -117,7 +117,6 @@
             // 
             this.eHour.FormattingEnabled = true;
             this.eHour.Items.AddRange(new object[] {
-            "12",
             "1",
             "2",
             "3",
@@ -125,7 +124,11 @@
             "5",
             "6",
             "7",
-            "8"});
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
             this.eHour.Location = new System.Drawing.Point(549, 365);
             this.eHour.Name = "eHour";
             this.eHour.Size = new System.Drawing.Size(58, 24);
@@ -216,7 +219,6 @@
             // 
             this.sHour.FormattingEnabled = true;
             this.sHour.Items.AddRange(new object[] {
-            "12",
             "1",
             "2",
             "3",
@@ -224,7 +226,11 @@
             "5",
             "6",
             "7",
-            "8"});
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
             this.sHour.Location = new System.Drawing.Point(548, 314);
             this.sHour.Name = "sHour";
             this.sHour.Size = new System.Drawing.Size(59, 24);

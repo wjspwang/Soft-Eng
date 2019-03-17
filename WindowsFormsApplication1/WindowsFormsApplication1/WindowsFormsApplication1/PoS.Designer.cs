@@ -491,6 +491,7 @@
             this.textBox13.Size = new System.Drawing.Size(132, 22);
             this.textBox13.TabIndex = 37;
             this.textBox13.TextChanged += new System.EventHandler(this.textBox13_TextChanged);
+            this.textBox13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox13_KeyPress);
             // 
             // textBox10
             // 

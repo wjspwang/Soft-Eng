@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
     {
         MySqlConnection conn;
         public Form previousform;
+        string dateFormat = "yyyy-MM-dd";
         public dogMedSched()
         {
             
@@ -54,6 +55,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
             dataGridView1.Columns["clinic_name"].HeaderText = "Clinic";
             dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogsched_date"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
             dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
             dataGridView1.Columns["dog_vaccination"].HeaderText = "Medication";
@@ -90,7 +92,7 @@ namespace WindowsFormsApplication1
                 inputField.Visible = true;
 
             }
-
+          
 
 
             if (to_date.Visible == true &&
@@ -109,7 +111,10 @@ namespace WindowsFormsApplication1
         {
             if (SearchByBox.Text == "Dog Name")
             {
-                string query = "select dogsched_id, dc_dogsched.dog_id, dog_name ,dog_breed, dogsched_start, dogsched_end, dogsched_date, dogstart_time, dogend_time, dog_vaccination, dog_status from dog inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dog_name like '%" + inputField.Text + "%' order by dogsched_date";
+                string query = "select dogsched_id, dc_dogsched.dog_id, dog_name ,dog_breed, dogsched_start," +
+                    " dogsched_end, dogsched_date, dogstart_time, dogend_time, dog_vaccination, dog_status" +
+                    " from dog inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id" +
+                    " where dog_name like '%" + inputField.Text + "%' order by dogsched_date";
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(query, conn);
                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -122,8 +127,8 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["dog_id"].Visible = false;
                 dataGridView1.Columns["dogsched_start"].Visible = false;
                 dataGridView1.Columns["dogsched_end"].Visible = false;
-                dataGridView1.Columns["dog_breed"].HeaderText = "Last Name";
-                dataGridView1.Columns["dog_name"].HeaderText = "First Name";
+                dataGridView1.Columns["dog_breed"].HeaderText = "Breed";
+                dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
                 dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
                 dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
@@ -133,7 +138,7 @@ namespace WindowsFormsApplication1
             else if (SearchByBox.Text == "Breed")
             {
                 string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
-                    " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
+                    " dogsched_date, dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
                     "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dog_breed like '%" + inputField.Text + "%' order by dogsched_date";
                 conn.Open();
                 MySqlCommand comm = new MySqlCommand(query, conn);
@@ -147,6 +152,8 @@ namespace WindowsFormsApplication1
                 dataGridView1.Columns["dog_id"].Visible = false;
                 dataGridView1.Columns["dogsched_start"].Visible = false;
                 dataGridView1.Columns["dogsched_end"].Visible = false;
+                dataGridView1.Columns["dog_breed"].HeaderText = "Breed";
+                dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
                 dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
                 dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
                 dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
@@ -164,9 +171,12 @@ namespace WindowsFormsApplication1
 
         private void from_date_ValueChanged(object sender, EventArgs e)
         {
-            string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
-                    " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
-                    "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date >= '" +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name, " +
+            "dog_breed,dog_clinic.clinic_name, dogsched_start, dogsched_end, dogsched_date, " +
+            "dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+            "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
+            "inner join dog_clinic on dc_dogsched.clinic_id = dog_clinic.clinic_id " +
+            " where dogsched_date >= '" +
                from_date.Text + "' AND dogsched_date <= '" + to_date.Text + "' order by dogsched_date, dogstart_time";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
@@ -180,9 +190,12 @@ namespace WindowsFormsApplication1
 
         private void to_date_ValueChanged(object sender, EventArgs e)
         {
-            string query = "select dogsched_id, dc_dogsched.dog_id, dog_breed, dog_name ,dogsched_start, dogsched_end," +
-                    " dogsched_date, dogstart_time, dogend_time, dog_status from dog " +
-                    "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date >= '" +
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name, " +
+            "dog_breed,dog_clinic.clinic_name, dogsched_start, dogsched_end, dogsched_date, " +
+            "dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+            "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
+            "inner join dog_clinic on dc_dogsched.clinic_id = dog_clinic.clinic_id " +
+            "where dogsched_date >= '" +
                from_date.Text + "' AND dogsched_date <= '" + to_date.Text + "' order by dogsched_date, dogstart_time";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
@@ -200,7 +213,7 @@ namespace WindowsFormsApplication1
         }
         public void ShowToday()
         {
-            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string cur_date = DateTime.Now.Date.ToString(dateFormat);
             string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
@@ -229,7 +242,7 @@ namespace WindowsFormsApplication1
         }
         public void ShowIncoming()
         {
-            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string cur_date = DateTime.Now.Date.ToString(dateFormat);
             string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
@@ -258,7 +271,7 @@ namespace WindowsFormsApplication1
         }
         public void ShowPast()
         {
-            string cur_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string cur_date = DateTime.Now.Date.ToString(dateFormat);
             string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
                 " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
                 " dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
@@ -366,6 +379,42 @@ namespace WindowsFormsApplication1
             ds.Tables.Add(dt);
             Form4 f = new Form4(ds, "dog_med");
             f.Show();
+        }
+
+        private void SearchByBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SearchByBox.Text == "Dog Name")
+            {
+                InputLbl.Text = "Name";
+                inputField.Visible = true;
+                to_date.Visible = false;
+                from_date.Visible = false;
+                startDateLbl.Visible = false;
+                endDateLbl.Visible = false;
+            }
+            else if (SearchByBox.Text == "Breed")
+            {
+                InputLbl.Text = "Breed";
+                inputField.Visible = true;
+                to_date.Visible = false;
+                from_date.Visible = false;
+                startDateLbl.Visible = false;
+                endDateLbl.Visible = false;
+            }
+            else if (SearchByBox.Text == "Date")
+            {
+                InputLbl.Text = "Date";
+                inputField.Visible = false;
+                to_date.Visible = true;
+                from_date.Visible = true;
+                startDateLbl.Visible = true;
+                endDateLbl.Visible = true;
+            }
+        }
+
+        private void inputField_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

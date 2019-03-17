@@ -150,6 +150,13 @@
             this.label30 = new System.Windows.Forms.Label();
             this.button22 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -263,6 +270,7 @@
             this.id.Size = new System.Drawing.Size(136, 36);
             this.id.TabIndex = 16;
             this.id.KeyDown += new System.Windows.Forms.KeyEventHandler(this.id_KeyDown);
+            this.id.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.id_KeyPress);
             this.id.KeyUp += new System.Windows.Forms.KeyEventHandler(this.id_KeyUp);
             // 
             // textBox3
@@ -275,6 +283,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(431, 30);
             this.textBox3.TabIndex = 18;
+            this.textBox3.Visible = false;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // button5
@@ -348,6 +357,7 @@
             this.label40.Size = new System.Drawing.Size(163, 17);
             this.label40.TabIndex = 34;
             this.label40.Text = "Number of Existing Items";
+            this.label40.Visible = false;
             // 
             // label39
             // 
@@ -358,6 +368,7 @@
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(0, 17);
             this.label39.TabIndex = 33;
+            this.label39.Visible = false;
             // 
             // label34
             // 
@@ -394,6 +405,7 @@
             this.textBox22.Name = "textBox22";
             this.textBox22.Size = new System.Drawing.Size(431, 30);
             this.textBox22.TabIndex = 31;
+            this.textBox22.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox22_KeyPress);
             // 
             // label7
             // 
@@ -461,6 +473,7 @@
             this.label4.Size = new System.Drawing.Size(114, 17);
             this.label4.TabIndex = 23;
             this.label4.Text = "Product Quantity";
+            this.label4.Visible = false;
             // 
             // label2
             // 
@@ -491,6 +504,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(432, 32);
             this.comboBox1.TabIndex = 20;
+            this.comboBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox1_KeyPress);
             // 
             // tabPage2
             // 
@@ -609,7 +623,7 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.CustomFormat = "yyyy-M-dd";
+            this.dateTimePicker2.CustomFormat = "yyyy-MM-dd";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(1254, 413);
             this.dateTimePicker2.Name = "dateTimePicker2";
@@ -618,7 +632,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.CustomFormat = "yyyy-M-dd";
+            this.dateTimePicker1.CustomFormat = "yyyy-MM-dd";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(1064, 413);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -729,6 +743,7 @@
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(431, 34);
             this.textBox10.TabIndex = 50;
+            this.textBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox10_KeyPress);
             // 
             // button7
             // 
@@ -831,6 +846,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(136, 36);
             this.textBox9.TabIndex = 38;
+            this.textBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox9_KeyPress);
             // 
             // button10
             // 
@@ -858,6 +874,13 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tabPage3.Controls.Add(this.button28);
+            this.tabPage3.Controls.Add(this.textBox24);
+            this.tabPage3.Controls.Add(this.label46);
+            this.tabPage3.Controls.Add(this.label47);
+            this.tabPage3.Controls.Add(this.label48);
+            this.tabPage3.Controls.Add(this.dateTimePicker3);
+            this.tabPage3.Controls.Add(this.dateTimePicker4);
             this.tabPage3.Controls.Add(this.button15);
             this.tabPage3.Controls.Add(this.dataGridView4);
             this.tabPage3.Controls.Add(this.label22);
@@ -1030,6 +1053,7 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(431, 34);
             this.textBox11.TabIndex = 67;
+            this.textBox11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox11_KeyPress);
             // 
             // button8
             // 
@@ -1132,6 +1156,7 @@
             this.textBox14.Name = "textBox14";
             this.textBox14.Size = new System.Drawing.Size(136, 36);
             this.textBox14.TabIndex = 60;
+            this.textBox14.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox14_KeyPress);
             // 
             // button13
             // 
@@ -1299,6 +1324,7 @@
             this.textBox18.Name = "textBox18";
             this.textBox18.Size = new System.Drawing.Size(431, 34);
             this.textBox18.TabIndex = 86;
+            this.textBox18.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox18_KeyPress);
             // 
             // comboBox6
             // 
@@ -1396,6 +1422,7 @@
             this.textBox19.Size = new System.Drawing.Size(111, 34);
             this.textBox19.TabIndex = 83;
             this.textBox19.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox19_KeyDown);
+            this.textBox19.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox19_KeyPress);
             // 
             // groupBox1
             // 
@@ -1585,6 +1612,7 @@
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new System.Drawing.Size(137, 34);
             this.textBox15.TabIndex = 74;
+            this.textBox15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox15_KeyPress);
             // 
             // label27
             // 
@@ -1684,6 +1712,76 @@
             this.button27.Text = "Refresh";
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(1505, 351);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(75, 32);
+            this.button28.TabIndex = 86;
+            this.button28.Text = "Search";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(1435, 351);
+            this.textBox24.Multiline = true;
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(63, 30);
+            this.textBox24.TabIndex = 85;
+            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label46.Location = new System.Drawing.Point(1377, 364);
+            this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(51, 17);
+            this.label46.TabIndex = 84;
+            this.label46.Text = "Item ID";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label47.Location = new System.Drawing.Point(1181, 364);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(61, 17);
+            this.label47.TabIndex = 83;
+            this.label47.Text = "To date:";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label48.Location = new System.Drawing.Point(980, 364);
+            this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(76, 17);
+            this.label48.TabIndex = 82;
+            this.label48.Text = "From date:";
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.CustomFormat = "yyyy-MM-dd";
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker3.Location = new System.Drawing.Point(1253, 359);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(117, 22);
+            this.dateTimePicker3.TabIndex = 81;
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.CustomFormat = "yyyy-MM-dd";
+            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker4.Location = new System.Drawing.Point(1063, 359);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(111, 22);
+            this.dateTimePicker4.TabIndex = 80;
             // 
             // ProductList
             // 
@@ -1850,5 +1948,12 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.DateTimePicker exp_date;
         private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
     }
 }

@@ -15,6 +15,7 @@ namespace WindowsFormsApplication1
     {
         MySqlConnection conn;
         public Form previousform;
+        string dateFormat = "yyyy-MM-dd";
         public salesReport()
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["recipe_cost"].HeaderText = "Item Cost";
             dataGridView1.Columns["recipe_unit"].HeaderText = "Unit of Measure";
             dataGridView1.Columns["dot"].HeaderText = "Purchase Date";
+            dataGridView1.Columns["dot"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["sale_item_quant"].HeaderText = "Quantity Sold";
             dataGridView1.Columns["total_price"].HeaderText = "Total Price";
             
@@ -70,7 +72,7 @@ namespace WindowsFormsApplication1
             string query = " select invoice_id, recipe_list.recipe_name, recipe_list.recipe_cat, recipe_list.recipe_cost,"+
                  "recipe_list.recipe_unit, dot, sales_tbl.sale_item_quant, total_price from sales_tbl INNER JOIN recipe_list WHERE sales_tbl.recipe_id = recipe_list.recipe_id "+
                  "AND dot >= '"+ fromdate.Text +"' AND dot <= '"+ todate.Text +"'; ";
-            //MessageBox.Show(fromdate.Text + " " + todate.Text);
+            //MessageBox.Show(query + "");
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -81,6 +83,7 @@ namespace WindowsFormsApplication1
             dataGridView1.DataSource = dt;
 
             dataGridView1.Columns["dot"].HeaderText = "Purchase Date";
+            dataGridView1.Columns["dot"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["invoice_id"].HeaderText = "Invoice No.";
             dataGridView1.Columns["recipe_name"].HeaderText = "Item Sold";
             dataGridView1.Columns["recipe_cat"].HeaderText = "Item Category";
@@ -114,6 +117,7 @@ namespace WindowsFormsApplication1
             dataGridView1.DataSource = dt;
 
             dataGridView1.Columns["dot"].HeaderText = "Purchase Date";
+            dataGridView1.Columns["dot"].DefaultCellStyle.Format = dateFormat;
             dataGridView1.Columns["invoice_id"].HeaderText = "Invoice No.";
             dataGridView1.Columns["recipe_name"].HeaderText = "Item Sold";
             dataGridView1.Columns["recipe_cat"].HeaderText = "Item Category";
@@ -138,6 +142,14 @@ namespace WindowsFormsApplication1
             ds.Tables.Add(dt);
             Form4 f = new Form4(ds,"sales");
             f.Show();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -96,6 +96,7 @@ namespace WindowsFormsApplication1
 
 
                         selected_dog_id = int.Parse(dog_grid.Rows[e.RowIndex].Cells["dog_id"].Value.ToString());
+                        dog_id.Text = dog_grid.Rows[e.RowIndex].Cells["dog_id"].Value.ToString();
                         dog_name.Text = dog_grid.Rows[e.RowIndex].Cells["dog_name"].Value.ToString();
                         dog_breed.Text = dog_grid.Rows[e.RowIndex].Cells["dog_breed"].Value.ToString();
 
@@ -164,23 +165,26 @@ namespace WindowsFormsApplication1
             {
                 taken = 0;
             }
-            
 
+            if (clinic_text.Text == "" || clinic_text.Text == null) 
+            {
+                MessageBox.Show("");
+            }
             if (selected_dog_id == -1)
             {
-                MessageBox.Show("case 1 : No Staff ID");
+                MessageBox.Show("Invalid Staff ID");
             }
             else if (dog_name.Text == "" || dog_name.Text == null)
             {
-                MessageBox.Show("case 2 : No Staff Name");
+                MessageBox.Show("Invalid Staff Name");
             }
             else if (date.Text == "" || date.Text == null)
             {
-                MessageBox.Show("case 3 : No Date");
+                MessageBox.Show("Invalid Date");
             }
             else if (input_Date.Date < cur_date.Date && taken == 0)
             {
-                MessageBox.Show("case 4 : Scheduled for past date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Scheduled for past date.", "Invalid Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
             else if (sHour.Text == "" || sHour.Text == null ||
@@ -188,7 +192,7 @@ namespace WindowsFormsApplication1
                 eHour.Text == "" || eHour.Text == null ||
                 eMin.Text == "" || eMin.Text == null)
             {
-                MessageBox.Show("case 5 : No Start Time/ End time");
+                MessageBox.Show("Invalid Start Time/ End time");
             }
             else if (sHour.Text != "13")
             {
@@ -201,24 +205,27 @@ namespace WindowsFormsApplication1
                 if (sHour_int >= eHour_int &&
                     sMin_int >= eMin_int && sHour.Text != "12" && sday.Text == eday.Text)
                 {
-                    MessageBox.Show("case 6 : Invalid Time.", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid Time", "Invalid Start/End Time", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (vacc_Text.Text == "" || vacc_Text.Text == null)
                 {
-                    MessageBox.Show("case 6.5 : Empty vaccination ");
+                    MessageBox.Show("Invalid Medication");
                 }
                 else if (comboBox1.Text == "" || comboBox1.Text == null)
                 {
-                    MessageBox.Show("case 7 : No Status");
+                    MessageBox.Show("Invalid Status");
                 }
                 else
                 {
-                    string sched_start = date.Text + " " + sHour.Text + ":" + sMin.Text;
-                    string sched_end = date.Text + " " + eHour.Text + ":" + eMin.Text;
                     string start_time = sHour.Text + ":" + sMin.Text + " " + sday.Text;
                     string end_time = eHour.Text + ":" + eMin.Text + " " + eday.Text;
 
                     TimeSpan start_time1 = Convert.ToDateTime(start_time).TimeOfDay;
+                    TimeSpan end_time1 = Convert.ToDateTime(end_time).TimeOfDay;
+
+                    string sched_start = date.Text + " " + start_time1;
+                    string sched_end = date.Text + " " + end_time1;
+
                     if (input_Date.Date == cur_date.Date && start_time1 < cur_time && taken == 0 || input_Date.Date > cur_date.Date && start_time1 < cur_time && taken == 1)
                     {
                         MessageBox.Show("Invalid Date.", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -226,18 +233,13 @@ namespace WindowsFormsApplication1
                     else
                     {
                         string selectquery = "select * from dc_dogsched where dog_id = '" + dog_id.Text + "' AND dogsched_date = '" + date.Text + "' AND dogstart_time = '" + start_time + "' AND dogend_time = '" + end_time + "' ";
-                        string selectquery2 = "select * from dc_dogsched where dog_id = '" + dog_id.Text + "' AND dogsched_date = '" + date.Text + "' AND dogstart_time = '" + start_time + "' ";
-                        string stquery = "SELECT * FROM dc_dogsched WHERE ('" + sched_start + "' BETWEEN dogsched_start AND dogsched_end) OR ('" + sched_end + "' BETWEEN dogsched_start AND dogsched_end) AND dog_id = '" + dog_id.Text + "'";
-                        string etquery = "SELECT * FROM dc_dogsched WHERE (dogsched_start BETWEEN '" + sched_start + "' AND '" + sched_end + "') OR  (dogsched_end BETWEEN '" + sched_start + "' AND '" + sched_end + "'AND dog_id = '" + dog_id.Text + "')";
-                        // "INSERT INTO dc_dogsched(dog_id,clinic_id,dogsched_start, dogsched_end, dogsched_date," +
-                        //" dogstart_time, dogend_time, dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday, dog_status, dog_vaccination) VALUES('"
-                        //+ selected_dog_id + "','" + select_clinic_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
-                        //+ start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
-                        //eday.Text + "','" + comboBox1.Text + "', '" + vacc_Text.Text + "' )";
+                        string selectquery2 = "SELECT * FROM dc_dogsched WHERE  ((dogsched_start <= '" + sched_start + "'  AND dogsched_end >= '" + sched_start + "' )" +
+                        "OR(dogsched_start <= '" + sched_end + "'  AND dogsched_end >= '" + sched_end + "'))" +
+                        "AND dog_id = " + dog_id.Text + "";
                         string duplicates = "select * from dc_dogsched where dog_id = " + selected_dog_id + " " +
                             "AND clinic_id = " + select_clinic_id + " AND dogstart_time = '" + start_time + "' AND dogend_time = '" + end_time + "'" +
                             "AND dog_vaccination = '"+vacc_Text.Text+"' ";
-                        MessageBox.Show(duplicates);
+                        //MessageBox.Show(duplicates);
                         conn.Open();
 
                         MySqlCommand comm1 = new MySqlCommand(selectquery, conn);
@@ -250,16 +252,6 @@ namespace WindowsFormsApplication1
                         DataTable dt2 = new DataTable();
                         adp2.Fill(dt2);
 
-                        MySqlCommand commStartSelect = new MySqlCommand(stquery, conn);
-                        MySqlDataAdapter adps = new MySqlDataAdapter(commStartSelect);
-                        DataTable dtst = new DataTable();
-                        adps.Fill(dtst);
-
-                        MySqlCommand commEndSelect = new MySqlCommand(etquery, conn);
-                        MySqlDataAdapter adpe = new MySqlDataAdapter(commEndSelect);
-                        DataTable dtet = new DataTable();
-                        adpe.Fill(dtet);
-
                         MySqlCommand commdup = new MySqlCommand(duplicates, conn);
                         MySqlDataAdapter adpdup = new MySqlDataAdapter(commdup);
                         DataTable dtdup = new DataTable();
@@ -269,7 +261,7 @@ namespace WindowsFormsApplication1
                         conn.Close();
 
 
-                        MessageBox.Show(dtdup.Rows.Count + "");
+                        //MessageBox.Show(dtdup.Rows.Count + "");
 
                         if (dt1.Rows.Count > 0)
                         {
@@ -277,13 +269,8 @@ namespace WindowsFormsApplication1
                         }
                         else if (dt2.Rows.Count > 0)
                         {
-                            MessageBox.Show("The selected dog is already assigned for this period", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Conflicting with an Existing Appointment", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        /*else if (dtst.Rows.Count > 0 || dtet.Rows.Count > 0)
-                        {
-                            MessageBox.Show("Time in Conflict with another schedule!", "Conflict Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }*/
-         
                         else if(dtdup.Rows.Count > 0)
                         {
                             MessageBox.Show("Duplicated Entry", "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -301,19 +288,13 @@ namespace WindowsFormsApplication1
                             MySqlCommand comm4 = new MySqlCommand(query0003, conn);
                             comm4.ExecuteNonQuery();
                             conn.Close();
-                            MessageBox.Show("Schedule Successfully Added");
+                            MessageBox.Show("Schedule Successfully Appointed");
                             loadall();
 
                         }
                     }
-
-
-
                 }
-
-
             }
-
         }
 
         private void createStaff_Click(object sender, EventArgs e)

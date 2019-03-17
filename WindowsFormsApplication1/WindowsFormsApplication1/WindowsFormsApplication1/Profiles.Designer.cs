@@ -166,6 +166,7 @@
             this.textBox1.TabIndex = 15;
             this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // num
             // 
@@ -178,6 +179,7 @@
             this.num.TabIndex = 41;
             this.num.Click += new System.EventHandler(this.num_Click);
             this.num.TextChanged += new System.EventHandler(this.contact);
+            this.num.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.num_KeyPress);
             // 
             // label1
             // 
@@ -375,6 +377,7 @@
             this.checkBox1.TabIndex = 65;
             this.checkBox1.Text = "Customer\'s Dog";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label17
@@ -387,6 +390,7 @@
             this.label17.Size = new System.Drawing.Size(70, 25);
             this.label17.TabIndex = 64;
             this.label17.Text = "Owner";
+            this.label17.Visible = false;
             // 
             // textBox6
             // 
@@ -398,6 +402,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(320, 34);
             this.textBox6.TabIndex = 63;
+            this.textBox6.Visible = false;
             // 
             // label12
             // 
