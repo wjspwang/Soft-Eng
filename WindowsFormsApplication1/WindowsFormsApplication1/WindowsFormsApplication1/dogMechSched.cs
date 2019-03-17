@@ -17,17 +17,69 @@ namespace WindowsFormsApplication1
         MySqlConnection conn;
         public Form previousform;
         string dateFormat = "yyyy-MM-dd";
+        string reminder;
         public dogMedSched()
         {
             
             InitializeComponent();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
         }
+        public dogMedSched(string reminder)
+        {
+
+            InitializeComponent();
+            conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
+
+            this.reminder = reminder;
+        }
 
         private void dogMedSched_Load(object sender, EventArgs e)
         {
+            if(reminder == "reminder")
+            {
+                loadNotif();
+            }
+            else
+            {
+                loadall();
+            }
             
-            loadall();
+        }
+        
+
+        public void loadNotif()
+        {
+            string today = DateTime.Now.Date.ToString(dateFormat);
+            string tomorrow = DateTime.Now.Date.AddDays(2).ToString(dateFormat);
+            string nearbyAppointment = "select dogsched_id, dc_dogsched.dog_id, dog_name, " +
+            "dog_breed,dog_clinic.clinic_name, dogsched_start, dogsched_end, dogsched_date, " +
+            "dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+            "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
+            "inner join dog_clinic on dc_dogsched.clinic_id = dog_clinic.clinic_id " +
+            "where dogsched_date >= '" + today + "' " +
+            "AND dogsched_date <= '" + tomorrow + "' AND dog_status = 'To Be Taken' Order by dogsched_date, dogstart_time  ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(nearbyAppointment, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["clinic_name"].HeaderText = "Clinic";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogsched_date"].DefaultCellStyle.Format = dateFormat;
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_vaccination"].HeaderText = "Medication";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+
         }
         public void loadall()
         {

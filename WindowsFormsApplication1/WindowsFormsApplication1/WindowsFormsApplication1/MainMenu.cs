@@ -15,6 +15,7 @@ namespace WindowsFormsApplication1
     {
         MySqlConnection conn;
         public Form previousform;
+        string dateFormat = "yyyy-MM-dd";
   
         public bool Noti;
 
@@ -37,6 +38,24 @@ namespace WindowsFormsApplication1
         private void Form2_Load(object sender, EventArgs e)
         {
             label9.Text = DateTime.Now.ToString();
+
+            string today = DateTime.Now.Date.ToString(dateFormat);
+            string tomorrow = DateTime.Now.Date.AddDays(2).ToString(dateFormat);
+            string nearbyAppointment = "select dogsched_id, dc_dogsched.dog_id, dog_name, " +
+            "dog_breed,dog_clinic.clinic_name, dogsched_start, dogsched_end, dogsched_date, " +
+            "dogstart_time, dogend_time, dog_vaccination, dog_status from dog " +
+            "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id " +
+            "inner join dog_clinic on dc_dogsched.clinic_id = dog_clinic.clinic_id " +
+            "where dogsched_date >= '" + today + "' " +
+            "AND dogsched_date <= '" + tomorrow + "' AND dog_status = 'To Be Taken' Order by dogsched_date, dogstart_time  ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(nearbyAppointment, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            label17.Text = dt.Rows.Count.ToString();
 
         }
 
@@ -287,6 +306,13 @@ namespace WindowsFormsApplication1
         {
             Form1 login = new Form1();
             previousform.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dogMedSched f = new dogMedSched("reminder");
+            f.Show();
+            f.previousform = this;
         }
     }
 }

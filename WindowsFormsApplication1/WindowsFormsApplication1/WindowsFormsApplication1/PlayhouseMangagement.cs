@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -94,6 +95,7 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["contact"].HeaderText = "Contact no.";
             dataGridView1.Columns["person_type"].Visible = false;
 
+           
         }
 
         private void PlayhouseManagement_FormClosed(object sender, FormClosedEventArgs e)
@@ -696,6 +698,29 @@ namespace WindowsFormsApplication1
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void PlayhouseManagement_Shown(object sender, EventArgs e)
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            cust_id.Text = selected_user_id + "";
+            string query1 = "select playhouse_id, playhouse.customer_id, lname," +
+                " fname, sched_start, sched_end, sched_date," +
+                " start_time, end_time, status from person " +
+                "inner join playhouse on person.person_id = playhouse.customer_id " +
+                "where status = 'Overtime' AND sched_date = '" + curr_date + "'" +
+                "order by sched_date, start_time";
+            conn.Open();
+            MySqlCommand comm1 = new MySqlCommand(query1, conn);
+            MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            adp1.Fill(dt1);
+
+            if (dt1.Rows.Count > 0)
+            {
+                MessageBox.Show(dt1.Rows.Count + " Customer Overtime","Overtime Notification",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
         }
     }
