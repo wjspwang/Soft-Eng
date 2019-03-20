@@ -49,40 +49,22 @@ namespace WindowsFormsApplication1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string maa = "";
-            string us = "";
-            dataGridView1.ReadOnly = true;
-            if (dataGridView1.Rows[e.RowIndex].Cells["gender"].Value.ToString() == "0")
-            {
-                 maa = "Male";
-            }
-            else
-            {
-                 maa = "Female";
-                    }
-            if (dataGridView1.Rows[e.RowIndex].Cells["user_type"].Value.ToString() == "0") {
-                us = "Staff";
-            }
-            else if (dataGridView1.Rows[e.RowIndex].Cells["user_type"].Value.ToString() == "1")
-            {
-                us = "Owner";
-            }
-            else
-            {
-                us = "Administrator";
-            }
+           
             if (e.RowIndex > -1)
             {
+                textBox1.ForeColor = Color.Black;
+                textBox2.ForeColor = Color.Black;
+                textBox3.ForeColor = Color.Black;
+                textBox4.ForeColor = Color.Black;
 
-                
                 selected_user_id = int.Parse(dataGridView1.Rows[e.RowIndex].Cells["user_id"].Value.ToString());
                 textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells["fname"].Value.ToString();
                 textBox2.Text = dataGridView1.Rows[e.RowIndex].Cells["lname"].Value.ToString();
                 //dateTimePicker1.Value = DateTime.ParseExact(dataGridView1.Rows[e.RowIndex].Cells["bdate"].Value.ToString(), "yyyy/MM/dd");
-                comboBox1.Text = maa;
+                //comboBox1.Text = maa;
                 textBox4.Text = dataGridView1.Rows[e.RowIndex].Cells["username"].Value.ToString();
                 textBox3.Text = dataGridView1.Rows[e.RowIndex].Cells["password"].Value.ToString();
-                comboBox2.Text = us;
+                //comboBox2.Text = us;
                 id.Text = dataGridView1.Rows[e.RowIndex].Cells["user_id"].Value.ToString();
             }
         }
@@ -111,17 +93,17 @@ namespace WindowsFormsApplication1
            
         }
 
-
+        public int utype;
         private void button2_Click(object sender, EventArgs e)
-        {/*
-            if (textBox1.Text == "" || textBox2 == "")
+        {
+            if (textBox1.Text == "" || textBox2.Text == "" ||
+                textBox3.Text == "" || textBox4.Text == "" ||
+                comboBox1.Text == "" || comboBox2.Text == "")
             {
-                MessageBox.Show("Please input required data");
+                MessageBox.Show("There are missing fields","Invalid Details",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
             }
-            else
-            {
-                string quesy ="INEST INTO tbl_user(fname,lname,bdate,gender,username,password,user_type,status"
-            }*/
+
             int gen=1;
             if (comboBox1.Text == "Male")
             {
@@ -131,7 +113,7 @@ namespace WindowsFormsApplication1
                 gen = 1;
 
 
-            int utype=1;
+            
             if (comboBox2.Text == "Staff")
             {
                 utype = 0;
@@ -140,18 +122,34 @@ namespace WindowsFormsApplication1
             {
                 utype = 1;
             }
-            else 
-                utype = 2;
 
-            string query = "INSERT INTO tbl_users(fname,lname,bdate,gender,username,password,user_type) " +
-                "VALUES('" + textBox1.Text + "', '" + textBox2.Text + "', '" +
-                dateTimePicker1.Value.ToString("yyyy-MM-dd") + "', " + gen + ", '" +
-                textBox4.Text + "', '" + textBox3.Text + "', " + utype + ")";
+            string checker = "select * from tbl_users where username = '" + textBox4.Text + "'";
             conn.Open();
-            MySqlCommand comm = new MySqlCommand(query, conn);
-            comm.ExecuteNonQuery();
+            MySqlCommand cmd = new MySqlCommand(checker, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
             conn.Close();
-            loadall();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            MessageBox.Show(checker + "\n ROW COUNT = " + dt.Rows.Count);
+            if (dt.Rows.Count > 0)
+            {
+                MessageBox.Show("Username already exists", "Invalid Username", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+            {
+                string query = "INSERT INTO tbl_users(fname,lname,bdate,gender,username,password,user_type) " +
+                                "VALUES('" + textBox1.Text + "', '" + textBox2.Text + "', '" +
+                                dateTimePicker1.Value.ToString("yyyy-MM-dd") + "', " + gen + ", '" +
+                                textBox4.Text + "', '" + textBox3.Text + "', '" + comboBox2.Text + "')";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.ExecuteNonQuery();
+                conn.Close();
+                loadall();
+            }
+
+            
         }
 
         private void Form4_Load(object sender, EventArgs e)
@@ -174,18 +172,22 @@ namespace WindowsFormsApplication1
         {
             if (textBox1.Text == "Firstname")
             {
-               textBox1.Text = "";
+                textBox1.ForeColor = Color.Black;
+                textBox1.Text = "";
             }
             if (textBox2.Text == "")
             {
+                textBox2.ForeColor = SystemColors.ButtonShadow;
                 textBox2.Text = "Lastname";
             }
             if (textBox4.Text == "")
             {
+                textBox4.ForeColor = SystemColors.ButtonShadow;
                 textBox4.Text = "username";
             }
             if (textBox3.Text == "")
             {
+                textBox3.ForeColor = SystemColors.ButtonShadow;
                 textBox3.Text = "password";
             }
         }
@@ -194,18 +196,22 @@ namespace WindowsFormsApplication1
         {
             if (textBox1.Text == "")
             {
+                textBox1.ForeColor = SystemColors.ButtonShadow;
                 textBox1.Text = "Firstname";
             }
             if (textBox2.Text == "Lastname")
             {
+                textBox2.ForeColor = Color.Black;
                 textBox2.Text = "";
             }
             if (textBox4.Text == "")
             {
+                textBox4.ForeColor = SystemColors.ButtonShadow;
                 textBox4.Text = "username";
             }
             if (textBox3.Text == "")
             {
+                textBox3.ForeColor = SystemColors.ButtonShadow;
                 textBox3.Text = "password";
             }
         }
@@ -214,18 +220,22 @@ namespace WindowsFormsApplication1
         {
             if (textBox1.Text == "")
             {
+                textBox1.ForeColor = SystemColors.ButtonShadow;
                 textBox1.Text = "Firstname";
             }
             if (textBox2.Text == "")
             {
+                textBox2.ForeColor = SystemColors.ButtonShadow;
                 textBox2.Text = "Lastname";
             }
             if (textBox4.Text == "username")
             {
+                textBox4.ForeColor = Color.Black;
                 textBox4.Text = "";
             }
             if (textBox3.Text == "")
             {
+                textBox3.ForeColor = SystemColors.ButtonShadow;
                 textBox3.Text = "password";
             }
         }
@@ -234,40 +244,44 @@ namespace WindowsFormsApplication1
         {
             if (textBox1.Text == "")
             {
+                textBox1.ForeColor = SystemColors.ButtonShadow;
                 textBox1.Text = "Firstname";
             }
             if (textBox2.Text == "")
             {
+                textBox2.ForeColor = SystemColors.ButtonShadow;
                 textBox2.Text = "Lastname";
             }
             if (textBox4.Text == "")
             {
+                textBox4.ForeColor = SystemColors.ButtonShadow;
                 textBox4.Text = "username";
             }
             if (textBox3.Text == "password")
             {
+                textBox3.ForeColor = Color.Black;
                 textBox3.Text = "";
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox1.ForeColor = Color.Black;
+            //textBox1.ForeColor = Color.Black;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            textBox2.ForeColor = Color.Black;
+            //textBox2.ForeColor = Color.Black;
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            textBox4.ForeColor = Color.Black;
+            //textBox4.ForeColor = Color.Black;
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            textBox3.ForeColor = Color.Black;
+           // textBox3.ForeColor = Color.Black;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -319,6 +333,37 @@ namespace WindowsFormsApplication1
         private void UserList_FormClosing(object sender, FormClosingEventArgs e)
         {
             previousform.Show();
+        }
+
+        private void UserList_Activated(object sender, EventArgs e)
+        {
+
+              
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(selected_user_id == 0)
+            {
+                MessageBox.Show("Select a User first before performing an action", "Missing User Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DialogResult ConfirmDelete;
+            ConfirmDelete = MessageBox.Show("Confirm Delete User ?", "Delete Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (ConfirmDelete == DialogResult.OK)
+            {
+                string query1 = "DELETE FROM tbl_users where user_id = '" + selected_user_id + "'  ";
+                conn.Open();
+                MySqlCommand comm = new MySqlCommand(query1, conn);
+                comm.ExecuteNonQuery();
+                conn.Close();
+                MessageBox.Show("Successfully Deleted");
+                loadall();
+                
+            }
+            
+            
         }
     }
 }

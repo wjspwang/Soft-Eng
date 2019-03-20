@@ -100,6 +100,7 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(571, 462);
@@ -127,7 +128,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(89, 38);
             this.button2.TabIndex = 13;
-            this.button2.Text = "Save";
+            this.button2.Text = "Add";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -214,6 +215,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -224,7 +226,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(320, 37);
             this.comboBox1.TabIndex = 18;
-            this.comboBox1.Text = "Gender";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button5
@@ -249,7 +250,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(89, 38);
             this.button4.TabIndex = 46;
-            this.button4.Text = "Delete";
+            this.button4.Text = "&Delete";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -434,6 +435,7 @@
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(571, 462);
@@ -450,8 +452,9 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 38);
             this.button6.TabIndex = 59;
-            this.button6.Text = "Delete";
+            this.button6.Text = "&Delete";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -485,7 +488,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(89, 38);
             this.button9.TabIndex = 49;
-            this.button9.Text = "Save";
+            this.button9.Text = "Add";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -643,6 +646,7 @@
             this.dataGridView3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView3.MultiSelect = false;
             this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowTemplate.Height = 24;
             this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView3.Size = new System.Drawing.Size(571, 462);
@@ -659,7 +663,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(89, 38);
             this.button11.TabIndex = 59;
-            this.button11.Text = "Delete";
+            this.button11.Text = "&Delete";
             this.button11.UseVisualStyleBackColor = false;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -695,7 +699,7 @@
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(89, 38);
             this.button14.TabIndex = 49;
-            this.button14.Text = "Save";
+            this.button14.Text = "Add";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
@@ -776,6 +780,7 @@
             // 
             // comboBox3
             // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.comboBox3.FormattingEnabled = true;

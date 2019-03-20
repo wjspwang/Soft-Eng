@@ -18,11 +18,20 @@ namespace WindowsFormsApplication1
         string dateFormat = "yyyy-MM-dd";
   
         public bool Noti;
+        int utype;
 
         public MainMenu()
         {
             InitializeComponent();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root;");
+            
+        }
+
+        public MainMenu(int utype)
+        {
+            InitializeComponent();
+            conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root;");
+            this.utype = utype;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -34,9 +43,10 @@ namespace WindowsFormsApplication1
 
 
         }
-
+        
         private void Form2_Load(object sender, EventArgs e)
         {
+            //MessageBox.Show(utype + "");
             label9.Text = DateTime.Now.ToString();
 
             string today = DateTime.Now.Date.ToString(dateFormat);
@@ -67,6 +77,7 @@ namespace WindowsFormsApplication1
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
+           
             this.Hide();
             PassChange a = new PassChange();
             a.Show();
@@ -83,6 +94,12 @@ namespace WindowsFormsApplication1
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             UserList a = new UserList();
             a.Show();
@@ -175,14 +192,27 @@ namespace WindowsFormsApplication1
             string query = "Select prodname from product where prodquant <= restock_val ";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
             MySqlDataReader reader = comm.ExecuteReader();
             StringBuilder productNames = new StringBuilder();
+
             while (reader.Read())
             {
                 productNames.Append(reader["prodname"].ToString() + Environment.NewLine);
             }
             conn.Close();
-            MessageBox.Show("Following Product(s) need to restock: \n" + productNames);
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if(dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Product(s) need to restock: \n\n" + productNames,
+                                "Warning Low Stocks", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Stocks below Re-stock Value", "No Low Stocks",MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+            
         }
 
         private void label10_Click(object sender, EventArgs e)
@@ -200,6 +230,12 @@ namespace WindowsFormsApplication1
 
         private void pictureBox9_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             StaffScheduler a = new StaffScheduler();
             a.Show();
@@ -218,6 +254,12 @@ namespace WindowsFormsApplication1
 
         private void pictureBox10_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             Form2 form2 = new Form2();
             form2.Show();
@@ -272,6 +314,12 @@ namespace WindowsFormsApplication1
 
         private void label7_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             StaffScheduler a = new StaffScheduler();
             a.Show();
@@ -280,6 +328,12 @@ namespace WindowsFormsApplication1
 
         private void label15_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             Form2 form2 = new Form2();
             form2.Show();
@@ -288,6 +342,12 @@ namespace WindowsFormsApplication1
 
         private void label6_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("utype = " + utype);
+            if (this.utype == 0)
+            {
+                MessageBox.Show("You are not authorized to use this module", "Access Blocked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             this.Hide();
             UserList a = new UserList();
             a.Show();
@@ -296,6 +356,7 @@ namespace WindowsFormsApplication1
 
         private void label5_Click(object sender, EventArgs e)
         {
+            
             this.Hide();
             PassChange a = new PassChange();
             a.Show();
@@ -310,9 +371,23 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dogMedSched f = new dogMedSched("reminder");
-            f.Show();
-            f.previousform = this;
+            if(label17.Text != Convert.ToString(0))
+            {
+                dogMedSched f = new dogMedSched("reminder");
+                f.Show();
+                f.previousform = this;
+            }
+            else
+            {
+                MessageBox.Show("No Customer(s) are on Overtime", "No Customer Overtime",
+                    MessageBoxButtons.OK,MessageBoxIcon.Hand);
+            }
+            
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

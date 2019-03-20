@@ -72,7 +72,8 @@ namespace WindowsFormsApplication1
         {
             this.Close();
         }
-
+        int utype;
+        string utype_text;
         private void btnok_Click(object sender, EventArgs e)
         {
             user = btnuser.Text;
@@ -86,16 +87,33 @@ namespace WindowsFormsApplication1
             adp.Fill(dt);
             if (dt.Rows.Count == 1)
             {
-                MainMenu f = new MainMenu();
+                
                 user = dt.Rows[0]["fname"].ToString() + " " + dt.Rows[0][2].ToString();
                 id = dt.Rows[0]["user_id"].ToString();
+                utype_text = dt.Rows[0]["user_type"].ToString();
+                if(utype_text == "Staff")
+                {
+                    utype = 0;
+                    //MessageBox.Show("utype = " + utype);
+                }
+                else if(utype_text == "Owner")
+                {
+                    utype = 1;
+                   // MessageBox.Show("utype = " + utype );
+                }
+                else
+                {
+                    MessageBox.Show("Invalid User Type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-                MessageBox.Show("Welcome " + user);
+
+                MessageBox.Show("Welcome " + user, "Good Day!" ,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MainMenu f = new MainMenu(utype);
                 this.Hide();
                 f.Show();
                 f.previousform = this;
             }
-            else MessageBox.Show("Wrong username or password", "Please type again", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else MessageBox.Show("Wrong username or password", "Please Check Username/Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
             btnpass.Text = "";
         }
 

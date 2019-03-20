@@ -79,11 +79,17 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button28 = new System.Windows.Forms.Button();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.button15 = new System.Windows.Forms.Button();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.label22 = new System.Windows.Forms.Label();
@@ -103,7 +109,6 @@
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
@@ -119,7 +124,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.textBox18 = new System.Windows.Forms.TextBox();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.button20 = new System.Windows.Forms.Button();
             this.label28 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
@@ -150,13 +154,6 @@
             this.label30 = new System.Windows.Forms.Label();
             this.button22 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
-            this.textBox24 = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -180,6 +177,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(488, 6);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1101, 827);
@@ -205,7 +203,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(25, 782);
+            this.button1.Location = new System.Drawing.Point(1446, 8);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(89, 38);
@@ -296,7 +294,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(89, 38);
             this.button5.TabIndex = 19;
-            this.button5.Text = "Delete";
+            this.button5.Text = "&Delete";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -334,7 +332,6 @@
             this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.textBox3);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.id);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button4);
@@ -534,7 +531,6 @@
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.textBox7);
             this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.button9);
             this.tabPage2.Controls.Add(this.textBox9);
             this.tabPage2.Controls.Add(this.button10);
             this.tabPage2.Controls.Add(this.button11);
@@ -826,18 +822,6 @@
             this.label14.TabIndex = 39;
             this.label14.Text = "Product Code: ";
             // 
-            // button9
-            // 
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(17, 782);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(89, 38);
-            this.button9.TabIndex = 34;
-            this.button9.Text = "Back";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -900,7 +884,6 @@
             this.tabPage3.Controls.Add(this.dataGridView3);
             this.tabPage3.Controls.Add(this.textBox13);
             this.tabPage3.Controls.Add(this.label19);
-            this.tabPage3.Controls.Add(this.button12);
             this.tabPage3.Controls.Add(this.textBox14);
             this.tabPage3.Controls.Add(this.button13);
             this.tabPage3.Controls.Add(this.button14);
@@ -912,6 +895,76 @@
             this.tabPage3.Text = "Stock Out";
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(1505, 351);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(75, 32);
+            this.button28.TabIndex = 86;
+            this.button28.Text = "Search";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(1435, 351);
+            this.textBox24.Multiline = true;
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(63, 30);
+            this.textBox24.TabIndex = 85;
+            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label46.Location = new System.Drawing.Point(1377, 364);
+            this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(51, 17);
+            this.label46.TabIndex = 84;
+            this.label46.Text = "Item ID";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label47.Location = new System.Drawing.Point(1181, 364);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(61, 17);
+            this.label47.TabIndex = 83;
+            this.label47.Text = "To date:";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label48.Location = new System.Drawing.Point(980, 364);
+            this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(76, 17);
+            this.label48.TabIndex = 82;
+            this.label48.Text = "From date:";
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.CustomFormat = "yyyy-MM-dd";
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker3.Location = new System.Drawing.Point(1253, 359);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(117, 22);
+            this.dateTimePicker3.TabIndex = 81;
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.CustomFormat = "yyyy-MM-dd";
+            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker4.Location = new System.Drawing.Point(1063, 359);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(111, 22);
+            this.dateTimePicker4.TabIndex = 80;
+            // 
             // button15
             // 
             this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -920,7 +973,7 @@
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(100, 38);
             this.button15.TabIndex = 79;
-            this.button15.Text = "Delete ";
+            this.button15.Text = "&Delete ";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
@@ -1047,7 +1100,7 @@
             // textBox11
             // 
             this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.textBox11.ForeColor = System.Drawing.Color.Black;
             this.textBox11.Location = new System.Drawing.Point(21, 405);
             this.textBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox11.Name = "textBox11";
@@ -1136,18 +1189,6 @@
             this.label19.TabIndex = 61;
             this.label19.Text = "Product Code: ";
             // 
-            // button12
-            // 
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.Location = new System.Drawing.Point(17, 782);
-            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(89, 38);
-            this.button12.TabIndex = 57;
-            this.button12.Text = "Back";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
             // textBox14
             // 
             this.textBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1196,7 +1237,6 @@
             this.tabPage4.Controls.Add(this.label32);
             this.tabPage4.Controls.Add(this.textBox18);
             this.tabPage4.Controls.Add(this.comboBox6);
-            this.tabPage4.Controls.Add(this.button20);
             this.tabPage4.Controls.Add(this.label28);
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.dataGridView5);
@@ -1338,17 +1378,6 @@
             this.comboBox6.Size = new System.Drawing.Size(160, 24);
             this.comboBox6.TabIndex = 92;
             this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
-            // 
-            // button20
-            // 
-            this.button20.Location = new System.Drawing.Point(1427, 17);
-            this.button20.Margin = new System.Windows.Forms.Padding(4);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(137, 59);
-            this.button20.TabIndex = 91;
-            this.button20.Text = "Back";
-            this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // label28
             // 
@@ -1694,7 +1723,7 @@
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(1448, 7);
+            this.button22.Location = new System.Drawing.Point(1329, 7);
             this.button22.Margin = new System.Windows.Forms.Padding(4);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(100, 43);
@@ -1705,83 +1734,13 @@
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(1352, 7);
+            this.button27.Location = new System.Drawing.Point(1233, 7);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(75, 42);
             this.button27.TabIndex = 22;
             this.button27.Text = "Refresh";
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
-            // 
-            // button28
-            // 
-            this.button28.Location = new System.Drawing.Point(1505, 351);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(75, 32);
-            this.button28.TabIndex = 86;
-            this.button28.Text = "Search";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.button28_Click);
-            // 
-            // textBox24
-            // 
-            this.textBox24.Location = new System.Drawing.Point(1435, 351);
-            this.textBox24.Multiline = true;
-            this.textBox24.Name = "textBox24";
-            this.textBox24.Size = new System.Drawing.Size(63, 30);
-            this.textBox24.TabIndex = 85;
-            this.textBox24.TextChanged += new System.EventHandler(this.textBox24_TextChanged);
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label46.Location = new System.Drawing.Point(1377, 364);
-            this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(51, 17);
-            this.label46.TabIndex = 84;
-            this.label46.Text = "Item ID";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label47.Location = new System.Drawing.Point(1181, 364);
-            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(61, 17);
-            this.label47.TabIndex = 83;
-            this.label47.Text = "To date:";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label48.Location = new System.Drawing.Point(980, 364);
-            this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(76, 17);
-            this.label48.TabIndex = 82;
-            this.label48.Text = "From date:";
-            // 
-            // dateTimePicker3
-            // 
-            this.dateTimePicker3.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker3.Location = new System.Drawing.Point(1253, 359);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(117, 22);
-            this.dateTimePicker3.TabIndex = 81;
-            // 
-            // dateTimePicker4
-            // 
-            this.dateTimePicker4.CustomFormat = "yyyy-MM-dd";
-            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker4.Location = new System.Drawing.Point(1063, 359);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(111, 22);
-            this.dateTimePicker4.TabIndex = 80;
             // 
             // ProductList
             // 
@@ -1790,6 +1749,7 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1679, 933);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button27);
             this.Controls.Add(this.button22);
             this.Controls.Add(this.tabControl1);
@@ -1857,7 +1817,6 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
@@ -1878,7 +1837,6 @@
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button12;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
@@ -1898,7 +1856,6 @@
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.DataGridView dataGridView6;
-        private System.Windows.Forms.Button button20;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;

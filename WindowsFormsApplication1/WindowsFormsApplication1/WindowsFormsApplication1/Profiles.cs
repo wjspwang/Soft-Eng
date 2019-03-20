@@ -146,6 +146,12 @@ namespace WindowsFormsApplication1
    
         private void button2_Click(object sender, EventArgs e)
         {
+           
+            if (textBox1.Text == "" || textBox2.Text == "" || comboBox1.Text == "")
+            {
+                MessageBox.Show("Some of the fields may be empty", "Please fill out fields", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
             string match = "select * from person where lname = '"+textBox1.Text+"' AND fname = '"+textBox2.Text+"'" +
                 "AND gender = '"+comboBox1.Text+"' AND person_type = 1";
             conn.Open();
@@ -165,6 +171,10 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
+                    if(num.Text == "")
+                    {
+                        num.Text = "N/A";
+                    }
                     string query = "INSERT INTO person(lname,fname,gender,person_type,contact) " +
                     "VALUES('" + textBox1.Text + "', '" + textBox2.Text + "', '" + comboBox1.Text + "', 1 , '" + num.Text + "')";
                     conn.Open();
@@ -188,10 +198,15 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
             string query = "";
-            if (String.IsNullOrEmpty(id.Text)) { MessageBox.Show("Choose a user to edit or input id to edit.", "Test", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            if (String.IsNullOrEmpty(id.Text)) { MessageBox.Show("Select a Customer first before performing an action", "Missing Customer Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning); ; }
             else
             {
+                if (num.Text == "")
+                {
+                    num.Text = "N/A";
+                }
                 if (String.IsNullOrEmpty(textBox1.Text)) query += ""; else query += " UPDATE person SET fname='" + textBox1.Text + "' WHERE person_id ='" + id.Text + "'; ";
                 if (String.IsNullOrEmpty(textBox2.Text)) query += ""; else query += "UPDATE person SET lname='" + textBox2.Text + "' WHERE person_id='" + id.Text + "'; ";
                 if (String.IsNullOrEmpty(num.Text)) query += ""; else query += "UPDATE person SET contact='" + num.Text + "' WHERE person_id='" + id.Text + "'; ";
@@ -223,6 +238,11 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (selected_user_id == 0)
+            {
+                MessageBox.Show("Select a Customer first before performing an action", "Missing Customer Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string query = "DELETE FROM person WHERE person_id = '" + selected_user_id + "'; ";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
@@ -284,7 +304,8 @@ namespace WindowsFormsApplication1
             {
                 if (textBox8.Text == "" || textBox9.Text == "" || comboBox3.Text == "")
                 {
-                    MessageBox.Show("Fill in the appropriate fields");
+                    MessageBox.Show("Please supply missing field(s)", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
                 else
                 {
@@ -331,6 +352,11 @@ namespace WindowsFormsApplication1
 
         private void button9_Click(object sender, EventArgs e)
         {
+            if(textBox4.Text == "" || textBox5.Text == "")
+            {
+                MessageBox.Show("Please supply missing field(s)", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string match = "select * from dog where dog_name = '" + textBox4.Text + "' AND dog_breed = '" + textBox5.Text + "'" +
                 "AND dog_owner = '"+textBox6.Text+"'";
             conn.Open();
@@ -376,7 +402,7 @@ namespace WindowsFormsApplication1
                         comm.ExecuteNonQuery();
                         conn.Close();
                         loadall();
-                        MessageBox.Show("Dog Added");
+
                     }
                     
                 }
@@ -417,6 +443,12 @@ namespace WindowsFormsApplication1
 
         private void button10_Click(object sender, EventArgs e)
         {
+            if(selected_user_id == 0)
+            {
+                MessageBox.Show("Select a Dog first before performing an action", "Missing Dog Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if(checkBox1.Checked == false)
             {
             string query = " update dog SET dog_name = '" + textBox4.Text + "' , dog_breed = '" + textBox5.Text + "' , dog_owner = 'Mgt-Owned', owner_type = 1 where dog_id = '" + textBox3.Text + "' ";
@@ -444,6 +476,11 @@ namespace WindowsFormsApplication1
 
         private void button15_Click(object sender, EventArgs e)
         {
+            if (selected_user_id == 0)
+            {
+                MessageBox.Show("Select a Staff first before performing an action", "Missing Staff Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string selectPid = "select person_id from staff where staff_id = '" + selected_user_id + "'";
             conn.Open();
             MySqlCommand cmd = new MySqlCommand(selectPid, conn);
@@ -504,6 +541,11 @@ namespace WindowsFormsApplication1
 
         private void button11_Click(object sender, EventArgs e)
         {
+            if (selected_user_id == 0)
+            {
+                MessageBox.Show("Select a Staff first before performing an action", "Missing Staff Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string selectPid = "select person_id from staff where staff_id = '" + selected_user_id + "'";
             conn.Open();
             MySqlCommand cmd = new MySqlCommand(selectPid, conn);
@@ -560,6 +602,22 @@ namespace WindowsFormsApplication1
             {
                 e.Handled = true;
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (selected_user_id == 0)
+            {
+                MessageBox.Show("Select a Dog first before performing an action", "Missing Dog Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string query1 = "DELETE FROM dog where dog_id = '" + selected_user_id + "'  ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query1, conn);
+            comm.ExecuteNonQuery();
+            conn.Close();
+            loadall();
+            MessageBox.Show("Successfully Deleted");
         }
     }
     }

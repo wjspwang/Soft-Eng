@@ -377,7 +377,7 @@ namespace WindowsFormsApplication1
         private void button3_Click(object sender, EventArgs e)
         {
             string query = "UPDATE product SET prodname = '" + textBox1.Text + "', description = '"
-                + textBox4.Text + "', category = '" + comboBox2.Text + "', prodquant = '" + textBox3.Text + "', produnit = '" + comboBox1.Text + "', restock_val = '" + textBox22.Text + "' WHERE prodid = " + selected_user_id + "  ";
+                + textBox4.Text + "', category = '" + comboBox2.Text + "', produnit = '" + comboBox1.Text + "', restock_val = '" + textBox22.Text + "' WHERE prodid = " + selected_user_id + "  ";
             conn.Open();
 
             MySqlCommand comm = new MySqlCommand(query, conn);
@@ -470,37 +470,47 @@ namespace WindowsFormsApplication1
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if(exp_date.Value <= Convert.ToDateTime(currdate))
+            int a;
+            if (!int.TryParse(textBox10.Text, out a))
             {
-                MessageBox.Show("Invalid Expiry Date, Product already expired");
+                MessageBox.Show("Number too large!");
                 return;
-            }
-            if(textBox10.Text == "")
-            {
-                MessageBox.Show("Please input Valid Number");
-            }
-            else if(Convert.ToInt32(textBox10.Text) < 0)
-            {
-                MessageBox.Show("Please input Valid Number");
             }
             else
             {
-               
-                string addStock = "INSERT INTO stock_in(date_added, prod_id, exp_date, add_quant)" +
-                    "values( CURRENT_TIMESTAMP, '"+textBox6.Text+"', '"+ exp_date.Value.Date.ToString("yyyy/MM/dd") + "', '"+textBox10.Text+"'); ";
-                conn.Open();
-                MySqlCommand cmd1 = new MySqlCommand(addStock, conn);
-                cmd1.ExecuteNonQuery();
-                conn.Close();
+                if (exp_date.Value <= Convert.ToDateTime(currdate))
+                {
+                    MessageBox.Show("Invalid Expiry Date, Product already expired");
+                    return;
+                }
+                if (textBox10.Text == "")
+                {
+                    MessageBox.Show("Please input Valid Number");
+                }
+                else if (Convert.ToInt32(textBox10.Text) < 0)
+                {
+                    MessageBox.Show("Please input Valid Number");
+                }
+                else
+                {
 
-                string query = "UPDATE product SET prodquant = prodquant + " + textBox10.Text + " WHERE prodid = " + selected_user_id + "  ";
-                conn.Open();
-                MySqlCommand comm = new MySqlCommand(query, conn);
-                comm.ExecuteNonQuery();
-                conn.Close();
-                loadall();
-                MessageBox.Show("Stocked in Product ID: " + textBox6.Text+ " by " + textBox10.Text );
+                    string addStock = "INSERT INTO stock_in(date_added, prod_id, exp_date, add_quant)" +
+                        "values( CURRENT_TIMESTAMP, '" + textBox6.Text + "', '" + exp_date.Value.Date.ToString("yyyy/MM/dd") + "', '" + textBox10.Text + "'); ";
+                    conn.Open();
+                    MySqlCommand cmd1 = new MySqlCommand(addStock, conn);
+                    cmd1.ExecuteNonQuery();
+                    conn.Close();
+
+                    string query = "UPDATE product SET prodquant = prodquant + " + textBox10.Text + " WHERE prodid = " + selected_user_id + "  ";
+                    conn.Open();
+                    MySqlCommand comm = new MySqlCommand(query, conn);
+                    comm.ExecuteNonQuery();
+                    conn.Close();
+                    loadall();
+                    MessageBox.Show("Stocked in Product ID: " + textBox6.Text + " by " + textBox10.Text);
+                }
             }
+            
            
         }
 
@@ -592,7 +602,7 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    MessageBox.Show("Insuffecient Stocks, Please re-stock");
+                    MessageBox.Show("Invalid Stock Out Quantity", "Stock Out Quantity",MessageBoxButtons.OK,MessageBoxIcon.Hand);
                 }
             }
         }
@@ -876,6 +886,11 @@ namespace WindowsFormsApplication1
 
         private void button19_Click_1(object sender, EventArgs e)
         {
+            if(recipelist == 0)
+            {
+                MessageBox.Show("Please Select a Recipe before adding ingredients", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
             passingtext = textBox15.Text;
             ingredient_list a = new ingredient_list();
             a.Show();

@@ -63,16 +63,23 @@ namespace WindowsFormsApplication1
         
         private void button1_Click(object sender, EventArgs e)
         {
-            string query1 = "SELECT COUNT(prod_id) from recipe_item_list where recipe_id = '"+selected_user_id+"' ";
+            if (selected_user_id <= 0)
+            {
+                MessageBox.Show("Please Select a Recipe before adding ingredients", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            //string 
+            string query1 = "SELECT * from recipe_item_list where recipe_id = '"+ label6.Text + "' AND prod_id = '"+code.Text+"' ";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
-            MySqlDataReader rdr = comm1.ExecuteReader();
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm1);
             conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            
 
 
-            conn.Open();
-            label7.Text = comm1.ExecuteScalar().ToString();
-            conn.Close();
+            
             if (textBox1.Text == "" || code.Text == "")
             {
                 MessageBox.Show("Please Complete the Form");
@@ -81,7 +88,7 @@ namespace WindowsFormsApplication1
             {
 
 
-                if (Convert.ToInt32(label7.Text) == 0)
+                if (dt.Rows.Count == 0)
                 {
                     MessageBox.Show("ITEM ADDED");
                     string query = " insert into recipe_item_list(recipe_id, prod_id, prod_quant) values('" + label6.Text + "' , '" + code.Text + "' , '" + textBox1.Text + "')";
