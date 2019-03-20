@@ -615,6 +615,11 @@ namespace WindowsFormsApplication1
 
         private void button15_Click(object sender, EventArgs e)
         {
+            if(selected_user_id == 0)
+            {
+                MessageBox.Show("Please Select a Stock out entry before performing an action", "Invalid Deletion", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
             DialogResult iExit;
             iExit = MessageBox.Show("Confirm if you want to delete this stock out info", "Point of Sale", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (iExit == DialogResult.Yes)
@@ -822,6 +827,12 @@ namespace WindowsFormsApplication1
 
         private void button23_Click(object sender, EventArgs e)
         {
+            if (recipelist == 0)
+            {
+            MessageBox.Show("Please Select a Recipe before performing an action on it", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            return;
+            }
+            
             if (textBox23.Text == "")
             {
                 MessageBox.Show("Input price");
@@ -839,6 +850,11 @@ namespace WindowsFormsApplication1
 
         private void button17_Click(object sender, EventArgs e)
         {
+            if (recipelist == 0)
+            {
+                MessageBox.Show("Please Select a Recipe before performing an action on it", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
             DialogResult iExit;
             iExit = MessageBox.Show("Confirm if you want to remove this ingredient", "Point of Sale", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (iExit == DialogResult.Yes)
@@ -905,24 +921,89 @@ namespace WindowsFormsApplication1
 
         private void button25_Click(object sender, EventArgs e)
         {
+            if(recipelist == 0)
+            {
+                MessageBox.Show("Please Select a Recipe before performing an action on it", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            else if (selected_user_id == 0)
+            {
+                MessageBox.Show("Please Select an ingredient before performing an action on it", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            if(textBox18.Text == "")
+            {
+                MessageBox.Show("Please Supply Ingredient Quantity", "Invalid Quantity", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            string query2 = "select * from recipe_item_list a "+
+            "INNER JOIN recipe_list b "+
+            "ON a.recipe_id = b.recipe_id " +
+            "WHERE a.recipe_id = "+recipelist+" "+
+            "AND a.prod_id = "+selected_user_id+"";
+
+            conn.Open();
+            MySqlCommand cmm = new MySqlCommand(query2, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmm);
+            conn.Close();
+            DataTable tb = new DataTable();
+            adp.Fill(tb);
+            if (tb.Rows.Count == 0 )
+            {
+                MessageBox.Show("No such ingredient in this recipe", "Invalid Ingredient ID", MessageBoxButtons.OK,MessageBoxIcon.Hand);
+                return;
+            }
             string query = "UPDATE recipe_item_list SET prod_quant = '" + textBox18.Text + "'  WHERE prod_id = " + selected_user_id + "  ";
             conn.Open();
 
+            
             MySqlCommand comm = new MySqlCommand(query, conn);
+            
             comm.ExecuteNonQuery();
             conn.Close();
+            
+
+            
             loadall();
         }
 
         private void button26_Click(object sender, EventArgs e)
         {
-            string query = "DELETE FROM recipe_item_list WHERE prod_id = " + selected_user_id + "  ";
-            conn.Open();
+            if (recipelist == 0)
+            {
+                MessageBox.Show("Please Select a Recipe before performing an action on it", "Invalid Recipe Selection", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            string query2 = "select * from recipe_item_list a " +
+            "INNER JOIN recipe_list b " +
+            "ON a.recipe_id = b.recipe_id " +
+            "WHERE a.recipe_id = " + recipelist + " " +
+            "AND a.prod_id = " + selected_user_id + "";
 
-            MySqlCommand comm = new MySqlCommand(query, conn);
-            comm.ExecuteNonQuery();
+            conn.Open();
+            MySqlCommand cmm = new MySqlCommand(query2, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(cmm);
             conn.Close();
-            loadall();
+            DataTable tb = new DataTable();
+            adp.Fill(tb);
+            if (tb.Rows.Count == 0)
+            {
+                MessageBox.Show("No such ingredient in this recipe", "Invalid Ingredient ID", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            DialogResult iExit;
+            iExit = MessageBox.Show("Confirm if you want to remove this ingredient", "Point of Sale", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (iExit == DialogResult.Yes)
+            {
+                string query = "DELETE FROM recipe_item_list WHERE prod_id = " + selected_user_id + "  ";
+                conn.Open();
+
+                MySqlCommand comm = new MySqlCommand(query, conn);
+                comm.ExecuteNonQuery();
+                conn.Close();
+                loadall();
+            }
+
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)

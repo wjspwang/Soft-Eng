@@ -1401,7 +1401,6 @@
             this.groupBox2.Size = new System.Drawing.Size(559, 628);
             this.groupBox2.TabIndex = 89;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
             // 
             // dataGridView6
             // 
@@ -1478,7 +1477,6 @@
             this.groupBox1.Size = new System.Drawing.Size(499, 446);
             this.groupBox1.TabIndex = 88;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // label38
             // 
