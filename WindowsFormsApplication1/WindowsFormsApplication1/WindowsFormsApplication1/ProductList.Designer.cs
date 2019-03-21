@@ -669,6 +669,7 @@
             this.stck_in_Grid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.stck_in_Grid.Size = new System.Drawing.Size(1101, 356);
             this.stck_in_Grid.TabIndex = 56;
+            this.stck_in_Grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.stck_in_Grid_CellContentClick);
             // 
             // comboBox3
             // 

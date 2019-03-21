@@ -85,8 +85,8 @@ namespace WindowsFormsApplication1
             dataGridView3.Columns["restock_val"].HeaderText = "Re-Stock Value";
            
 
-            string stck_in = "select date_added, product.prodname , stock_in.exp_date, add_quant from stock_in " +
-                "JOIN product where stock_in.prod_id = product.prodid";
+            string stck_in = "select stockIn_id, product.prodid, date_added, product.prodname,product.prodquant, product.category , product.description, stock_in.exp_date, add_quant from stock_in " +
+                "JOIN product where stock_in.prod_id = product.prodid ORDER BY date_added DESC";
             conn.Open();
             MySqlCommand cmd = new MySqlCommand(stck_in,conn);
             MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
@@ -95,6 +95,11 @@ namespace WindowsFormsApplication1
             adap.Fill(stck_in_tbl);
 
             stck_in_Grid.DataSource = stck_in_tbl;
+            stck_in_Grid.Columns["stockIn_id"].Visible = false;
+            stck_in_Grid.Columns["prodid"].Visible = false;
+            stck_in_Grid.Columns["description"].Visible = false;
+            stck_in_Grid.Columns["prodquant"].Visible = false;
+            stck_in_Grid.Columns["category"].Visible = false;
             stck_in_Grid.Columns["date_added"].HeaderText = "Stock In Date";
             stck_in_Grid.Columns["date_added"].DefaultCellStyle.Format = dateFormat;
             stck_in_Grid.Columns["prodname"].HeaderText = "Product Name";
@@ -149,7 +154,7 @@ namespace WindowsFormsApplication1
             }
             
 
-            string query1 = "select * from stock_out ; ";
+            string query1 = "select * from stock_out ORDER by date DESC ; ";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
             MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);
@@ -251,7 +256,7 @@ namespace WindowsFormsApplication1
 
             foreach (DataRow dr in dt.Rows)
             {
-                int expiredStocks = Convert.ToInt32(dr["add_quant"]);
+                int expiredStocks = Convert.ToInt32(dr["batch_quant"]);
                 int stockIn_id = Convert.ToInt32(dr["stockIn_id"]);
                 int stockIn_prodId = Convert.ToInt32(dr["prod_id"]);
                 string prodName = dr["prodname"] + "";
@@ -494,8 +499,8 @@ namespace WindowsFormsApplication1
                 else
                 {
 
-                    string addStock = "INSERT INTO stock_in(date_added, prod_id, exp_date, add_quant)" +
-                        "values( CURRENT_TIMESTAMP, '" + textBox6.Text + "', '" + exp_date.Value.Date.ToString("yyyy/MM/dd") + "', '" + textBox10.Text + "'); ";
+                    string addStock = "INSERT INTO stock_in(date_added, prod_id, exp_date, add_quant, batch_quant)" +
+                        "values( CURRENT_TIMESTAMP, '" + textBox6.Text + "', '" + exp_date.Value.Date.ToString("yyyy/MM/dd") + "', '" + textBox10.Text + "', '"+ textBox10.Text + "'); ";
                     conn.Open();
                     MySqlCommand cmd1 = new MySqlCommand(addStock, conn);
                     cmd1.ExecuteNonQuery();
@@ -1129,6 +1134,8 @@ namespace WindowsFormsApplication1
 
                 stck_in_Grid.DataSource = dt;
 
+
+
             }
            
         }
@@ -1281,6 +1288,22 @@ namespace WindowsFormsApplication1
         private void textBox24_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void stck_in_Grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+   
+            if (e.RowIndex > -1)
+            {
+
+                selected_user_id = int.Parse(stck_in_Grid.Rows[e.RowIndex].Cells["stockIn_id"].Value.ToString());
+                textBox5.Text = stck_in_Grid.Rows[e.RowIndex].Cells["description"].Value.ToString();
+                textBox7.Text = stck_in_Grid.Rows[e.RowIndex].Cells["prodquant"].Value.ToString();
+                comboBox3.Text = stck_in_Grid.Rows[e.RowIndex].Cells["category"].Value.ToString();
+                textBox6.Text = stck_in_Grid.Rows[e.RowIndex].Cells["prodid"].Value.ToString();
+                exp_date.Value = Convert.ToDateTime(stck_in_Grid.Rows[e.RowIndex].Cells["exp_date"].Value.ToString());
+            }
+           
         }
     }
         

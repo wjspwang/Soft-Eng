@@ -181,13 +181,6 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string query1 = "select * from product ; ";
-            conn.Open();
-            MySqlCommand comm1 = new MySqlCommand(query1, conn);
-            MySqlDataAdapter adp = new MySqlDataAdapter(comm1);
-            conn.Close();
-            DataTable dt = new DataTable();
-            adp.Fill(dt);
 
             string query = "Select prodname from product where prodquant <= restock_val ";
             conn.Open();

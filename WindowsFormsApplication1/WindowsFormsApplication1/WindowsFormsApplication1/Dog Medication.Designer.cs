@@ -364,6 +364,7 @@
             this.clinic_grid.Location = new System.Drawing.Point(858, 102);
             this.clinic_grid.Margin = new System.Windows.Forms.Padding(4);
             this.clinic_grid.Name = "clinic_grid";
+            this.clinic_grid.ReadOnly = true;
             this.clinic_grid.Size = new System.Drawing.Size(682, 518);
             this.clinic_grid.TabIndex = 73;
             this.clinic_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clinic_grid_CellContentClick);

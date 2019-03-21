@@ -334,7 +334,6 @@ namespace WindowsFormsApplication1
                     comm2.ExecuteNonQuery();
                     conn.Close();
                     loadall();
-                    MessageBox.Show("Staff Added");
                 }
             
             }

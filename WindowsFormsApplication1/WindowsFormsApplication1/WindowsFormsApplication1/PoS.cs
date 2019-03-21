@@ -559,6 +559,7 @@ namespace WindowsFormsApplication1
         float total, tendered, payable;
         private void button1_Click(object sender, EventArgs e)
         {
+ 
             if (textBox2.Text == Convert.ToString(0))
             {
                 MessageBox.Show("No Items Select");
@@ -566,7 +567,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                
+    
                 if (label17.Text == Convert.ToString(0))
                 {
                     label18.Text = Convert.ToString(0);
@@ -581,16 +582,10 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
+   
                     float.TryParse(label17.Text, out payable);
                     float.TryParse(textBox13.Text, out tendered);
 
-                    /*if (tendered <= 0 || label17.Text == "" || tendered < payable)
-                    {
-                        MessageBox.Show("Invalid Paid Amount");
-                        return;
-                    }*/
-
-                    //label29.Text = Convert.ToString(tendered - payable);
                     label29.Text = Convert.ToString(0);
                     label25.Text = textBox2.Text;
                     label26.Text = textBox10.Text;
@@ -598,16 +593,21 @@ namespace WindowsFormsApplication1
                     label18.Text = label17.Text;
                     label28.Text = textBox13.Text;
                 }
+     
                 if (comboBox1.Text == "")
                 {
                     comboBox1.Text = Convert.ToString(0);
                 }
-                else if (Convert.ToInt32(comboBox1.Text) >= 100)
+      
+                if (Convert.ToInt32(comboBox1.Text) >= 100)
                 {
+
                     MessageBox.Show("Invalid Discount Ammount", "Invalid Input", MessageBoxButtons.OK);
                 }
-                else if (label17.Text != Convert.ToString(0))
+     
+                if (label17.Text != Convert.ToString(0))
                 {
+        
                     if (Convert.ToDouble(textBox13.Text) < Convert.ToDouble(label17.Text))
                     {
                         MessageBox.Show("Invalid Paid Amount", "Invalid Input", MessageBoxButtons.OK);
@@ -616,18 +616,21 @@ namespace WindowsFormsApplication1
                     else
                     {
 
+                        
                         if (label17.Text == Convert.ToString(0))
                         {
+        
                             label29.Text = Convert.ToString(tendered - total);
                         }
                         else
                         {
+        
                             label29.Text = Convert.ToString(tendered - payable);
                         }
-
+     
                         if (Convert.ToDouble(label29.Text) >= 0)
                         {
-
+            
                             int num = 0;
                             string query = "select count(prod_id) from order_line " +
                                 "where invoice_id = " + invoice_ui.Text + "";
@@ -639,13 +642,15 @@ namespace WindowsFormsApplication1
                                 num = Convert.ToInt32(reader["count(prod_id)"]);
                             }
                             conn.Close();
-
+                            /*
+                            int negative_stock_checker = 0;
                             int[] data = new int[num];
+                            
                             for (int i = 0; i < num; i++)
                             {
                                 int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                 int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
-                                string querya = "select * from recipe_item_list where recipe_id = " + recipe_id;
+                                string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
                                 conn.Open();
                                 MySqlCommand comm = new MySqlCommand(querya, conn);
                                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -653,20 +658,128 @@ namespace WindowsFormsApplication1
                                 DataTable dt = new DataTable();
                                 adp.Fill(dt);
 
+
                                 foreach (DataRow dr in dt.Rows)
                                 {
-                                    int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
                                     string id = dr["prod_id"] + "";
-                                    
+
+                                    string prodchker = "select * from product where prodid = " + id;
+                                    conn.Open();
+                                    MySqlCommand comz = new MySqlCommand(prodchker, conn);
+                                    MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
+                                    conn.Close();
+                                    DataTable tblz = new DataTable();
+                                    adpz.Fill(tblz);
+
+                                    foreach (DataRow dr2 in tblz.Rows)
+                                    {
+                                        int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
+                                        int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                        int test = prod_quant_test - quantity_test;
+                                        if (test < 0)
+                                        {
+                                            MessageBox.Show("Stock of Purchase Exceeded for " +dr2["prodname"] +" by "+test*-1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            negative_stock_checker = negative_stock_checker + 1;
+
+                                        }
+
+                                    }
+                                    MessageBox.Show(negative_stock_checker + "");
+                                    if (negative_stock_checker > 0)
+                                    {
+                                        MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
+                                           negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
                                     string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
+
+                                    string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
+                                    "where prod_id = " + id + " AND status = 0 " +
+                                    "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
 
                                     conn.Open();
                                     MySqlCommand comm1 = new MySqlCommand(queryb, conn);
+                                    MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
                                     comm1.ExecuteNonQuery();
+                                    comm2.ExecuteNonQuery();
                                     conn.Close();
+
                                 }
 
+
                             }
+                           */
+                            int negative_stock_checker = 0;
+                            int[] data = new int[num];
+
+                            for (int i = 0; i < num; i++)
+                            {
+                                int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                                int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
+                                string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
+                                conn.Open();
+                                MySqlCommand comm = new MySqlCommand(querya, conn);
+                                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                                conn.Close();
+                                DataTable dt = new DataTable();
+                                adp.Fill(dt);
+
+
+                                foreach (DataRow dr in dt.Rows)
+                                {
+                                    string id = dr["prod_id"] + "";
+
+                                    string prodchker = "select * from product where prodid = " + id;
+                                    conn.Open();
+                                    MySqlCommand comz = new MySqlCommand(prodchker, conn);
+                                    MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
+                                    conn.Close();
+                                    DataTable tblz = new DataTable();
+                                    adpz.Fill(tblz);
+
+                                    foreach (DataRow dr2 in tblz.Rows)
+                                    {
+                                        int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
+                                        int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                        int test = prod_quant_test - quantity_test;
+                                        if (test < 0)
+                                        {
+                                            MessageBox.Show("Stock of Purchase Exceeded for " + dr2["prodname"] + " by " + test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            negative_stock_checker = negative_stock_checker + 1;
+
+                                        }
+
+                                    }
+                                    MessageBox.Show(negative_stock_checker + "");
+                                    if (negative_stock_checker > 0)
+                                    {
+                                        MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
+                                           negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                    int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                    string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
+
+                                    string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
+                                    "where prod_id = " + id + " AND status = 0 " +
+                                    "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
+
+                                    conn.Open();
+                                    MySqlCommand comm1 = new MySqlCommand(queryb, conn);
+                                    MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
+                                    comm1.ExecuteNonQuery();
+                                    comm2.ExecuteNonQuery();
+                                    conn.Close();
+
+                                }
+
+
+                            }
+
+
                             int num0 = 0;
                             string query0 = "select count(prod_id) from order_line " +
                                 "where invoice_id = " + invoice_ui.Text + "";
@@ -678,10 +791,12 @@ namespace WindowsFormsApplication1
                                 num0 = Convert.ToInt32(reader0["count(prod_id)"]);
                             }
                             conn.Close();
+              
                             DialogResult Confirm;
                             Confirm = MessageBox.Show("Proceed with Order ?", "Verification", MessageBoxButtons.YesNo);
                             if(Confirm == DialogResult.Yes)
                             {
+             
                                 string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
                                 int[] data0 = new int[num0];
                                 for (int i = 0; i < num0; i++)
@@ -697,6 +812,7 @@ namespace WindowsFormsApplication1
                                     DataTable dt = new DataTable();
                                     adp.Fill(dt);
                                 }
+     
                                 DataTable dt1 = new DataTable();
                                 DataSet ds = new DataSet();
 
@@ -728,7 +844,8 @@ namespace WindowsFormsApplication1
                             else
                             {
                                 return;
-                            }       
+                            }
+                            
 
                         }
 
@@ -837,7 +954,12 @@ namespace WindowsFormsApplication1
                         dataGridView1.Height = height;
                         //PrintPreviewDialog.ShowDialog();
                         */
+                        }
+
                     }
+                else
+                {
+
 
                 }
             }

@@ -50,9 +50,10 @@ namespace WindowsFormsApplication1
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if(comboBox1.Text == null)
+            if(comboBox1.Text == "")
             {
-                MessageBox.Show("Invalid input");
+                MessageBox.Show("Invalid input","Invalid input",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                return;
             }
             string query = "INSERT INTO scheduletasks( activity) " +
                                 "VALUES('" + comboBox1.Text + "' )";

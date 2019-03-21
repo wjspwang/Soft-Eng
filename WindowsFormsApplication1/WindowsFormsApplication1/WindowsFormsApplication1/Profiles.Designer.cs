@@ -593,6 +593,7 @@
             this.person_id.Size = new System.Drawing.Size(54, 17);
             this.person_id.TabIndex = 64;
             this.person_id.Text = "label17";
+            this.person_id.Visible = false;
             // 
             // label10
             // 

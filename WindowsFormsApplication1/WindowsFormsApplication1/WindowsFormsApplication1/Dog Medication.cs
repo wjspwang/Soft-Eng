@@ -114,7 +114,15 @@ namespace WindowsFormsApplication1
             conn.Close();
             lever = false;
 
-                }
+            clinic_grid.Columns["dogsched_date"].HeaderText = "Medical Schedule Date";
+            clinic_grid.Columns["dogstart_time"].HeaderText = "Start Time";
+            clinic_grid.Columns["dogend_time"].HeaderText = "End Time";
+            clinic_grid.Columns["clinic_name"].HeaderText = "Clinic Name";
+            clinic_grid.Columns["dog_vaccination"].HeaderText = "Medication";
+            clinic_grid.Columns["dog_status"].HeaderText = "Medication Status";
+
+
+        }
         private int select_clinic_id;
            
             private void clinic_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
