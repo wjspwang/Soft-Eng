@@ -150,7 +150,9 @@ namespace WindowsFormsApplication1
 
         private void Form2_Activated(object sender, EventArgs e)
         {
-            string query1 = "SELECT COUNT(prodname) from product  where prodquant <= restock_val ";
+            ProductList p = new ProductList();
+            p.autoExpireLog();
+            string query1 = "SELECT COUNT(*) from product  where prodquant <= restock_val ";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
             MySqlDataReader rdr = comm1.ExecuteReader();
@@ -162,21 +164,6 @@ namespace WindowsFormsApplication1
             conn.Close();
 
 
-            /*
-            if (Convert.ToInt32(label10.Text) > 0)
-            {
-                string query = "Select prodname from product where prodquant <= restock_val ";
-                conn.Open();
-                MySqlCommand comm = new MySqlCommand(query, conn);
-                MySqlDataReader reader = comm.ExecuteReader();
-                StringBuilder productNames = new StringBuilder();
-                while (reader.Read())
-                {
-                    productNames.Append(reader["prodname"].ToString() + Environment.NewLine);
-                }
-                conn.Close();
-                MessageBox.Show("Following Product(s) need to restock: \n" + productNames);
-            }*/
         }
 
         private void button1_Click(object sender, EventArgs e)

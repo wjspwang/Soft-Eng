@@ -47,7 +47,8 @@ namespace WindowsFormsApplication1
         {
             autoExpireLog();
             exp_date.Value = Convert.ToDateTime(currdate);
-            string query = "select * from product ;";
+            string query = "select prodid,prodname,prodquant,description,category, " +
+                "produnit, restock_val from product ;";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -85,8 +86,8 @@ namespace WindowsFormsApplication1
             dataGridView3.Columns["restock_val"].HeaderText = "Re-Stock Value";
            
 
-            string stck_in = "select stockIn_id, product.prodid, date_added, product.prodname,product.prodquant, product.category , product.description, stock_in.exp_date, add_quant from stock_in " +
-                "JOIN product where stock_in.prod_id = product.prodid ORDER BY date_added DESC";
+            string stck_in = "select stockIn_id, product.prodid, date_added, product.prodname,product.prodquant, product.category , product.description, stock_in.exp_date, add_quant from stock_in "+
+            "INNER JOIN product ON stock_in.prod_id = product.prodid ORDER BY stockIn_id DESC";
             conn.Open();
             MySqlCommand cmd = new MySqlCommand(stck_in,conn);
             MySqlDataAdapter adap = new MySqlDataAdapter(cmd);
@@ -154,7 +155,7 @@ namespace WindowsFormsApplication1
             }
             
 
-            string query1 = "select * from stock_out ORDER by date DESC ; ";
+            string query1 = "select * from stock_out ORDER by stockout_id DESC ; ";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
             MySqlDataAdapter adp1 = new MySqlDataAdapter(comm1);

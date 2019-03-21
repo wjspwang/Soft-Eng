@@ -28,7 +28,8 @@ namespace WindowsFormsApplication1
         }
         private void loadall()
         {
-            string query = "select * from product ; ";
+            string query = "select prodid,prodname,prodquant,description,category, " +
+                "produnit, restock_val from product ";
             conn.Open();
             MySqlCommand comm = new MySqlCommand(query, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(comm);

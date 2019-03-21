@@ -327,9 +327,9 @@
             this.label17.Location = new System.Drawing.Point(195, 87);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(70, 24);
+            this.label17.Size = new System.Drawing.Size(82, 24);
             this.label17.TabIndex = 20;
-            this.label17.Text = "label17";
+            this.label17.Text = "loading..";
             // 
             // label18
             // 
@@ -391,9 +391,9 @@
             this.label10.Location = new System.Drawing.Point(195, 87);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 24);
+            this.label10.Size = new System.Drawing.Size(87, 24);
             this.label10.TabIndex = 20;
-            this.label10.Text = "label10";
+            this.label10.Text = "loading...";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label12

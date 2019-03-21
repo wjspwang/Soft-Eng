@@ -143,6 +143,8 @@ namespace WindowsFormsApplication1
 
 
             conn.Close();
+
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -430,6 +432,8 @@ namespace WindowsFormsApplication1
                 comm.ExecuteNonQuery();
                 conn.Close();
                 loadall();
+                label17.Text = 0 + "";
+
             }
         }
 
@@ -642,7 +646,8 @@ namespace WindowsFormsApplication1
                                 num = Convert.ToInt32(reader["count(prod_id)"]);
                             }
                             conn.Close();
-                            /*
+
+                            
                             int negative_stock_checker = 0;
                             int[] data = new int[num];
                             
@@ -650,7 +655,10 @@ namespace WindowsFormsApplication1
                             {
                                 int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                 int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
-                                string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
+                                string querya = "select c.prodname, b.recipe_name, a.* from recipe_item_list a " +
+                                    "INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id " +
+                                    "INNER JOIN product c ON a.prod_id = c.prodid " +
+                                    "where a.recipe_id = " + recipe_id;
                                 conn.Open();
                                 MySqlCommand comm = new MySqlCommand(querya, conn);
                                 MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -658,7 +666,7 @@ namespace WindowsFormsApplication1
                                 DataTable dt = new DataTable();
                                 adp.Fill(dt);
 
-
+                                //MessageBox.Show("Item number " +i);
                                 foreach (DataRow dr in dt.Rows)
                                 {
                                     string id = dr["prod_id"] + "";
@@ -670,114 +678,283 @@ namespace WindowsFormsApplication1
                                     conn.Close();
                                     DataTable tblz = new DataTable();
                                     adpz.Fill(tblz);
-
+                                   // MessageBox.Show("Prod ID " + id);
                                     foreach (DataRow dr2 in tblz.Rows)
                                     {
                                         int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
                                         int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                        int test = prod_quant_test - quantity_test;
-                                        if (test < 0)
+                                        string prodname = dr2["prodname"] + "";
+                                       // MessageBox.Show(prod_quant_test + "-" + quantity_test);
+                                        prod_quant_test = prod_quant_test - quantity_test;
+                                       // MessageBox.Show(prod_quant_test + "");
+                                        string chk = "select tmp_stock from product WHERE prodid = " + id +" AND tmp_stock = -1";
+                                        conn.Open();
+                                        MySqlCommand comma = new MySqlCommand(chk, conn);
+                                        MySqlDataAdapter adap = new MySqlDataAdapter(comma);
+                                        conn.Close();
+                                        DataTable dt1 = new DataTable();
+                                        adap.Fill(dt1);
+                                        //MessageBox.Show(chk + "\n Number of row(s) returned  = " + dt1.Rows.Count);
+                                        if(dt1.Rows.Count > 0)
                                         {
-                                            MessageBox.Show("Stock of Purchase Exceeded for " +dr2["prodname"] +" by "+test*-1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            //MessageBox.Show("insert into tmp_stock");
+                                            string inst = "update product SET tmp_stock = " + prod_quant_test + " WHERE prodid = "+id ;
+                                            conn.Open();
+                                            MySqlCommand comma1 = new MySqlCommand(inst, conn);
+                                            comma1.ExecuteNonQuery();
+                                            conn.Close();
+                                        }
+                                        else
+                                        {
+                                           // MessageBox.Show("Grab value");
+                                            string grabval = "select tmp_stock from product where prodid ="+id ;
+                                            conn.Open();
+                                            MySqlCommand comma2 = new MySqlCommand(grabval, conn);
+                                            MySqlDataAdapter adap2 = new MySqlDataAdapter(comma2);
+                                            conn.Close();
+                                            DataTable dt2 = new DataTable();
+                                            adap2.Fill(dt2);
+                                            foreach(DataRow dr3 in dt2.Rows)
+                                            {
+                                                int tmp_stock = Convert.ToInt32(dr3["tmp_stock"]);
+                                                //MessageBox.Show(tmp_stock + " " + quantity_test);
+                                                tmp_stock = tmp_stock - quantity_test;
+                                                //MessageBox.Show(tmp_stock + "");
+                                                if (tmp_stock < 0)
+                                                {
+                                                    negative_stock_checker++;
+                                                    //MessageBox.Show(negative_stock_checker + "");
+                                                }
+                                            }
+                                        }
+                                        
+                                        //MessageBox.Show(prod_quant_test + "");
+                                        if (prod_quant_test < 0)
+                                        {
+                                            MessageBox.Show("Stock of Purchase Exceeded for " +prodname+" by "+ prod_quant_test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             negative_stock_checker = negative_stock_checker + 1;
-
+                                            //MessageBox.Show(negative_stock_checker + " negative checker" + prodname);
                                         }
 
                                     }
-                                    MessageBox.Show(negative_stock_checker + "");
+                                    
                                     if (negative_stock_checker > 0)
                                     {
+                                        string prodname = dr["prodname"] + "";
+                                        //MessageBox.Show("NEGATIVE STOCK DETECTED");
                                         MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
-                                           negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
+                                           prodname + " ingredient(s)", "Warning Stock Problem",
                                           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        string rvrt = "update product set tmp_stock = -1";
+                                        conn.Open();
+                                        MySqlCommand cmand = new MySqlCommand(rvrt, conn);
+                                        cmand.ExecuteNonQuery();
+                                        conn.Close();
                                         return;
                                     }
-                                    int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                    string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
-
-                                    string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
-                                    "where prod_id = " + id + " AND status = 0 " +
-                                    "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
-
-                                    conn.Open();
-                                    MySqlCommand comm1 = new MySqlCommand(queryb, conn);
-                                    MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
-                                    comm1.ExecuteNonQuery();
-                                    comm2.ExecuteNonQuery();
-                                    conn.Close();
 
                                 }
 
-
                             }
-                           */
-                            int negative_stock_checker = 0;
-                            int[] data = new int[num];
-
-                            for (int i = 0; i < num; i++)
+                            if (negative_stock_checker <= 0)
                             {
-                                int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
-                                int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
-                                string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
-                                conn.Open();
-                                MySqlCommand comm = new MySqlCommand(querya, conn);
-                                MySqlDataAdapter adp = new MySqlDataAdapter(comm);
-                                conn.Close();
-                                DataTable dt = new DataTable();
-                                adp.Fill(dt);
-
-
-                                foreach (DataRow dr in dt.Rows)
+                                for (int i = 0; i < num; i++)
                                 {
-                                    string id = dr["prod_id"] + "";
-
-                                    string prodchker = "select * from product where prodid = " + id;
+                                    int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                                    int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
+                                    string querya = "select c.prodname, b.recipe_name, a.* from recipe_item_list a " +
+                                        "INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id " +
+                                        "INNER JOIN product c ON a.prod_id = c.prodid " +
+                                        "where a.recipe_id = " + recipe_id;
                                     conn.Open();
-                                    MySqlCommand comz = new MySqlCommand(prodchker, conn);
-                                    MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
+                                    MySqlCommand comm = new MySqlCommand(querya, conn);
+                                    MySqlDataAdapter adp = new MySqlDataAdapter(comm);
                                     conn.Close();
-                                    DataTable tblz = new DataTable();
-                                    adpz.Fill(tblz);
+                                    DataTable dt = new DataTable();
+                                    adp.Fill(dt);
 
-                                    foreach (DataRow dr2 in tblz.Rows)
+                                    //MessageBox.Show("Item number " +i);
+                                    foreach (DataRow dr in dt.Rows)
                                     {
-                                        int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
-                                        int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                        int test = prod_quant_test - quantity_test;
-                                        if (test < 0)
+                                        string id = dr["prod_id"] + "";
+
+                                        string prodchker = "select * from product where prodid = " + id;
+                                        conn.Open();
+                                        MySqlCommand comz = new MySqlCommand(prodchker, conn);
+                                        MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
+                                        conn.Close();
+                                        DataTable tblz = new DataTable();
+                                        adpz.Fill(tblz);
+                                        // MessageBox.Show("Prod ID " + id);
+                                        foreach (DataRow dr2 in tblz.Rows)
                                         {
-                                            MessageBox.Show("Stock of Purchase Exceeded for " + dr2["prodname"] + " by " + test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            negative_stock_checker = negative_stock_checker + 1;
+                                            int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
+                                            int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                            string prodname = dr2["prodname"] + "";
+                                            // MessageBox.Show(prod_quant_test + "-" + quantity_test);
+                                            prod_quant_test = prod_quant_test - quantity_test;
+                                            // MessageBox.Show(prod_quant_test + "");
+                                            string chk = "select tmp_stock from product WHERE prodid = " + id + " AND tmp_stock = -1";
+                                            conn.Open();
+                                            MySqlCommand comma = new MySqlCommand(chk, conn);
+                                            MySqlDataAdapter adap = new MySqlDataAdapter(comma);
+                                            conn.Close();
+                                            DataTable dt1 = new DataTable();
+                                            adap.Fill(dt1);
+                                            //MessageBox.Show(chk + "\n Number of row(s) returned  = " + dt1.Rows.Count);
+                                            if (dt1.Rows.Count > 0)
+                                            {
+                                                //MessageBox.Show("insert into tmp_stock");
+                                                string inst = "update product SET tmp_stock = " + prod_quant_test + " WHERE prodid = " + id;
+                                                conn.Open();
+                                                MySqlCommand comma1 = new MySqlCommand(inst, conn);
+                                                comma1.ExecuteNonQuery();
+                                                conn.Close();
+                                            }
+                                            else
+                                            {
+                                                // MessageBox.Show("Grab value");
+                                                string grabval = "select tmp_stock from product where prodid =" + id;
+                                                conn.Open();
+                                                MySqlCommand comma2 = new MySqlCommand(grabval, conn);
+                                                MySqlDataAdapter adap2 = new MySqlDataAdapter(comma2);
+                                                conn.Close();
+                                                DataTable dt2 = new DataTable();
+                                                adap2.Fill(dt2);
+                                                foreach (DataRow dr3 in dt2.Rows)
+                                                {
+                                                    int tmp_stock = Convert.ToInt32(dr3["tmp_stock"]);
+                                                    //MessageBox.Show(tmp_stock + " " + quantity_test);
+                                                    tmp_stock = tmp_stock - quantity_test;
+                                                    //MessageBox.Show(tmp_stock + "");
+                                                    if (tmp_stock < 0)
+                                                    {
+                                                        negative_stock_checker++;
+                                                        //MessageBox.Show(negative_stock_checker + "");
+                                                    }
+                                                }
+                                            }
+
+                                            //MessageBox.Show(prod_quant_test + "");
+                                            if (prod_quant_test < 0)
+                                            {
+                                                MessageBox.Show("Stock of Purchase Exceeded for " + prodname + " by " + prod_quant_test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                negative_stock_checker = negative_stock_checker + 1;
+                                                //MessageBox.Show(negative_stock_checker + " negative checker" + prodname);
+                                            }
 
                                         }
 
-                                    }
-                                    MessageBox.Show(negative_stock_checker + "");
-                                    if (negative_stock_checker > 0)
-                                    {
-                                        MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
-                                           negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
-                                          MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
-                                    }
-                                    int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                    string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
+                                        if (negative_stock_checker > 0)
+                                        {
+                                            string prodname = dr["prodname"] + "";
+                                            //MessageBox.Show("NEGATIVE STOCK DETECTED");
+                                            MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
+                                               prodname + " ingredient(s)", "Warning Stock Problem",
+                                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            string rvrt = "update product set tmp_stock = -1";
+                                            conn.Open();
+                                            MySqlCommand cmand = new MySqlCommand(rvrt, conn);
+                                            cmand.ExecuteNonQuery();
+                                            conn.Close();
+                                            return;
+                                        }
+                                        int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                        string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
 
-                                    string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
-                                    "where prod_id = " + id + " AND status = 0 " +
-                                    "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
+                                        string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
+                                        "where prod_id = " + id + " AND status = 0 " +
+                                        "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
 
-                                    conn.Open();
-                                    MySqlCommand comm1 = new MySqlCommand(queryb, conn);
-                                    MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
-                                    comm1.ExecuteNonQuery();
-                                    comm2.ExecuteNonQuery();
-                                    conn.Close();
+                                        conn.Open();
+                                        MySqlCommand comm1 = new MySqlCommand(queryb, conn);
+                                        MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
+                                        comm1.ExecuteNonQuery();
+                                        comm2.ExecuteNonQuery();
+                                        conn.Close();
+
+                                    }
 
                                 }
-
-
                             }
+                            //MessageBox.Show("negative_stock_checker > 0 " + negative_stock_checker);
+                            /*
+                            if (negative_stock_checker > 0)
+                            {
+                                MessageBox.Show("negative_stock_checker > 0");
+                                return;
+                            }
+                            else
+                            {
+                                int[] data1 = new int[num];
+
+                                for (int i = 0; i < num; i++)
+                                {
+                                    int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                                    int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
+                                    string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
+                                    conn.Open();
+                                    MySqlCommand comm = new MySqlCommand(querya, conn);
+                                    MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+                                    conn.Close();
+                                    DataTable dt = new DataTable();
+                                    adp.Fill(dt);
+
+
+                                    foreach (DataRow dr in dt.Rows)
+                                    {
+                                        string id = dr["prod_id"] + "";
+
+                                        string prodchker = "select * from product where prodid = " + id;
+                                        conn.Open();
+                                        MySqlCommand comz = new MySqlCommand(prodchker, conn);
+                                        MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
+                                        conn.Close();
+                                        DataTable tblz = new DataTable();
+                                        adpz.Fill(tblz);
+
+                                        foreach (DataRow dr2 in tblz.Rows)
+                                        {
+                                            int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
+                                            int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                            int test = prod_quant_test - quantity_test;
+                                            if (test < 0)
+                                            {
+                                                MessageBox.Show("Stock of Purchase Exceeded for " + dr2["prodname"] + " by " + test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                negative_stock_checker = negative_stock_checker + 1;
+
+                                            }
+
+                                        }
+                                        MessageBox.Show(negative_stock_checker + "");
+                                        if (negative_stock_checker > 0)
+                                        {
+                                            MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
+                                               negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
+                                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return;
+                                        }
+                                        int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
+                                        string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
+
+                                        string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
+                                        "where prod_id = " + id + " AND status = 0 " +
+                                        "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
+
+                                        conn.Open();
+                                        MySqlCommand comm1 = new MySqlCommand(queryb, conn);
+                                        MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
+                                        comm1.ExecuteNonQuery();
+                                        comm2.ExecuteNonQuery();
+                                        conn.Close();
+
+                                    }
+
+
+                                }
+                                
+                            }
+                                */
 
 
                             int num0 = 0;
@@ -840,6 +1017,7 @@ namespace WindowsFormsApplication1
 
 
                                 loadall();
+                                label17.Text = 0 + "";
                             }
                             else
                             {
