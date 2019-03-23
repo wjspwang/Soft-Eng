@@ -359,7 +359,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                MessageBox.Show("No Customer(s) are on Overtime", "No Customer Overtime",
+                MessageBox.Show("No Dog Medical Appointment within the next 2 days", "No Appointment Found",
                     MessageBoxButtons.OK,MessageBoxIcon.Hand);
             }
             

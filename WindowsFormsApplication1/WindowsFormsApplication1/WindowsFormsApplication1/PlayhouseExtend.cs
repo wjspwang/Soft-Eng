@@ -41,22 +41,36 @@ namespace WindowsFormsApplication1
 
 
 
-            string find ="select * from playhouse where customer_id = '"+selected_user_id+"' AND status = 'IN'";
+            string find ="select * from playhouse where customer_id = '"+selected_user_id+ "' AND status = 'IN' OR status = 'Overtime' AND sched_date = '" + now + "' ";
+            string find2 = "select * from playhouse where customer_id = '" + selected_user_id + "' AND sched_date = '"+now+"'";
+            conn.Open();
             MySqlCommand cmd = new MySqlCommand(find, conn);
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+
+            MySqlCommand cmd2 = new MySqlCommand(find2, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(cmd2);
+
+            conn.Close();
             DataTable tb = new DataTable();
             adp.Fill(tb);
+            DataTable tb2 = new DataTable();
+            adp2.Fill(tb2);
 
             if (tb.Rows.Count < 1)
             {
-                MessageBox.Show("Customer not in Playhouse");
+                MessageBox.Show("Customer not in Playhouse", "Warning", MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return;
             }
-
+            else if (tb2.Rows.Count < 1)
+            {
+                MessageBox.Show("Playhouse Date not for Today", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            MessageBox.Show(tb.Rows.Count + "");
             foreach (DataRow dr in tb.Rows)
             {
                 endtime = dr["end_time"].ToString();
-                string etime = Convert.ToDateTime(endtime).AddHours(hours).ToString("h:mm tt");
+                string etime = Convert.ToDateTime(endtime).AddHours(hours).ToString("hh:mm tt");
                 string qry2 = "update playhouse SET end_time = '" + etime + "' WHERE customer_id = " + selected_user_id + " AND status = 'IN'";
                 conn.Open();
                 MySqlCommand comm5 = new MySqlCommand(qry2, conn);

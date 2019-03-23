@@ -275,7 +275,7 @@
             this.groupBox1.Size = new System.Drawing.Size(560, 462);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "System Settings";
+            this.groupBox1.Text = "System Notification";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox5
@@ -444,9 +444,9 @@
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.label15.Location = new System.Drawing.Point(163, 576);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(227, 32);
+            this.label15.Size = new System.Drawing.Size(254, 32);
             this.label15.TabIndex = 21;
-            this.label15.Text = "Dog Medication";
+            this.label15.Text = "Dog Management";
             this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // pictureBox10

@@ -260,7 +260,7 @@ namespace WindowsFormsApplication1
 
 
 
-            //string query1 = "select staff_sched_id, concat(c.lname, ', ', c.fname) as Employee,d.start_date, d.end_date,d.activity from staff_sched a, staff b, person c, schedule d where c.person_id = b.person_id AND b.staff_id = a.staff_id AND a.sched_id = d.sched_id AND a.staff_id = "+selected_user_id+";";
+            
             string query1 = "select * from scheduletasks";
                 conn.Open();
                 MySqlCommand comm1 = new MySqlCommand(query1, conn);

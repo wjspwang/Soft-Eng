@@ -1525,9 +1525,9 @@
             this.label37.Location = new System.Drawing.Point(36, 283);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(84, 17);
+            this.label37.Size = new System.Drawing.Size(86, 17);
             this.label37.TabIndex = 98;
-            this.label37.Text = "Recipe Cost";
+            this.label37.Text = "Selling Price";
             // 
             // button24
             // 

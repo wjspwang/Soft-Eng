@@ -38,6 +38,7 @@ namespace WindowsFormsApplication1
             cust_id.Text = this.selected_user_id + "";
             string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
             string curr_time = DateTime.Now.ToString("hh:mm tt");
+            string curr_sched = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             string query1 = "select playhouse_id, playhouse.customer_id, lname," +
                 " fname, sched_start, sched_end, sched_date," +
@@ -65,7 +66,9 @@ namespace WindowsFormsApplication1
             dataGridView2.Columns["status"].HeaderText = "Status";
 
             //dataGridView2.Rows[-1].Selected = true;
-            string updateToExpire = "UPDATE playhouse SET status = 'Overtime' WHERE sched_date < '"+curr_date+"' OR end_time < '"+curr_time+"' ";
+            
+            string updateToExpire = "UPDATE playhouse SET status = 'Overtime' WHERE sched_end <= '"+curr_sched+"' ";
+            
             conn.Open();
 
             MySqlCommand comm = new MySqlCommand(updateToExpire, conn);
