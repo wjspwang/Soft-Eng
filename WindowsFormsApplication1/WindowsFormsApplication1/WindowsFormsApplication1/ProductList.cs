@@ -248,6 +248,7 @@ namespace WindowsFormsApplication1
 
             string findExpire = "select *, p.prodname, p.category from stock_in s INNER JOIN " +
                 "product p ON s.prod_id = p.prodid where exp_date <= '" + currdate + "' AND status = 0 ";
+            //MessageBox.Show(findExpire);
             conn.Open();
             MySqlCommand comz = new MySqlCommand(findExpire, conn);
             MySqlDataAdapter adap = new MySqlDataAdapter(comz);
@@ -264,6 +265,7 @@ namespace WindowsFormsApplication1
                 string prodCat = dr["category"] + "";
                 string subractExpireDate = "update product set prodquant = prodquant - " + expiredStocks +
                     " WHERE prodid = " + stockIn_prodId + "  ";
+                //MessageBox.Show(subractExpireDate);
                 string addLogToStockOut = "insert into stock_out(prod_id,date,prodname,category,prod_quant,status)" +
                     " VALUES(" + stockIn_prodId + ", '" + currdate + "','" + prodName + "','"+prodCat+"'," + expiredStocks + ", 'Expired')";
                 string updateStockInStatus = "update stock_in set status = 1 where stockIn_id = '"+stockIn_id+"'";

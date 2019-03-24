@@ -117,7 +117,7 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("No input","Invalid input",MessageBoxButtons.OK,MessageBoxIcon.Hand);
                 return;
             }
-            string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = "+OR_num.Text;
+            string s = "select * from ph_cred where invoice_num = "+OR_num.Text;
             conn.Open();
             MySqlCommand a = new MySqlCommand(s, conn);
             MySqlDataAdapter a1 = new MySqlDataAdapter(a);
@@ -173,8 +173,8 @@ namespace WindowsFormsApplication1
                 return;
              }
 
-             string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = " + OR_num.Text;
-             conn.Open();
+            string s = "select * from ph_cred where invoice_num = " + OR_num.Text;
+            conn.Open();
              MySqlCommand a = new MySqlCommand(s, conn);
              MySqlDataAdapter a1 = new MySqlDataAdapter(a);
              conn.Close();

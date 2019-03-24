@@ -77,7 +77,7 @@ namespace WindowsFormsApplication1
             //MessageBox.Show(tb.Rows.Count + "");
 
             //calculation here
-            string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = " + invoice_num;
+            string s = "select * from ph_cred where invoice_num = " + invoice_num;
             conn.Open();
             MySqlCommand a = new MySqlCommand(s, conn);
             MySqlDataAdapter a1 = new MySqlDataAdapter(a);
