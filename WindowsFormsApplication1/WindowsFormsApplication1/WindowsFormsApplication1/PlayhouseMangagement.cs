@@ -67,7 +67,7 @@ namespace WindowsFormsApplication1
 
             //dataGridView2.Rows[-1].Selected = true;
             
-            string updateToExpire = "UPDATE playhouse SET status = 'Overtime' WHERE sched_end <= '"+curr_sched+"' ";
+            string updateToExpire = "UPDATE playhouse SET status = 'Overtime' WHERE sched_end <= '"+curr_sched+"' AND status = 'IN' ";
             
             conn.Open();
 
@@ -112,10 +112,35 @@ namespace WindowsFormsApplication1
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-           
+            if(OR_num.Text == "")
+            {
+                MessageBox.Show("No input","Invalid input",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+                return;
+            }
+            string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = "+OR_num.Text;
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(s, conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable a2 = new DataTable();
+            a1.Fill(a2);
+            if (a2.Rows.Count != 1)
+            {
+                MessageBox.Show("Invoice Number does not exist/Invalid Invoice Number",
+                    "Invalid Invoice Number", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                foreach(DataRow dr in a2.Rows)
+                {
+                    Decimal total_balance = Convert.ToDecimal(dr["cred_count"].ToString());
+                    playhouse_credit.Text = total_balance.ToString();
+                }
+                
+            }
+
         }
-
-
 
         private void new_cust_Click(object sender, EventArgs e)
         {
@@ -138,16 +163,61 @@ namespace WindowsFormsApplication1
             if(cust_id.Text == ""|| cust_id.Text == Convert.ToString(0))
             {
                 MessageBox.Show("Invalid");
+                return;
             }
-            else
-            {
-                LoginTimePlayhouse form = new LoginTimePlayhouse();               
-                form.previousform = this;
-                form.selected_user_id = Convert.ToInt32(this.selected_user_id);
-                form.lname = lname.Text;
-                form.fname = fname.Text;
-                form.Show();
-            }
+
+
+             if (OR_num.Text == "" || OR_num.Text == null)
+             {
+                MessageBox.Show("No input", "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+             }
+
+             string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = " + OR_num.Text;
+             conn.Open();
+             MySqlCommand a = new MySqlCommand(s, conn);
+             MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+             conn.Close();
+             DataTable a2 = new DataTable();
+             a1.Fill(a2);
+
+             if (a2.Rows.Count != 1)
+             {
+                MessageBox.Show("Invoice Number does not exist/Invalid Invoice Number",
+                "Invalid Invoice Number", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+             }
+             else
+             {
+                
+                foreach (DataRow dr in a2.Rows)
+                {
+                    Decimal total_balance;
+                    total_balance = Convert.ToDecimal(dr["cred_count"].ToString());
+                    playhouse_credit.Text = total_balance.ToString();
+
+                    if (total_balance < 200)
+                    {
+                        MessageBox.Show("Insufficient Playhouse Fee or Load");
+                        break;
+                        
+                    }
+                    int invoice_num = Convert.ToInt32(OR_num.Text);
+                    LoginTimePlayhouse form = new LoginTimePlayhouse(invoice_num);
+                    form.previousform = this;
+                    form.selected_user_id = Convert.ToInt32(this.selected_user_id);
+                    form.lname = lname.Text;
+                    form.fname = fname.Text;
+                    form.Show();
+
+                }
+
+             }
+
+            
+
+              
+            
             
             
         }
@@ -237,18 +307,59 @@ namespace WindowsFormsApplication1
             if (cust_id.Text == "" || cust_id.Text == Convert.ToString(0))
             {
                 MessageBox.Show("Invalid");
+                return;
+            }
+
+            if (OR_num.Text == "" || OR_num.Text == null)
+            {
+                MessageBox.Show("No input", "Invalid input", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = " + OR_num.Text;
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(s, conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable a2 = new DataTable();
+            a1.Fill(a2);
+
+            if (a2.Rows.Count != 1)
+            {
+                MessageBox.Show("Invoice Number does not exist/Invalid Invoice Number",
+                "Invalid Invoice Number", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             else
             {
-            //string endtime = eHour.Text + ":" + eMin.Text;
-            PlayhouseExtend frm4 = new PlayhouseExtend();
-            frm4.selected_user_id = Convert.ToInt32(this.selected_user_id);
-            frm4.lname = lname.Text;
-            frm4.fname = fname.Text;
-            frm4.Show();
-            frm4.previousform = this;
+
+                foreach (DataRow dr in a2.Rows)
+                {
+                    Decimal total_balance;
+                    total_balance = Convert.ToDecimal(dr["cred_count"].ToString());
+                    playhouse_credit.Text = total_balance.ToString();
+
+                    if (total_balance < 200)
+                    {
+                        MessageBox.Show("Insufficient Playhouse Fee or Load");
+                        break;
+
+                    }
+                    int invoice_num = Convert.ToInt32(OR_num.Text);
+                    PlayhouseExtend frm4 = new PlayhouseExtend(invoice_num);
+                    frm4.selected_user_id = Convert.ToInt32(this.selected_user_id);
+                    frm4.lname = lname.Text;
+                    frm4.fname = fname.Text;
+                    frm4.Show();
+                    frm4.previousform = this;
+
+                }
+
             }
+
             
+
+
+
         }
 
         private void PlayhouseManagement_Activated(object sender, EventArgs e)
@@ -724,6 +835,14 @@ namespace WindowsFormsApplication1
             if (dt1.Rows.Count > 0)
             {
                 MessageBox.Show(dt1.Rows.Count + " Customer Overtime","Overtime Notification",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void OR_num_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            {
+                e.Handled = true;
             }
         }
     }

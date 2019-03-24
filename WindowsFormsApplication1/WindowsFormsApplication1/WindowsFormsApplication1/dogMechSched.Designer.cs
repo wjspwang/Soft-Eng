@@ -74,6 +74,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.clinic_grid = new System.Windows.Forms.DataGridView();
             this.button15 = new System.Windows.Forms.Button();
+            this.pend_btn = new System.Windows.Forms.Button();
+            this.overtime_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -654,12 +656,36 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // pend_btn
+            // 
+            this.pend_btn.Location = new System.Drawing.Point(933, 595);
+            this.pend_btn.Name = "pend_btn";
+            this.pend_btn.Size = new System.Drawing.Size(205, 45);
+            this.pend_btn.TabIndex = 100;
+            this.pend_btn.Text = "Show Pending Today";
+            this.pend_btn.UseVisualStyleBackColor = true;
+            this.pend_btn.Visible = false;
+            this.pend_btn.Click += new System.EventHandler(this.pend_btn_Click);
+            // 
+            // overtime_btn
+            // 
+            this.overtime_btn.Location = new System.Drawing.Point(933, 653);
+            this.overtime_btn.Name = "overtime_btn";
+            this.overtime_btn.Size = new System.Drawing.Size(205, 45);
+            this.overtime_btn.TabIndex = 99;
+            this.overtime_btn.Text = "Show Overtime Today";
+            this.overtime_btn.UseVisualStyleBackColor = true;
+            this.overtime_btn.Visible = false;
+            this.overtime_btn.Click += new System.EventHandler(this.overtime_btn_Click);
+            // 
             // dogMedSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1150, 837);
+            this.Controls.Add(this.pend_btn);
+            this.Controls.Add(this.overtime_btn);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button9);
@@ -684,6 +710,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Clinic Schedule";
             this.Load += new System.EventHandler(this.dogMedSched_Load);
+            this.Shown += new System.EventHandler(this.dogMedSched_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -744,5 +771,7 @@
         private System.Windows.Forms.TextBox vacc_Text;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox status_text;
+        private System.Windows.Forms.Button pend_btn;
+        private System.Windows.Forms.Button overtime_btn;
     }
 }

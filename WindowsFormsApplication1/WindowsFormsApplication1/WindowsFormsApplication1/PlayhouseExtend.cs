@@ -15,11 +15,19 @@ namespace WindowsFormsApplication1
     {
         public Form previousform;
         string endtime;
+        int invoice_num;
         public PlayhouseExtend()
         {
             InitializeComponent();
             conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
             
+        }
+        public PlayhouseExtend(int invoice_num)
+        {
+            InitializeComponent();
+            conn = new MySqlConnection("server=localhost;Database=pawesome_db;uid=root; Pwd =root ;");
+            this.invoice_num = invoice_num;
+
         }
         MySqlConnection conn;
         public string lname { get; set; }
@@ -66,21 +74,68 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Playhouse Date not for Today", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show(tb.Rows.Count + "");
-            foreach (DataRow dr in tb.Rows)
+            //MessageBox.Show(tb.Rows.Count + "");
+
+            //calculation here
+            string s = "select * from ph_cred inner join sales_tbl on invoice_num = invoice_id where invoice_num = " + invoice_num;
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(s, conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable a2 = new DataTable();
+            a1.Fill(a2);
+            if (a2.Rows.Count != 1)
             {
-                endtime = dr["end_time"].ToString();
-                string etime = Convert.ToDateTime(endtime).AddHours(hours).ToString("hh:mm tt");
-                string qry2 = "update playhouse SET end_time = '" + etime + "' WHERE customer_id = " + selected_user_id + " AND status = 'IN'";
-                conn.Open();
-                MySqlCommand comm5 = new MySqlCommand(qry2, conn);
-                comm5.ExecuteNonQuery();
-                conn.Close();
-                MessageBox.Show("Schedule Successfully Updated");
-                
+                MessageBox.Show("Invoice Number does not exist/Invalid Invoice Number",
+                "Invalid Invoice Number", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            previousform.Show();
-            this.Hide();
+            else
+            {
+
+                foreach (DataRow dr in a2.Rows)
+                {
+                    Decimal total_balance;
+                    total_balance = Convert.ToDecimal(dr["cred_count"].ToString());
+
+                    int hours = Convert.ToInt32(textBox1.Text);
+                    Decimal checker = total_balance - (200 * hours);
+                    if (checker < 0)
+                    {
+                        MessageBox.Show("Insufficient Playhouse Fee or Load");
+                        return;
+
+                    }
+
+                    total_balance = total_balance - (200 * hours);
+
+                    string abc = "update ph_cred set cred_count = " + total_balance + " where invoice_num = " + invoice_num;
+                    conn.Open();
+                    MySqlCommand sq = new MySqlCommand(abc, conn);
+                    sq.ExecuteNonQuery();
+                    conn.Close();
+
+                    foreach (DataRow dr1 in tb.Rows)
+                    {
+                        endtime = dr1["end_time"].ToString();
+                        string etime = Convert.ToDateTime(endtime).AddHours(hours).ToString("hh:mm tt");
+                        string qry2 = "update playhouse SET end_time = '" + etime + "' WHERE customer_id = " + selected_user_id + " AND status = 'IN'";
+                        conn.Open();
+                        MySqlCommand comm5 = new MySqlCommand(qry2, conn);
+                        comm5.ExecuteNonQuery();
+                        conn.Close();
+                        MessageBox.Show("Schedule Successfully Updated");
+
+                    }
+                    previousform.Show();
+                    this.Hide();
+
+                }
+
+            }
+            //end calculation here
+
+            
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

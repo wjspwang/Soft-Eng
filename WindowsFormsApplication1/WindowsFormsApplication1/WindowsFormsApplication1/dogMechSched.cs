@@ -130,6 +130,8 @@ namespace WindowsFormsApplication1
             clinic.Visible = true;
             label3.Visible = true;
             vacc_Text.Visible = true;
+            pend_btn.Visible = false;
+            overtime_btn.Visible = false;
             status_text.Items.Clear();
             status_text.Items.Add("Taken");
             status_text.Items.Add("To Be Taken");
@@ -234,6 +236,8 @@ namespace WindowsFormsApplication1
                 clinic.Visible = false;
                 label3.Visible = false;
                 vacc_Text.Visible = false;
+                pend_btn.Visible = true;
+                overtime_btn.Visible = true;
                 status_text.Items.Clear();
                 status_text.Items.Add("Scheduled");
                 status_text.Items.Add("IN");
@@ -318,6 +322,8 @@ namespace WindowsFormsApplication1
                 clinic.Visible = true;
                 label3.Visible = true;
                 vacc_Text.Visible = true;
+                pend_btn.Visible = false;
+                overtime_btn.Visible = false;
                 status_text.Items.Clear();
                 status_text.Items.Add("Taken");
                 status_text.Items.Add("To Be Taken");
@@ -583,6 +589,21 @@ namespace WindowsFormsApplication1
             
             
 
+        }
+        public void DogOvertime()
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string DogOvertime =  "Select * from dc_dogsched where dog_status = 'Overtime' AND dogsched_date = '"+currdate+"'";
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(DogOvertime,conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable dt = new DataTable();
+            a1.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                MessageBox.Show(dt.Rows.Count +" Dog(s) currently on Overtime!"," Dog Overtime Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);                
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1553,6 +1574,86 @@ namespace WindowsFormsApplication1
             }
                 
             
+        }
+
+        private void dogMedSched_Shown(object sender, EventArgs e)
+        {
+            if (reminder == "playhouse")
+            {
+                DogOvertime();
+            }
+            
+        }
+
+        private void pend_btn_Click(object sender, EventArgs e)
+        {
+            string cur_date = DateTime.Now.Date.ToString(dateFormat);
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
+                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
+                " dogstart_time, dogend_time, dog_status," +
+                "dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday from dog " +
+                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date = '" + cur_date + "' " +
+                "AND sched_type = 0 AND dog_status = 'Pending' order by dogsched_date, dogstart_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+            dataGridView1.Columns["dog_shour"].Visible = false;
+            dataGridView1.Columns["dog_smin"].Visible = false;
+            dataGridView1.Columns["dog_sday"].Visible = false;
+            dataGridView1.Columns["dog_ehour"].Visible = false;
+            dataGridView1.Columns["dog_emin"].Visible = false;
+            dataGridView1.Columns["dog_eday"].Visible = false;
+
+        }
+
+        private void overtime_btn_Click(object sender, EventArgs e)
+        {
+            string cur_date = DateTime.Now.Date.ToString(dateFormat);
+            string query = "select dogsched_id, dc_dogsched.dog_id, dog_name," +
+                " dog_breed, dogsched_start, dogsched_end, dogsched_date," +
+                " dogstart_time, dogend_time, dog_status," +
+                "dog_shour, dog_smin, dog_sday, dog_ehour, dog_emin, dog_eday from dog " +
+                "inner join dc_dogsched on dog.dog_id = dc_dogsched.dog_id where dogsched_date = '" + cur_date + "' " +
+                "AND sched_type = 0 AND dog_status = 'Overtime' order by dogsched_date, dogstart_time";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(comm);
+            conn.Close();
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns["dogsched_id"].Visible = false;
+            dataGridView1.Columns["dog_id"].Visible = false;
+            dataGridView1.Columns["dogsched_start"].Visible = false;
+            dataGridView1.Columns["dogsched_end"].Visible = false;
+            dataGridView1.Columns["dog_breed"].HeaderText = "Dog Breed";
+            dataGridView1.Columns["dog_name"].HeaderText = "Dog Name";
+            dataGridView1.Columns["dogsched_date"].HeaderText = "Scheduled Date";
+            dataGridView1.Columns["dogstart_time"].HeaderText = "Time Start";
+            dataGridView1.Columns["dogend_time"].HeaderText = "Time End";
+            dataGridView1.Columns["dog_status"].HeaderText = "Status";
+            dataGridView1.Columns["dog_shour"].Visible = false;
+            dataGridView1.Columns["dog_smin"].Visible = false;
+            dataGridView1.Columns["dog_sday"].Visible = false;
+            dataGridView1.Columns["dog_ehour"].Visible = false;
+            dataGridView1.Columns["dog_emin"].Visible = false;
+            dataGridView1.Columns["dog_eday"].Visible = false;
         }
     }
 }

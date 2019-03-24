@@ -560,7 +560,7 @@ namespace WindowsFormsApplication1
 
             }
         }
-        float total, tendered, payable;
+        float  total,tendered, payable;
         private void button1_Click(object sender, EventArgs e)
         {
  
@@ -576,6 +576,7 @@ namespace WindowsFormsApplication1
                 {
                     label18.Text = Convert.ToString(0);
                     label27.Text = Convert.ToString(0);
+                    float.TryParse(textBox10.Text, out payable);
                     float.TryParse(textBox13.Text, out tendered);
                    
                     //label29.Text = Convert.ToString(tendered - total);
@@ -623,12 +624,12 @@ namespace WindowsFormsApplication1
                         
                         if (label17.Text == Convert.ToString(0))
                         {
-        
+                            MessageBox.Show("1");
                             label29.Text = Convert.ToString(tendered - total);
                         }
                         else
                         {
-        
+                            MessageBox.Show(tendered + "-" + payable );
                             label29.Text = Convert.ToString(tendered - payable);
                         }
      
@@ -692,10 +693,10 @@ namespace WindowsFormsApplication1
                                         MySqlCommand comma = new MySqlCommand(chk, conn);
                                         MySqlDataAdapter adap = new MySqlDataAdapter(comma);
                                         conn.Close();
-                                        DataTable dt1 = new DataTable();
-                                        adap.Fill(dt1);
+                                        DataTable dt00 = new DataTable();
+                                        adap.Fill(dt00);
                                         //MessageBox.Show(chk + "\n Number of row(s) returned  = " + dt1.Rows.Count);
-                                        if(dt1.Rows.Count > 0)
+                                        if(dt00.Rows.Count > 0)
                                         {
                                             //MessageBox.Show("insert into tmp_stock");
                                             string inst = "update product SET tmp_stock = " + prod_quant_test + " WHERE prodid = "+id ;
@@ -758,6 +759,15 @@ namespace WindowsFormsApplication1
                             }
                             if (negative_stock_checker <= 0)
                             {
+                                DialogResult iExit;
+                                iExit = MessageBox.Show("Proceed with Order ?", "Order Confirmation", MessageBoxButtons.YesNo);
+                                if (iExit == DialogResult.No)
+                                {
+                                    return;
+                                }
+                                else
+                                {
+                                
                                 for (int i = 0; i < num; i++)
                                 {
                                     int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
@@ -799,10 +809,10 @@ namespace WindowsFormsApplication1
                                             MySqlCommand comma = new MySqlCommand(chk, conn);
                                             MySqlDataAdapter adap = new MySqlDataAdapter(comma);
                                             conn.Close();
-                                            DataTable dt1 = new DataTable();
-                                            adap.Fill(dt1);
+                                            DataTable dt0 = new DataTable();
+                                            adap.Fill(dt0);
                                             //MessageBox.Show(chk + "\n Number of row(s) returned  = " + dt1.Rows.Count);
-                                            if (dt1.Rows.Count > 0)
+                                            if (dt0.Rows.Count > 0)
                                             {
                                                 //MessageBox.Show("insert into tmp_stock");
                                                 string inst = "update product SET tmp_stock = " + prod_quant_test + " WHERE prodid = " + id;
@@ -876,104 +886,21 @@ namespace WindowsFormsApplication1
                                     }
 
                                 }
-                            }
-                            //MessageBox.Show("negative_stock_checker > 0 " + negative_stock_checker);
-                            /*
-                            if (negative_stock_checker > 0)
-                            {
-                                MessageBox.Show("negative_stock_checker > 0");
-                                return;
-                            }
-                            else
-                            {
-                                int[] data1 = new int[num];
 
-                                for (int i = 0; i < num; i++)
+                                int num0 = 0;
+                                string query0 = "select count(prod_id) from order_line " +
+                                    "where invoice_id = " + invoice_ui.Text + "";
+                                conn.Open();
+                                MySqlCommand cmd0 = new MySqlCommand(query0, conn);
+                                MySqlDataReader reader0 = cmd.ExecuteReader();
+                                if (reader0.Read())
                                 {
-                                    int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
-                                    int multiplier = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
-                                    string querya = "select b.recipe_name, a.* from recipe_item_list a INNER JOIN recipe_list b ON a.recipe_id = b.recipe_id  where a.recipe_id = " + recipe_id;
-                                    conn.Open();
-                                    MySqlCommand comm = new MySqlCommand(querya, conn);
-                                    MySqlDataAdapter adp = new MySqlDataAdapter(comm);
-                                    conn.Close();
-                                    DataTable dt = new DataTable();
-                                    adp.Fill(dt);
-
-
-                                    foreach (DataRow dr in dt.Rows)
-                                    {
-                                        string id = dr["prod_id"] + "";
-
-                                        string prodchker = "select * from product where prodid = " + id;
-                                        conn.Open();
-                                        MySqlCommand comz = new MySqlCommand(prodchker, conn);
-                                        MySqlDataAdapter adpz = new MySqlDataAdapter(comz);
-                                        conn.Close();
-                                        DataTable tblz = new DataTable();
-                                        adpz.Fill(tblz);
-
-                                        foreach (DataRow dr2 in tblz.Rows)
-                                        {
-                                            int prod_quant_test = Convert.ToInt32(dr2["prodquant"] + "");
-                                            int quantity_test = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                            int test = prod_quant_test - quantity_test;
-                                            if (test < 0)
-                                            {
-                                                MessageBox.Show("Stock of Purchase Exceeded for " + dr2["prodname"] + " by " + test * -1, "Warning Stock Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                negative_stock_checker = negative_stock_checker + 1;
-
-                                            }
-
-                                        }
-                                        MessageBox.Show(negative_stock_checker + "");
-                                        if (negative_stock_checker > 0)
-                                        {
-                                            MessageBox.Show(dr["recipe_name"] + " has insufficient stocks on " +
-                                               negative_stock_checker + " ingredient(s)", "Warning Stock Problem",
-                                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            return;
-                                        }
-                                        int quantity = Convert.ToInt32(dr["prod_quant"] + "") * multiplier;
-                                        string queryb = "update product p set prodquant = prodquant - " + quantity + " where prodid = " + id;
-
-                                        string quantbatch = "update stock_in set batch_quant = batch_quant - " + quantity + " " +
-                                        "where prod_id = " + id + " AND status = 0 " +
-                                        "AND exp_date = (select min(exp_date) from(select * from stock_in) AS stock_in where prod_id = " + id + " AND status = 0) ";
-
-                                        conn.Open();
-                                        MySqlCommand comm1 = new MySqlCommand(queryb, conn);
-                                        MySqlCommand comm2 = new MySqlCommand(quantbatch, conn);
-                                        comm1.ExecuteNonQuery();
-                                        comm2.ExecuteNonQuery();
-                                        conn.Close();
-
-                                    }
-
-
+                                    num0 = Convert.ToInt32(reader0["count(prod_id)"]);
                                 }
-                                
-                            }
-                                */
+                                conn.Close();
 
 
-                            int num0 = 0;
-                            string query0 = "select count(prod_id) from order_line " +
-                                "where invoice_id = " + invoice_ui.Text + "";
-                            conn.Open();
-                            MySqlCommand cmd0 = new MySqlCommand(query0, conn);
-                            MySqlDataReader reader0 = cmd.ExecuteReader();
-                            if (reader0.Read())
-                            {
-                                num0 = Convert.ToInt32(reader0["count(prod_id)"]);
-                            }
-                            conn.Close();
-              
-                            DialogResult Confirm;
-                            Confirm = MessageBox.Show("Proceed with Order ?", "Verification", MessageBoxButtons.YesNo);
-                            if(Confirm == DialogResult.Yes)
-                            {
-             
+
                                 string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
                                 int[] data0 = new int[num0];
                                 for (int i = 0; i < num0; i++)
@@ -981,7 +908,7 @@ namespace WindowsFormsApplication1
                                     int recipe_id = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value.ToString());
                                     int recipe_quant = Convert.ToInt32(dataGridView1.Rows[i].Cells[7].Value.ToString());
                                     string total_price0 = Convert.ToString(dataGridView1.Rows[i].Cells[9].Value.ToString());
-                                    string querya = "insert into sales_tbl(invoice_id, recipe_id, dot, sale_item_quant, total_price)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '"+currdate+"', '" + recipe_quant + "' , '" + total_price0 + "'  )";
+                                    string querya = "insert into sales_tbl(invoice_id, recipe_id, dot, sale_item_quant, total_price, playhouse_credit)  VALUES('" + textBox14.Text + "', '" + recipe_id + "'  , '" + currdate + "', '" + recipe_quant + "' , '" + total_price0 + "', '" + total_price0 + "'  )";
                                     conn.Open();
                                     MySqlCommand comm = new MySqlCommand(querya, conn);
                                     MySqlDataAdapter adp = new MySqlDataAdapter(comm);
@@ -989,7 +916,7 @@ namespace WindowsFormsApplication1
                                     DataTable dt = new DataTable();
                                     adp.Fill(dt);
                                 }
-     
+
                                 DataTable dt1 = new DataTable();
                                 DataSet ds = new DataSet();
 
@@ -1015,14 +942,25 @@ namespace WindowsFormsApplication1
                                 label29.Text = "0";
                                 textBox13.Clear();
 
+                                    label17.Text = 0 + "";
+
+                                    string s = "insert into ph_cred(invoice_num,cred_count) VALUES(" + textBox14.Text + "," +
+                                    " (select sum(total_price) from sales_tbl where invoice_id = " + textBox14.Text + ") )";
+                                    conn.Open();
+                                    MySqlCommand a = new MySqlCommand(s, conn);
+                                    a.ExecuteNonQuery();
+                                    conn.Close();
+                                    MessageBox.Show("Credit Added");
 
                                 loadall();
-                                label17.Text = 0 + "";
+
+                                }
+
+
                             }
-                            else
-                            {
-                                return;
-                            }
+
+
+                            
                             
 
                         }
@@ -1112,13 +1050,19 @@ namespace WindowsFormsApplication1
                                     label29.Text = "0";
                                     textBox13.Clear();
 
-
-
+                                    string s = "insert into ph_cred(invoice_num,cred_count) VALUES(" + textBox14.Text + "," +
+                                    " (select sum(total_price) from sales_tbl where invoice_id = " + textBox14.Text + ") )";
+                                    conn.Open();
+                                    MySqlCommand a = new MySqlCommand(s, conn);
+                                    a.ExecuteNonQuery();
+                                    conn.Close();
+                                    MessageBox.Show("Credit Added");
 
 
 
 
                                 }
+                                
                             }
                         }
 
@@ -1140,6 +1084,8 @@ namespace WindowsFormsApplication1
 
 
                 }
+                
+
             }
         }
     

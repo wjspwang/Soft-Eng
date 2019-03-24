@@ -67,6 +67,27 @@ namespace WindowsFormsApplication1
 
             label17.Text = dt.Rows.Count.ToString();
 
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string DogOvertime = "Select * from dc_dogsched where dog_status = 'Overtime' AND dogsched_date = '" + currdate + "'";
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(DogOvertime, conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            a1.Fill(dt2);
+
+            label20.Text = dt2.Rows.Count.ToString();
+
+            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending' AND dogsched_date = '" + currdate + "'";
+            conn.Open();
+            MySqlCommand b = new MySqlCommand(DogPending, conn);
+            MySqlDataAdapter b1 = new MySqlDataAdapter(b);
+            conn.Close();
+            DataTable dt3 = new DataTable();
+            b1.Fill(dt3);
+
+            label23.Text = dt3.Rows.Count.ToString();
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -152,6 +173,27 @@ namespace WindowsFormsApplication1
         {
             ProductList p = new ProductList();
             p.autoExpireLog();
+
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string DogOvertime = "Select * from dc_dogsched where dog_status = 'Overtime' AND dogsched_date = '" + currdate + "'";
+            conn.Open();
+            MySqlCommand a = new MySqlCommand(DogOvertime, conn);
+            MySqlDataAdapter a1 = new MySqlDataAdapter(a);
+            conn.Close();
+            DataTable dt = new DataTable();
+            a1.Fill(dt);
+            label20.Text = dt.Rows.Count.ToString();
+            //
+            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending' AND dogsched_date = '" + currdate + "'";
+            conn.Open();
+            MySqlCommand b = new MySqlCommand(DogPending, conn);
+            MySqlDataAdapter b1 = new MySqlDataAdapter(b);
+            conn.Close();
+            DataTable dt3 = new DataTable();
+            b1.Fill(dt3);
+
+            label23.Text = dt3.Rows.Count.ToString();
+
             string query1 = "SELECT COUNT(*) from product  where prodquant <= restock_val ";
             conn.Open();
             MySqlCommand comm1 = new MySqlCommand(query1, conn);
@@ -162,6 +204,7 @@ namespace WindowsFormsApplication1
             conn.Open();
             label10.Text = comm1.ExecuteScalar().ToString();
             conn.Close();
+
 
 
         }
@@ -368,6 +411,81 @@ namespace WindowsFormsApplication1
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (label17.Text != Convert.ToString(0))
+            {
+                dogMedSched f = new dogMedSched("reminder");
+                f.Show();
+                f.previousform = this;
+            }
+            else
+            {
+                MessageBox.Show("No Dogs on Overtime", "That's good",
+                    MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "Select dog_name, dog_breed from dog a " +
+                "inner join dc_dogsched b on a.dog_id = b.dog_id " +
+                "where dog_status = 'Overtime' AND dogsched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
+            MySqlDataReader reader = comm.ExecuteReader();
+            StringBuilder dogNames = new StringBuilder();
+
+            while (reader.Read())
+            {
+                dogNames.Append(reader["dog_name"].ToString() + " " + reader["dog_breed"].ToString() + Environment.NewLine);
+            }
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if (dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Dog(s) on Overtime: \n\n" + dogNames,
+                                "Warning Dog Overtime", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Dogs on Overtime", "Dog notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "Select dog_name, dog_breed from dog a " +
+                "inner join dc_dogsched b on a.dog_id = b.dog_id " +
+                "where dog_status = 'Pending' AND dogsched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
+            MySqlDataReader reader = comm.ExecuteReader();
+            StringBuilder dogNames = new StringBuilder();
+
+            while (reader.Read())
+            {
+                dogNames.Append(reader["dog_name"].ToString() + " " + reader["dog_breed"].ToString() + Environment.NewLine);
+            }
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if (dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Dog(s) is/are Pending: \n\n" + dogNames,
+                                "Dog Pending", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Dogs that are Pending", "Dog notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
     }
 }
