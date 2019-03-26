@@ -198,7 +198,7 @@ namespace WindowsFormsApplication1
 
                     if (total_balance < 200)
                     {
-                        MessageBox.Show("Insufficient Playhouse Fee or Load");
+                        MessageBox.Show("Insufficient Playhouse Fee");
                         break;
                         
                     }
@@ -274,7 +274,8 @@ namespace WindowsFormsApplication1
                             MySqlCommand comm = new MySqlCommand(query, conn);
                             comm.ExecuteNonQuery();
                             conn.Close();
-                            ShowTodayIn();
+                            MessageBox.Show("Log out success");
+                            ShowTodayAll();
                             fname.Clear();
                             lname.Clear();
                             }
@@ -288,7 +289,8 @@ namespace WindowsFormsApplication1
                         MySqlCommand comm = new MySqlCommand(query, conn);
                         comm.ExecuteNonQuery();
                         conn.Close();
-                        ShowTodayIn();
+                        ShowTodayAll();
+                        MessageBox.Show("Log out success");
                         fname.Clear();
                         lname.Clear();
                     }
@@ -340,7 +342,7 @@ namespace WindowsFormsApplication1
 
                     if (total_balance < 200)
                     {
-                        MessageBox.Show("Insufficient Playhouse Fee or Load");
+                        MessageBox.Show("Insufficient Playhouse Fee");
                         break;
 
                     }
@@ -844,6 +846,21 @@ namespace WindowsFormsApplication1
             {
                 e.Handled = true;
             }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            dogMedSched a = new dogMedSched("playhouse");
+            a.Text = "Dog Schedule";
+            a.Show();
+            a.previousform = this;
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            CalendarVer2 a = new CalendarVer2("playhouse");
+            a.Show();
+            a.previousform = this;
         }
     }
         

@@ -46,7 +46,6 @@ namespace WindowsFormsApplication1
         
         private void Form2_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show(utype + "");
             label9.Text = DateTime.Now.ToString();
 
             string today = DateTime.Now.Date.ToString(dateFormat);
@@ -78,16 +77,16 @@ namespace WindowsFormsApplication1
 
             label20.Text = dt2.Rows.Count.ToString();
 
-            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending' AND dogsched_date = '" + currdate + "'";
+            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending'";
             conn.Open();
             MySqlCommand b = new MySqlCommand(DogPending, conn);
             MySqlDataAdapter b1 = new MySqlDataAdapter(b);
             conn.Close();
             DataTable dt3 = new DataTable();
             b1.Fill(dt3);
-
+            //MessageBox.Show(dt3.Rows.Count.ToString());
             label23.Text = dt3.Rows.Count.ToString();
-
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -173,6 +172,11 @@ namespace WindowsFormsApplication1
         {
             ProductList p = new ProductList();
             p.autoExpireLog();
+            dogMedSched dog1 = new dogMedSched();
+            dog1.DogTableUpdate();
+            CalendarVer2 staff1 = new CalendarVer2();
+            staff1.StaffTableUpdate();
+
 
             string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
             string DogOvertime = "Select * from dc_dogsched where dog_status = 'Overtime' AND dogsched_date = '" + currdate + "'";
@@ -184,7 +188,7 @@ namespace WindowsFormsApplication1
             a1.Fill(dt);
             label20.Text = dt.Rows.Count.ToString();
             //
-            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending' AND dogsched_date = '" + currdate + "'";
+            string DogPending = "Select * from dc_dogsched where dog_status = 'Pending'";
             conn.Open();
             MySqlCommand b = new MySqlCommand(DogPending, conn);
             MySqlDataAdapter b1 = new MySqlDataAdapter(b);
@@ -205,8 +209,39 @@ namespace WindowsFormsApplication1
             label10.Text = comm1.ExecuteScalar().ToString();
             conn.Close();
 
+            //--------------------------------------------------------------------------------------
+            string StaffPending = "Select * from dc_sched where status2 = 'Pending' AND status = 'Playhouse'";
+            conn.Open();
+            MySqlCommand sp = new MySqlCommand(StaffPending, conn);
+            MySqlDataAdapter sp1 = new MySqlDataAdapter(sp);
+            conn.Close();
+            DataTable SP_tb = new DataTable();
+            sp1.Fill(SP_tb);
 
+            label21.Text = SP_tb.Rows.Count.ToString();
 
+            string StaffOvertime = "Select * from dc_sched where status2 = 'Overtime' AND status = 'Playhouse'";
+            conn.Open();
+            MySqlCommand so = new MySqlCommand(StaffOvertime, conn);
+            MySqlDataAdapter so1 = new MySqlDataAdapter(so);
+            conn.Close();
+            DataTable SO_tb = new DataTable();
+            so1.Fill(SO_tb);
+
+            label26.Text = SO_tb.Rows.Count.ToString();
+
+            //--------------------------------------------------------------------------------------------
+            string CustOvertime = "Select lname, fname from person a " +
+                "inner join playhouse b on a.person_id = b.customer_id " +
+                "where status = 'Overtime' AND sched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand co = new MySqlCommand(CustOvertime, conn);
+            MySqlDataAdapter co1 = new MySqlDataAdapter(co);
+            conn.Close();
+            DataTable CO_tb = new DataTable();
+            co1.Fill(CO_tb);
+
+            label30.Text = CO_tb.Rows.Count.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -485,6 +520,110 @@ namespace WindowsFormsApplication1
             else
             {
                 MessageBox.Show("No Dogs that are Pending", "Dog notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void MainMenu_Shown(object sender, EventArgs e)
+        {
+            dogMedSched a = new dogMedSched();
+            a.DogTableUpdate();
+            a.DogOvertime();
+            a.DogPending();
+            CalendarVer2 b = new CalendarVer2();
+            b.StaffTableUpdate();
+            b.StaffOvertime();
+            b.StaffPending();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "Select lname, fname from person a " +
+                "inner join staff b on a.person_id = b.person_id " +
+                "inner join dc_sched c on b.staff_id = c.staff_id "+
+                "where status2 = 'Pending' AND sched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
+            MySqlDataReader reader = comm.ExecuteReader();
+            StringBuilder dogNames = new StringBuilder();
+
+            while (reader.Read())
+            {
+                dogNames.Append(reader["fname"].ToString() + " " + reader["lname"].ToString() + Environment.NewLine);
+            }
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if (dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Staff(s) Pending: \n\n" + dogNames,
+                                "Warning Staff Pending", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Staffs Pending", "Staff notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "Select lname, fname from person a " +
+                "inner join staff b on a.person_id = b.person_id " +
+                "inner join dc_sched c on b.staff_id = c.staff_id " +
+                "where status = 'Playhouse' AND status2 = 'Overtime' AND sched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
+            MySqlDataReader reader = comm.ExecuteReader();
+            StringBuilder dogNames = new StringBuilder();
+
+            while (reader.Read())
+            {
+                dogNames.Append(reader["fname"].ToString() + " " + reader["lname"].ToString() + Environment.NewLine);
+            }
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if (dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Staff(s) on Overtime: \n\n" + dogNames,
+                                "Warning Staff Overtime", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Staffs on Overtime", "Staff notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string currdate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string query = "Select lname, fname from person a " +
+                "inner join playhouse b on a.person_id = b.customer_id " +
+                "where status = 'Overtime' AND sched_date = '" + currdate + "' ";
+            conn.Open();
+            MySqlCommand comm = new MySqlCommand(query, conn);
+            MySqlDataAdapter adp2 = new MySqlDataAdapter(comm);
+            MySqlDataReader reader = comm.ExecuteReader();
+            StringBuilder dogNames = new StringBuilder();
+
+            while (reader.Read())
+            {
+                dogNames.Append(reader["fname"].ToString() + " " + reader["lname"].ToString() + Environment.NewLine);
+            }
+            conn.Close();
+            DataTable dt2 = new DataTable();
+            adp2.Fill(dt2);
+            if (dt2.Rows.Count > 0)
+            {
+                MessageBox.Show("Following Customer(s) on Overtime: \n\n" + dogNames,
+                                "Warning Customer Overtime", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                MessageBox.Show("No Staffs on Overtime", "Staff notification", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
         }
     }

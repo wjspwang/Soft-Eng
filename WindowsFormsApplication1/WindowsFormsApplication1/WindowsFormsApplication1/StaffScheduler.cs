@@ -172,12 +172,27 @@ namespace WindowsFormsApplication1
                         */
                         else
                         {
-
-                            string query0003 = "INSERT INTO dc_sched(staff_id,sched_start, sched_end, sched_date," +
-                                " start_time, end_time, shour, sminute, sday, ehour, eminute, eday, status) VALUES('"
+                            if (act_box.Text == "Playhouse")
+                            {
+                                string query0005 = "INSERT INTO dc_sched(staff_id,sched_start, sched_end, sched_date," +
+                                " start_time, end_time, shour, sminute, sday, ehour, eminute, eday, status, status2) VALUES('"
                                 + selected_user_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
                                 + start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
-                                eday.Text + "','" + act_box.Text + "' )";
+                                eday.Text + "','" + act_box.Text + "', 'Scheduled' )";
+                                conn.Open();
+
+                                MySqlCommand comm5 = new MySqlCommand(query0005, conn);
+                                comm5.ExecuteNonQuery();
+                                conn.Close();
+                                MessageBox.Show("Schedule Successfully Added");
+                                loadall();
+                                return;
+                            }
+                            string query0003 = "INSERT INTO dc_sched(staff_id,sched_start, sched_end, sched_date," +
+                                " start_time, end_time, shour, sminute, sday, ehour, eminute, eday, status, status2) VALUES('"
+                                + selected_user_id + "','" + sched_start + "', '" + sched_end + "', '" + date.Text + "','"
+                                + start_time + "','" + end_time + "','" + sHour.Text + "', '" + sMin.Text + "','" + sday.Text + "', '" + eHour.Text + "','" + eMin.Text + "','" +
+                                eday.Text + "','" + act_box.Text + "', 'N/A' )";
                             conn.Open();
 
                             MySqlCommand comm4 = new MySqlCommand(query0003, conn);

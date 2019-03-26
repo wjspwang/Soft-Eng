@@ -76,6 +76,7 @@
             this.button15 = new System.Windows.Forms.Button();
             this.pend_btn = new System.Windows.Forms.Button();
             this.overtime_btn = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -297,6 +298,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.groupBox1.Controls.Add(this.button6);
             this.groupBox1.Controls.Add(this.status_text);
             this.groupBox1.Controls.Add(this.vacc_Text);
             this.groupBox1.Controls.Add(this.label3);
@@ -678,6 +680,16 @@
             this.overtime_btn.Visible = false;
             this.overtime_btn.Click += new System.EventHandler(this.overtime_btn_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(566, 271);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(201, 51);
+            this.button6.TabIndex = 103;
+            this.button6.Text = "Log out";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click_1);
+            // 
             // dogMedSched
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -773,5 +785,6 @@
         private System.Windows.Forms.ComboBox status_text;
         private System.Windows.Forms.Button pend_btn;
         private System.Windows.Forms.Button overtime_btn;
+        private System.Windows.Forms.Button button6;
     }
 }

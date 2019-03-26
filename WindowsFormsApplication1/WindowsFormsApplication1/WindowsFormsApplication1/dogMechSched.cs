@@ -137,6 +137,23 @@ namespace WindowsFormsApplication1
             status_text.Items.Add("To Be Taken");
 
         }
+        public void DogTableUpdate()
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string curr_time = DateTime.Now.ToString("hh:mm tt");
+            string curr_sched = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string updateToExpire = "UPDATE dc_dogsched SET dog_status = 'Overtime' WHERE (dogsched_end <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'OUT' AND dogsched_date <= '" + curr_date + "' ";
+            string updateToPending = "UPDATE dc_dogsched SET dog_status = 'Pending' WHERE (dogsched_start <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'IN' AND dog_status != 'OUT' AND dogsched_date <= '" + curr_date + "'";
+
+            conn.Open();
+
+            MySqlCommand commz = new MySqlCommand(updateToExpire, conn);
+            MySqlCommand comma = new MySqlCommand(updateToPending, conn);
+            comma.ExecuteNonQuery();
+            commz.ExecuteNonQuery();
+            conn.Close();
+        }
         public void loadall()
         {
             if (reminder == "playhouse")
@@ -145,8 +162,8 @@ namespace WindowsFormsApplication1
                 string curr_time = DateTime.Now.ToString("hh:mm tt");
                 string curr_sched = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                string updateToExpire = "UPDATE dc_dogsched SET dog_status = 'Overtime' WHERE (dogsched_end <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'OUT' AND dogsched_date = '"+curr_date+"' ";
-                string updateToPending = "UPDATE dc_dogsched SET dog_status = 'Pending' WHERE (dogsched_start <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'IN' AND dog_status != 'OUT'  AND dogsched_date = '" + curr_date + "' ";
+                string updateToExpire = "UPDATE dc_dogsched SET dog_status = 'Overtime' WHERE (dogsched_end <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'OUT' AND dogsched_date <= '"+curr_date+"' ";
+                string updateToPending = "UPDATE dc_dogsched SET dog_status = 'Pending' WHERE (dogsched_start <= '" + curr_sched + "') AND sched_type = 0 AND dog_status != 'IN' AND dog_status != 'OUT' AND dogsched_date <= '" + curr_date + "'";
 
                 conn.Open();
 
@@ -332,7 +349,21 @@ namespace WindowsFormsApplication1
 
         }
 
-
+        public void DogPending()
+        {
+            string curr_date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            string pendCounter = "select * from dc_dogsched where dog_status = 'Pending' AND dogsched_date = '" + curr_date + "'";
+            conn.Open();
+            MySqlCommand comm4 = new MySqlCommand(pendCounter, conn);
+            MySqlDataAdapter adp4 = new MySqlDataAdapter(comm4);
+            conn.Close();
+            DataTable dt4 = new DataTable();
+            adp4.Fill(dt4);
+            if (dt4.Rows.Count > 0)
+            {
+                MessageBox.Show("There are " + dt4.Rows.Count + " Dog(s) Pending for Playhouse", "", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
 
         private void ShowAllBtn_Click(object sender, EventArgs e)
         {
@@ -1654,6 +1685,60 @@ namespace WindowsFormsApplication1
             dataGridView1.Columns["dog_ehour"].Visible = false;
             dataGridView1.Columns["dog_emin"].Visible = false;
             dataGridView1.Columns["dog_eday"].Visible = false;
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            if (selected_dog_id == 0)
+            {
+                MessageBox.Show("Invalid");
+            }
+            else
+            {
+                string check = "select dog_status from dc_dogsched WHERE dogsched_id = " + selected_dogsched_id + "";
+                string query = "UPDATE dc_dogsched SET dog_status = 'OUT' WHERE dogsched_id = " + selected_dogsched_id + "";
+                conn.Open();
+                MySqlCommand comm_check = new MySqlCommand(check, conn);
+                MySqlDataAdapter adp = new MySqlDataAdapter(comm_check);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                conn.Close();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    string checker = dr["status"] + "";
+                    if (checker == "IN")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Dog Time has not expired yet", "Are you sure ?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if (dialogResult == DialogResult.OK)
+                        {
+                            conn.Open();
+                            MySqlCommand comm = new MySqlCommand(query, conn);
+                            comm.ExecuteNonQuery();
+                            conn.Close();
+                            MessageBox.Show("Log out success");
+                            ShowToday();
+                        }
+                        else if (dialogResult == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
+                    else if (checker == "Overtime")
+                    {
+                        conn.Open();
+                        MySqlCommand comm = new MySqlCommand(query, conn);
+                        comm.ExecuteNonQuery();
+                        conn.Close();
+                        MessageBox.Show("Log out success");
+                        ShowToday();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Dog already logged out");
+                    }
+                }
+            }
+
         }
     }
 }

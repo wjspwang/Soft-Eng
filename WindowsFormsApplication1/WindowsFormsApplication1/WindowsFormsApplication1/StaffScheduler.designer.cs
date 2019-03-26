@@ -209,8 +209,9 @@
             this.act_box.FormattingEnabled = true;
             this.act_box.Items.AddRange(new object[] {
             "Kitchen",
+            "Cashier",
             "Dog Care",
-            "Cashier"});
+            "Playhouse"});
             this.act_box.Location = new System.Drawing.Point(562, 340);
             this.act_box.Name = "act_box";
             this.act_box.Size = new System.Drawing.Size(233, 37);
